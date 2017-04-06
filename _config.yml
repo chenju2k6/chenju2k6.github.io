@@ -11,9 +11,10 @@ email: chenju2k6@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   I am Ju Chen, a Ph.D. student in Syracuse University advised by Dr. Yuzhe Tang.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://yourdomain.com" # the base hostname & protocol for your site
-twitter_username: jekyllrb
-github_username:  jekyll
+url: "http://chenju2k6.github.io" # the base hostname & protocol for your site
+#twitter_username: jekyllrb
+github_username:  chenju2k6
 
+permalink: blog/:year/:month/:title
 # Build settings
 markdown: kramdown
