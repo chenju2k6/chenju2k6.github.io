@@ -10,6 +10,7 @@ Hello hello
 
 ```
 void main() {
+  printf("something\n");
 }
 ```
 
