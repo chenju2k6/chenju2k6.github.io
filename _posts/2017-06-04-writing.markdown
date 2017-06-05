@@ -1,0 +1,27 @@
+---
+layout: post
+title:  "Scientific Writing"
+date:   2017-06-04 10:00:28 -0500
+categories: jekyll update
+---
+According to [a online tutorial by Duke University][duke-writing], there're several principles to improve scientific writing, which can be categories as subjects and actions, cohesion and emphasis and simplicity.
+
+* Subjects and actions
+1. Put actions in verbs
+2. Put characters in subjects
+3. Keep subjects near verbs
+
+* Cohesion and Emphasis
+4. Put new information last
+5. Use passive voice judiciously
+6. Make sure the first and last sentences of a paragraph match
+
+* Simplicity
+7. Omit needless words
+8. Prefer simple words
+9. Use simple subjects
+10. Use adjectives/adverbs frugally
+
+[comment]: <> Checkout this image ![Here]({{ site.url }}/assets/ju.jpg).
+
+[duke-writing]: https://cgi.duke.edu/web/sciwriting/index.php
