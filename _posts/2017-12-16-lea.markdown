@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Learned Index Structures"
-date:   2017-06-05 10:00:28 -0500
+date:   2017-12-16 10:00:28 -0500
 categories: jekyll update
 ---
 The training time is much more bigger can detection time. Thus this paper only dicusses the read-only data structures and assume every write id one offline.
