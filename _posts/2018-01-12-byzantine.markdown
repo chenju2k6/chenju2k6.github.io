@@ -9,4 +9,6 @@ The Byzantine Generals Problem asks how a commanding general sends an order to h
 1, All loyal lieutenants obey the same order
 2, If the commanding general is loyal, then every loyal lieutenant obeys the order he sends.
 
-Surprisingly, there's no solution to this problem unless two thirds of the generals are loyal.
+Surprisingly, there's no solution to this problem unless two thirds of the generals are loyal. In paritcular, if there's one traitor in three generals, there's no solution.
+
+The paper then discussed the oral message (unauthenticated) version and written message version (authenticated message). 
