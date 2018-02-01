@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Shuffle-in-the-middle vs Opaque"
+title:  "FM-sketching algorithm"
 date:   2018-02-01 05:00:28 -0500
 categories: jekyll update
 ---
