@@ -1,0 +1,20 @@
+---
+layout: post
+title:  "Summary of YCSB - Yahoo! cloud serving benchmark"
+date:   2017-06-05 10:00:28 -0500
+categories: jekyll update
+---
+YCSB (Yahoo! cloud serving benchmark) is designed to compare performance of different cloud platforms. Comparing the performance of various systems is not a trivial problem. Why? First of all, various systems have various performance characteristics because they make different design choices. For example, some systems are designed to optimize for writes (HBase, Cassandra) and some others are for random reads (PNUTS). Performance is also impacted by other design choices like data partitioning, placement, replication, trasanctional consisteny and so on. Second, it is challenging to understand the performance characteristics. Why? First of all, "developers of the systems usually report performance numbers for the "sweet spot" workloads for the system, which may not match the worload of a target application". Second, the number of various platforms is big.
+
+The OLAP workloads are not the focus of YCSB.
+
+There're currently two benchmark tiers, one for evaluating performance, one for scalability.
+
+The performance tier focuses on the latency of requests. Latency is important. But there's an inherent tradeoff between latency and throughput: as the amount of load increases, the latency of individual requests increases as well since there is more contention for disk, CPU, network and so on. Typically application designers must decide on an acceptable latency and provision enough servers to achieve the desired throuput while preserving acceptable latency. The performance tier of the benchmark aims to characterizie this tradeoff for each database system by measuring latency as we increase throughput, until the point at which the database system is saturated and throughput stops in creasing. The scaling tier of the database examines the impact on performance as more machines are added to the system.
+
+
+
+[comment]: <> Checkout this image ![Here]({{ site.url }}/assets/ju.jpg).
+
+[wiki-link]: https://en.wikipedia.org/wiki/Quine_(computing) 
+[mit-example]: http://people.csail.mit.edu/alinush/quine/quine.html 
