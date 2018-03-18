@@ -12,4 +12,6 @@ Interacting with EVM machine is done by calling Ethereum interface, "send_tx()".
 
 Users can interact with Ethereum Network (e.g. calling send_tx()) by using its JSON PRC interface.        
 
+EVM Illustration
 
+[Check here](https://ethereum.stackexchange.com/questions/268/ethereum-block-architecture/6413#6413) for the illustration of the EVM.
