@@ -78,7 +78,7 @@ analytics:
 
 # Site Author
 author:
-  name             : "Ju Chen"
+  name             : "Your Sidebar Name"
   avatar           : "profile.png"
   bio              : "Your biography for the left-hand sidebar"
   location         : "Location"
@@ -92,7 +92,7 @@ author:
   flickr           :
   facebook         :
   foursquare       :
-  github           : "chenju2k6"
+  github           : "academicpages"
   google_plus      :
   keybase          :
   instagram        :
