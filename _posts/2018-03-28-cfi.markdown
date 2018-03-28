@@ -5,6 +5,6 @@ date:   2018-03-28 10:00:28 -0500
 categories: jekyll update
 ---
 
-According to M. Abadi et al. in there [paper](https://ethereum.stackexchange.com/questions/268/ethereum-block-architecture/6413#6413), the control flow integrity (CFI) security dictates that software execution must follow a path of a Control-Flow Graph (CFG) determined ahead of time. The below figure shows a method to enforce the CFI. 
+According to M. Abadi et al. in there [paper](https://dl.acm.org/citation.cfm?id=1102165), the control flow integrity (CFI) security dictates that software execution must follow a path of a Control-Flow Graph (CFG) determined ahead of time. The below figure shows a method to enforce the CFI. 
 
 ![Figure 1](https://chenju2k6.github.io/cfi.png "Source: Control-Flow Integrity Principles, Implementations, and Applications")
