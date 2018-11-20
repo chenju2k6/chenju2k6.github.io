@@ -1,0 +1,11 @@
+---
+layout: post
+title:  "Catena Summary"
+date:   2018-01-10 10:00:28 -0500
+categories: jekyll update
+---
+Catena is a storage efficient log witnessing scheme. At a high level, Catena builds a transaction chain on top of the public bitcoin. By building the chain, the non-equivocation proof can be equated to the transaction membership proof. The transaction membership can be easily verified by checking the block headers and the authentication path in the Merkle Hash Tree. The assumption of Catena is that the genesis transaction (i.e. the first transaction on the chain) can be correctly distributed to the clients.
+
+Catena implements the transaction chain by enforcing that every transaction spends the output of its predecessor. The security of the bitcoin gurantees that there's only one transaction that spends the output of its previous transaction. As a result, the entire transaction chain initilized by one genesis transaction is unique in the entire bitcoin.
+
+Catena provides three APIs: CreateLog and AppendStatement for the severs, and VerifyStatement for the clients. A server calls CreateLog to write the genesis transaction. The genesis transaction is served as a public key for a log that clients can verify against. A server calls AppendStatement to append a statement by creating a transaction that spends the output of its previous transaction. A client calls VerifyStatement to verify a statement is valid or not by checking 1, if the transaction is a member in the bitcoin and 2, if the transaction spends the output of its predecessor.

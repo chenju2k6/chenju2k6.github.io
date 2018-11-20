@@ -1,0 +1,17 @@
+---
+layout: post
+title:  "EVM"
+date:   2018-02-18 10:00:28 -0500
+categories: jekyll update
+---
+EVM is a virtual machine simulated by Ethereum Network. Like any physical machine, the programming interface for EVM is EVM instruction set, with [specification](https://ethereum.github.io/yellowpaper/paper.pdf) and found [here](https://github.com/CoinCulture/evm-tools/blob/master/analysis/guide.md) and [here](https://blog.qtum.org/diving-into-the-ethereum-vm-6e8d5d2f3c30). 
+
+A smart contract is a program executed on an EVM. To compose a smart contract, authors can directly program in EVM machine code or use high-level languages like [Solidity](https://solidity.readthedocs.io/en/develop/index.html). "Solc" is Solidity compiler, which convert Solidity code to EVM machine code. A smart contract runs in a sandbox on the EVM and can access two kinds of memory. One is a persistent memory called storage. Storage is a KV store which maps 256-bit keys to 256-bit values. The other one, memory, is a fresh one upon every message call. EVM is not a register machine but a stack-machine, all computations on a area called stack.  
+
+Interacting with EVM machine is done by calling Ethereum interface, "send_tx()". The transaction content must be composed following EVM Application Binary Interface, [ABI](https://solidity.readthedocs.io/en/develop/abi-spec.html).
+
+Users can interact with Ethereum Network (e.g. calling send_tx()) by using its JSON PRC interface.        
+
+EVM Illustration
+
+[Check here](https://ethereum.stackexchange.com/questions/268/ethereum-block-architecture/6413#6413) for the illustration of the EVM.

@@ -1,0 +1,49 @@
+---
+layout: post
+title:  "FM-sketching algorithm"
+date:   2018-02-01 05:00:28 -0500
+categories: jekyll update
+---
+
+Given a stream of N integers, the FM-sketching algorithm answers how many distinct integers in the stream.  For example, given the stream {1,1,2,2,3,4}, the correct answer is 4. FM-sketching algorithm may give an answer slightly different from the correct one. One application is that couting the number of distinct words in a Harry Poter book. 
+
+A naive solution is to keep track of N integers and keep doing membership testing when the stream arrives. The naive solution consumes O(N) space and is not acceptable is many settings. 
+
+
+How does it work
+--
+
+
+First, assume there's hash function HASH which maps the integer n to a bitstring s in {0, 1}^L, and such that outputs are uniformly distributed in {0,1}^L. 
+
+
+For example, I select L=6, and I select SHA1 as a hash function and truncate the least 6 bits as the output, and I get below mappings
+
+
+1 --> {011011}
+
+2 --> {101100}
+
+3 --> {110011}
+
+4 --> {101100}
+
+
+And then, the LEAST function returns the position of the least-significant bit which is 1. For example, LEAST({10}) = 2, LEAST({100}) = 3. 
+
+
+For input {1,1,2,2,3,4}, I apply LEAST(HASH(n)) for each item, I get {1,1,3,3,1,3}.
+
+
+And then, I have a 6-bit vector BITMAP initialized [0,0,0,0,0,0], and I set the corresponding bit according to to {1,1,3,3,1,3}, I get [1,0,1,0,0,0]. Let R be the smallest index i such at BITMAP[i] = 0. I have R = 2.
+
+
+The final answer is 2^R/Phi. Where Phi is a constant and is about 0.77.  So my answer is 2^2/0.77 = 5.
+
+
+Why does it work
+--
+
+Intuitively, the idea is that, if n is the number of distinct elements, then BITMAP[1] is accessed n/2 times, BITMAP[2] is accessed n/4 times, so on and so far. (Note that the mapping of n is uniformly distributed).
+
+So if i << logN, the BITMAP[1] will certainly be 1. And if i >> logN, the BITMAP[i] will certainly be 0.  The answer will be in the middle. 
