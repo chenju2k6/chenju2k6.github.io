@@ -5,6 +5,15 @@ date:   2018-11-20 23:00:28 -0500
 categories: jekyll update
 ---
 
+# LevelDB 真的是一个系统实现学习宝典啊！在这里你可以找到
+- 面向对象的程序设计思想
+- C++ 的各种梗
+- 如何给用户定制接口
+- LRU cache
+- Bloom Filter
+- Skiplist
+- Statistics Dashboard
+
 ## Data store layout in LevelDB
 
 At any given time, the data in LevelDB is persisted in servel sorted lists (Level). Each sorted list is partitioned into one or more fixed-size chunks (files). 
