@@ -23,13 +23,17 @@ In other one level, there are no records with duplicate user key. (see DoCompact
 File types:
 
 .ldb is sorted table
+
 .log is write ahead logs
-LOG is the activity history 
+
+LOG is the activity history
+
 MANIFEST contains the information about tables that make a database
 
-Memory Table
+## Memory Table
 
 A Memory Table is a mutable in-memory storage and it is implemented as a SKIP LIST. During runtime, there are two memory tables, one is mutable, one is immutable. Once the mutable one is full, the immutable one will be flushed to L1 and becomes the new mutable memory table. The mutable one will become the immutable one. To add users data in the memory table, LevelDB first allocate a memory object in the heap, the heap objects are managed by an object called arena (utils/arena.cc), which is a singleton. The heap object is then inserted to the SKIP LIST. The SKIP LIST implementation is found at db/skiplist.h. The SKIP LIST is implemented as a randomized data structure. 
+
 The SKIP LIST is a single-write-multi-read data structure, meaning that concurrent writes need to be synchronized while concurrent read can proceed without synchronization. The below figure shows the state of a skip list after inserting node with key = 9,3,7,8 and with the height = 4,3,2,1
 
 The compacted memtable will be pushed down as long as it creates no overlaps in that level. The Maximum level is set to 2.  The constant value is coded in dbformat.h as kMaxMemCompactLevel=0
