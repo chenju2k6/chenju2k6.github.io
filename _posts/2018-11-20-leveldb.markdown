@@ -9,7 +9,7 @@ categories: jekyll update
 
 At any given time, the data in LevelDB is persisted in servel sorted lists (Level). Each sorted list is partitioned into one or more fixed-size chunks (files). 
 
-Each entry in the list has the format <user_key, seqno | type, value>. The <user_key, seqno> in combination is also called “Internal Key” inside LevelDB. Value could be just a deletion marker. The list is sorted by key as ascending order and seqno as descending order.  The integer is serialized according to a Google’s standard. The Internal key format can be found in the “ParsedInternalKey” data structure. And the ordering can be found in InternalKeyComparator function at db/dbformat.cc file.
+Each entry in the list has the format `<user_key, seqno | type, value>`. `The <user_key, seqno>` in combination is also called “Internal Key” inside LevelDB. Value could be just a deletion marker. The list is sorted by key as ascending order and seqno as descending order.  The integer is serialized according to a Google’s standard. The Internal key format can be found in the “ParsedInternalKey” data structure. And the ordering can be found in InternalKeyComparator function at db/dbformat.cc file.
 
 https://developers.google.com/protocol-buffers/docs/encoding#varints
 
