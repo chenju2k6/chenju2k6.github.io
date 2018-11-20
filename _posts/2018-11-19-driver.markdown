@@ -1,0 +1,236 @@
+---
+layout: post
+title:  "SGX driver"
+date:   2018-11-19 23:00:28 -0500
+categories: jekyll update
+---
+
+#Intel SGX driver 
+
+##Overall Description
+
+The intel SGX driver operates in the Ring0, it is responsible for issuing SGX Ring0 instructions. All the instructions that issued by SGX diver is defined in `sgx_asm.h`
+
+```
+ 75 enum sgx_commands {
+ 76         ECREATE = 0x0,
+ 77         EADD    = 0x1,
+ 78         EINIT   = 0x2,
+ 79         EREMOVE = 0x3,
+ 80         EDGBRD  = 0x4,
+ 81         EDGBWR  = 0x5,
+ 82         EEXTEND = 0x6,
+ 83         ELDU    = 0x8,
+ 84         EBLOCK  = 0x9,
+ 85         EPA     = 0xA,
+ 86         EWB     = 0xB,
+ 87         ETRACK  = 0xC,
+ 88         EAUG    = 0xD,
+ 89         EMODPR  = 0xE,
+ 90         EMODT   = 0xF,
+ 91 };
+```
+
+The two major questions are:
+
+* How did SGX driver hook MMU with Enclave pages?
+
+By a MMAP and FIND
+
+* How to manage Enclave paging - what is the the algorithm?
+
+It is a simplied version of LRU
+
+
+
+
+##Driver init
+
+The driver is registered in the Kernel module initialization routine. 
+
+```
+360 static struct platform_driver sgx_drv = {
+361         .probe = sgx_drv_probe,
+362         .remove = sgx_drv_remove,
+363         .driver = {
+364                 .name                   = "intel_sgx",
+365                 .pm                     = &sgx_drv_pm,
+366                 .acpi_match_table       = ACPI_PTR(sgx_device_ids),
+367         },
+368 };
+```
+The `.probe()` routine then will be called. The implementation of `.probe()` routine is `sgx_drv_probe()`. This routine ensures that the platform has SGX featured enabled and then calls `sgx_dev_init()` function to init the SGX device. 
+
+###EPC bank
+The `sgx_dev_init()` reads the EPC banks configuation information and fills the data structure called `sgx_epc_banks`, which is global array. Each item stores the one EPC banks physical address and length. For example, in my platform, the EPC bank's information is like below. According to the value, we can see my platform has the EPC size of about `93.5MB`. The routine then calls `ioremap()` to map the EPC memory to a virtual addres. The `sgx_dev_int()` routine also inits a work queue calld `intel_sgx-add-page-wq`. The `sgx_add_epc_bank` initializes a free list of all EPC pages. Each has physical addresses.
+
+```
+ intel_sgx INT0E0C:00: EPC bank 0x30200000-0x35f80000
+```
+
+###FILE operations
+
+The `sgx_fops` is defined as below. The `sgx_mmap` and `sgx_ioctl` is defined.
+
+```
+151 static const struct file_operations sgx_fops = {
+152         .owner                  = THIS_MODULE,
+153         .unlocked_ioctl         = sgx_ioctl,
+154 #ifdef CONFIG_COMPAT
+155         .compat_ioctl           = sgx_compat_ioctl,
+156 #endif
+157         .mmap                   = sgx_mmap,
+158         .get_unmapped_area      = sgx_get_unmapped_area,
+159 };
+```
+
+The `sgx_mmap()` registered `sgx_vm_ops` defined as below.
+
+```
+238 const struct vm_operations_struct sgx_vm_ops = {
+239         .close = sgx_vma_close,
+240         .open = sgx_vma_open,
+241         .fault = sgx_vma_fault,
+242         .access = sgx_vma_access,
+243 };
+```
+
+###SGX_IOCTL()
+
+`sgx_ioctl()` handles `ENCLAVE_CREATE`, `ENCLAVE_ADD_PAGE` and `ENCLAVE_INIT` commands issued from the user space. 
+
+###SGX virtual memory operations
+
+* `sgx_vma_open()` get a reference to `sgx_encl` and increases its reference count
+* `sgx_vma_close()` sets the flag of a `sgx_encl` to `SGX_ENCL_DEAD`, It also removes the page table entries that mapping to the vma area. 
+* `sgx_vma_access()` is designed for DEBUG mode
+*  `sgx_vma_fault()` will forward the fault to the `sgx_fault_page()` routine with the `addr` being the faulting address.
+
+##Enclave create
+
+The user creates enclave through IOTCL interface. The user passes the address of the a `sgx_secs" structure which is defined as 
+
+```
+ 84 struct sgx_secs {
+ 85         uint64_t size;
+ 86         uint64_t base;
+ 87         uint32_t ssaframesize;
+ 88         uint32_t miscselect;
+ 89         uint8_t reserved1[SGX_SECS_RESERVED1_SIZE];
+ 90         uint64_t attributes;
+ 91         uint64_t xfrm;
+ 92         uint32_t mrenclave[8];
+ 93         uint8_t reserved2[SGX_SECS_RESERVED2_SIZE];
+ 94         uint32_t mrsigner[8];
+ 95         uint8_t reserved3[SGX_SECS_RESERVED3_SIZE];
+ 96         uint16_t isvvprodid;
+ 97         uint16_t isvsvn;
+ 98         uint8_t reserved4[SGX_SECS_RESERVED4_SIZE];
+ 99 };
+```
+
+The SECS or `the SGX Enclave Control Structure` is the metadata of a Enclave. It is a architecture defined data structure. The SECS is used to identify one enclave. The below is quoted from `Intel SGX explained Section 5.1.3` by a MIT researcher 
+
+> SGX stores per-enclave metadata in a SGX Enclave Control Structure (SECS) associated with each enclave. Each SECS is stored in a dedicated EPC page with the page type PT SECS. These pages are not intended to be mapped into any enclave’s address space, and are exclusively used by the CPU’s SGX implementation.
+
+
+The `size` and the `base` in the SECS data structure defines `ELRANGE`, which is the Enclave Linear Address Range. The virtual address that is in the `ELRANGE` will be mapped into the EPC.
+
+The `sgx_encl_create()` function will call `sgx_encl_alloc()` function to allocate an Enclave based on the secs information. 
+
+The `sgx_encl_alloc()` will call `shmem_file_setup()` to allocate a shared memory sized of `secs->size` rounded by `PAGE_SZIE` and set it to `secs->backing`. So that this memory portion could be shared between kernel and user. The information of shared memory virtual filesystem could be foun [here](https://www.kernel.org/doc/gorman/html/understand/understand015.html). The function also allocated a memory 32 times smaller than `secs->size` and set it to `encl->pcmd`. **FIXME** The function inits several list and fills in the `encl` data structure as follows
+
+```
+543         INIT_LIST_HEAD(&encl->add_page_reqs);
+544         INIT_LIST_HEAD(&encl->va_pages);
+545         INIT_RADIX_TREE(&encl->page_tree, GFP_KERNEL);
+546         INIT_LIST_HEAD(&encl->load_list);
+547         INIT_LIST_HEAD(&encl->encl_list);
+548         mutex_init(&encl->lock);
+```
+
+```
+551         encl->mm = current->mm;
+552         encl->base = secs->base;
+553         encl->size = secs->size;
+554         encl->ssaframesize = secs->ssaframesize;
+555         encl->backing = backing;
+556         encl->pcmd = pcmd;
+```
+
+The `sgx_encl_create()` function then allocate a page from EPC. That page will hold the SECS information. That page will be populated by SGX hardware (ECREATE instrcution). The function then population a `sgx_pageinfo` structure and use that structure to call `__ecreate()` function which takes two arguments. A `sgx_pageinfo` structure and a destination for the target secs page. In the `sgx_pageinfo` structure, `srcpge` should points to the source secs. `secinfo` contains the meta-data about an enclave page.
+
+```
+122 struct sgx_pageinfo {
+123         uint64_t linaddr;
+124         uint64_t srcpge;
+125         union {
+126                 uint64_t secinfo;
+127                 uint64_t pcmd;
+128         };
+129         uint64_t secs;
+130 } __attribute__((aligned(32)));
+```
+
+Note that, the SECS used here is provided by the user and it is not the same with the architectural defined one. According to Intel SGX manual, SECS is immutable after EINIT is called and can be modified by EADD and EEXTEND. SECS is not accessible to software. 
+
+> There are 2 main data structures associated with operating an enclave, the SGX Enclave Control Structure (SECS)
+and the Thread Control Structure (TCS).
+There is one SECS for each enclave. The SECS contains meta-data which is used by the hardware to protect the
+enclave. Included in the SECS is a field which stores the enclave build measurement value. This field, MRENCLAVE,
+is initialized by the ECREATE instruction and updated by every EADD and EEXTEND. It is locked by EINIT. The SECS
+cannot be accessed by software.
+Every enclave contains one or more TCSs. The TCS contains meta-data used by the hardware to save and restore
+thread specific information when entering/exiting the enclave. There is one field, FLAGS, which may be accessed
+by software.
+The SECS is created at the time ECREATE is executed. The TCS can be created using the EADD
+instruction or the SGX2 instructions.
+ 
+###Enclave Page Initialization
+
+The `sgx_init_page` associates an Enclave page with a EPC page and a va page. 
+
+
+
+##Page Cache Handling
+
+EPC pages can be categories into three kinds, Regluar, version array page or SECS page. One version array page can contain 512 versions.
+
+###Page representation
+
+There are three structures that represent a page, `sgx_va_page`, `sgx_epc_page` and `sgx_encl_page`. They are defined as below. `sgx_epc_page` has a physicall address associated with it. The `sgx_va_page` presents a Version Array page. The `sgx_encl_page` has a pointer to epc and va page (plus offset to indicate its version location). It also have associated virtual address and flags associated with it. 
+
+```
+81 struct sgx_epc_page {
+ 82         resource_size_t pa;
+ 83         struct list_head list;
+ 84         struct sgx_encl_page *encl_page;
+ 85 };
+```
+ 
+```
+ 91 struct sgx_va_page {
+ 92         struct sgx_epc_page *epc_page;
+ 93         DECLARE_BITMAP(slots, SGX_VA_SLOT_COUNT);
+ 94         struct list_head list;
+ 95 };
+```
+```
+ 118 struct sgx_encl_page {
+119         unsigned long addr;
+120         unsigned int flags;
+121         struct sgx_epc_page *epc_page;
+122         struct sgx_va_page *va_page;
+123         unsigned int va_offset;
+124 };
+```
+
+###Alloc a page
+
+An EPC page is allocated by grab a free page from the `sgx_free_list`, which is a global list maintaining the free pages. **FIXME: complex logic about swapping*
+
+
+###Get a page
+
+`sgx_get_page()` returns the virtual address of page.
+
