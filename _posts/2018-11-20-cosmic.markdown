@@ -7,6 +7,5 @@ categories: jekyll update
 
 ## Cosmic Distance Ladder
 
-Recently I found a talk given by Terence Tao years go which is very very interesting. I will come back to write a summary.
+Recently I found [a talk given by Terence Tao](https://www.youtube.com/watch?v=7ne0GArfeMs&t=426s) years go which is very very interesting. I will come back to write a summary.
 
-https://www.youtube.com/watch?v=7ne0GArfeMs&t=426s
