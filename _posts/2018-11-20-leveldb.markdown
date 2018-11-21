@@ -45,4 +45,11 @@ The compacted memtable will be pushed down as long as it creates no overlaps in 
 
 The default implementation is a LRU cache. User can define her customized cache implementation by extending the cache class. The interface of the cache is `Insert(key,value,charge,deleter)`. The `charge` is the total bytes in memory for this entry. The `deleter` is a callback to delete the entry. 
 
-In LevelDB, the Cache is used by TableCache and BlockCache. BlockCache is used to cache the block data. TableCache is to cache the index block for each opened SST table file. 
+In LevelDB, the Cache is used by TableCache and BlockCache. BlockCache is used to cache the block data. TableCache is to cache the index block for each opened SST table file. The cachable number of index blocks is configurable, the default value is 1000. The BlockCache size is `8<<20` by default. Given a 4KB block size, the cachable block size in memory is about 32GB. 
+
+
+## SSTable handling
+
+A table may contain one index block, one meta index block, one or more data blocks and one or more meta blocks. Each block is associated with a `BlockHandle` structure for easy manipulation. `BlockHandle` contains the offset and length of the block. `BlockContents` has the pointer pointing to the real block data and two flags indicating whether the block is cachable or has a data allocated in heap. 
+
+From the low-level, there're two methods to open the SSTable, one is through memory-mapped IO, the another is through Filesystem APIs. In the former case, the lower level software will allocate a file buffer in memory, the file read function is implemented by simply pointing the descired offset. In the latter case, there is no file buffer in memory, user have to define its own buffer if necessary. As a result, if the SSTable is opened in a memory-mapped way, the `heap_allocated` and `cacheable` flags are both set to `false`, as it is the lower level software manages the buffer. 
