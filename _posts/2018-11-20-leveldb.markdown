@@ -5,14 +5,7 @@ date:   2018-11-20 23:00:28 -0500
 categories: jekyll update
 ---
 
-# LevelDB 真的是一个系统实现学习宝典啊！不得不赞美一下Jeff Dean和Sanjay两位神仙！ 在这里你学到很多很多关于如何用C++实现一个产品级的系统，真的是又优美又健壮又高效
-- 面向对象的程序设计思想
-- C++ 的各种梗
-- 如何给用户定制接口
-- LRU cache
-- Bloom Filter
-- Skiplist
-- Statistics Dashboard
+# LevelDB is an excellent example to learn system design and writing product-level code. Jeff Dean and Sanjay are real programmers. LevelDB is beautifully written with high efficiency.
 
 ## Data store layout in LevelDB
 
