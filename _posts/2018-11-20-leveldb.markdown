@@ -46,3 +46,10 @@ A Memory Table is a mutable in-memory storage and it is implemented as a SKIP LI
 The SKIP LIST is a single-write-multi-read data structure, meaning that concurrent writes need to be synchronized while concurrent read can proceed without synchronization. The below figure shows the state of a skip list after inserting node with key = 9,3,7,8 and with the height = 4,3,2,1
 
 The compacted memtable will be pushed down as long as it creates no overlaps in that level. The Maximum level is set to 2.  The constant value is coded in dbformat.h as kMaxMemCompactLevel=0
+
+
+## Cache
+
+The default implementation is a LRU cache. User can define her customized cache implementation by extending the cache class. The interface of the cache is `Insert(key,value,charge,deleter)`. The `charge` is the total bytes in memory for this entry. The `deleter` is a callback to delete the entry. 
+
+In LevelDB, the Cache is used by TableCache and BlockCache. BlockCache is used to cache the block data. TableCache is to cache the index block for each opened SST table file. 
