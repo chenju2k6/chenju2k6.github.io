@@ -57,3 +57,89 @@ From the low-level, there're two methods to open the SSTable, one is through mem
 ## Snapshot implementation
 
 Snapshots provide read-only view over a certain state of the entire database. Users can creat snapshot by calling GetSnapShot() interface. User can call Read() together with a Snapshot, in this case, the latest value on the state indicated by the Snapshot is returned. LevelDB maintains a monotically increased sequence number reflects the version of the entire database. Each write to the DB increases the sequence number by 1. LevelDB embeds sequence number in each record written by constructing an internal key which is the combination of the user key and the sequence number. LevelDB persists all the value versions for a specific key as long as it is more recent the oldest snapshot. During compaction, all the obsolete will be dropped to save the storage.   
+
+## Debugging information
+
+The `GetProperty` interface gives debugging information. The `sstables` returns the files information, the format is "filenumber:filesize [start key @ sequence .. end key @ sequence]"
+
+## Block
+The key-value pairs are compressed by only writing the deltas of the key data. Upon each `block_restart_interval`, the full key data is written. The restart points (the offset for each restart) is encoded and appended to the block buffer.  
+
+## Critical path for read
+
+```
+1 DBImpl::Get() 
+2 -> MemTable::Get() 
+3 -> Version::Get()
+4    -> Version::FindFile()
+5    -> TableCache::Get()
+6       -> TableCache::FindTable()
+7          -> Cache::Lookup()
+8          -> Table::Open()
+9             -> RandomAccessFile::Read()
+10              -> ReadBlock()
+11                 -> RandomAccessFile::Read()
+12          -> Cache::Insert()
+13      -> Table::InternalGet() 
+14         -> Block::NewIterator()
+15         -> Iterator::Seek()
+16         -> Filter:KeyMayMatch()
+17         -> BlockReader()
+18            -> Cache::Lookup()
+19            -> ReadBlock()
+20               -> RandomAccessFile::Read()
+21            -> Cache::Insert() 
+22         	-> Iterator::Seek()
+```
+
+## Critical path for L0 Write
+
+```
+1 DBImpl::Write()
+2 -> LogWriter::AddRecord()
+3 -> WriteBatchInternal::InsertInto()
+4    -> MemTable::Add()
+        -> Skiplist::Insert()
+5 -> VersionSet::SetLastSequence()
+```
+
+## Critical path for Flush
+
+```
+1 DBImpl::WriteLevel0Table()
+2 -> MemTable::NewIterator()
+3 -> BuildTable()
+4    -> Env::NewWritableFile()
+5    -> TableBuilder::Add()
+6       -> BlockBuilder::Add()
+7    -> TableBuilder::Finish()
+8       -> WriteBlock()
+9          -> WritableFile::Append()
+10   -> TableCache::NewIterator()
+11 -> Version::PickLevelForMemTableOutput()
+12 -> VersionEdit::AddFile()
+```
+
+## Critical path for Compaction
+```
+1 DBImpl::DoCompactionWork()
+2 -> Version::MakeInputIterator()
+3    -> NewTwoLevelIterator()
+     -> NewMergingIterator()
+3 -> OpenCompactionOutputFile()
+4 -> Builder::Add()
+5 -> FinishCompactionOutputFile()
+6 -> InstallCompactionResults()
+7    -> VersionEdit::AddFile()
+8    -> Version::LogAndApply()
+9       -> VersionEdit::SetLogNumber()
+10      -> VersionEdit::SetPrevLogNumber()
+11      -> VersionEdit::SetNextFile()
+12      -> VersionEdit::SetLastSequence()
+13      -> Builder.Apply()
+14      -> WriteSnapshot()
+15      -> LogWriter::AddRecord()
+16      -> SetCurrentFile()
+17      -> AppendVersion()
+```
+
