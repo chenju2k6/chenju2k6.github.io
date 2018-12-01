@@ -1,0 +1,151 @@
+---
+layout: post
+title:  "Intel Protected FS"
+date:   2018-11-30 23:00:28 -0500
+categories: jekyll update
+---
+
+# Intel protected fs 
+
+## Overall Description
+
+The Intel Protected FS are implemented as a combination of a untrusted component and a trusted component. Informally, the untrusted component calls the OS API to persist and retrieve data (in ciphertext) to/from the OS file system, the trusted component takes charge of encryption, decryption, integrity protection and caching. The trusted component exposes the similar file operation API to the applications.
+
+Internally, a file is represented as a tree of nodes. The leaves nodes are data nodes and the non-leaf nodes are MHT nodes. Currently, one node hold can 4KB data. One one-leaf node has 96 children.    
+
+
+##Calling graph of write
+
+
+```
+protected_fs_file::write() 
+               |      
+               --> get_data_node() 
+               |
+               --> internal_flush() 
+               |
+               --> update_all_data_and_mht_nodes() --> sgx_rijndael128GCM_encrypt()
+                   +                                |
+                   update_meta_data() ---------------
+                   +
+                   set_update_flag() ------------> u_sgxprotectedfs_fwrite_node()
+                   +                             |
+                   clear_update_flag() ----------|
+                   +                             |
+                   write_all_changes_to_disk() --|
+```
+
+
+
+
+
+##Overall Description
+
+EDL definition (`common/inc/sgx_tprotected_fs.edl`)
+
+```
+ 36     untrusted {
+ 37                 void*   u_sgxprotectedfs_exclusive_file_open([in, string] const char* filename, uint8_t read_only, [out] int64_t* file_size, [out] int32_t* error_code);
+ 38                 uint8_t u_sgxprotectedfs_check_if_file_exists([in, string] const char* filename);
+ 39                 int32_t u_sgxprotectedfs_fread_node([user_check] void* f, uint64_t node_number, [out, size=node_size] uint8_t* buffer, uint32_t node_size);
+ 40                 int32_t u_sgxprotectedfs_fwrite_node([user_check] void* f, uint64_t node_number, [in, size=node_size] uint8_t* buffer, uint32_t node_size);
+ 41                 int32_t u_sgxprotectedfs_fclose([user_check] void* f);
+ 42                 uint8_t u_sgxprotectedfs_fflush([user_check] void* f);
+ 43                 int32_t u_sgxprotectedfs_remove([in, string] const char* filename);
+ 44 
+ 45                 void*   u_sgxprotectedfs_recovery_file_open([in, string] const char* filename);
+ 46                 uint8_t u_sgxprotectedfs_fwrite_recovery_node([user_check] void* f, [in, count=data_length] uint8_t* data, uint32_t data_length);
+ 47                 int32_t u_sgxprotectedfs_do_file_recovery([in, string] const char* filename, [in, string] const char* recovery_filename, uint32_t node_size);
+ 48     };
+```
+
+`file_mht_node`
+
+```
+94 typedef struct _file_mht_node
+ 95 {
+ 96         /* these are exactly the same as file_data_node_t below, any change should apply to both (both are saved in the cache as void*) */
+ 97         uint8_t type;
+ 98         uint64_t mht_node_number;
+ 99         struct _file_mht_node* parent;
+100         bool need_writing;
+101         bool new_node;
+102         union {
+103                 struct {
+104                         uint64_t physical_node_number;
+105                         encrypted_node_t encrypted; // the actual data from the disk
+106                 };
+107                 recovery_node_t recovery_node;
+108         };
+109         /* from here the structures are different */
+110         mht_node_t plain; // decrypted data
+111 } file_mht_node_t;
+112 
+```
+`file_data_node`
+
+```
+114 typedef struct _file_data_node
+115 {
+116         /* these are exactly the same as file_mht_node_t above, any change should apply to both (both are saved in the cache as void*) */
+117         uint8_t type;
+118         uint64_t data_node_number;
+119         file_mht_node_t* parent;
+120         bool need_writing;
+121         bool new_node;
+122         union {
+123                 struct {
+124                         uint64_t physical_node_number;
+125                         encrypted_node_t encrypted; // the actual data from the disk
+126                 };
+127                 recovery_node_t recovery_node;
+128         };
+129         /* from here the structures are different */
+130         data_node_t plain; // decrypted data
+131 } file_data_node_t;
+```
+
+`meta_data_plain`
+
+```
+58 typedef struct _meta_data_plain
+ 59 {
+ 60         uint64_t         file_id;
+ 61         uint8_t          major_version;
+ 62         uint8_t          minor_version;
+ 63 
+ 64         sgx_key_id_t     meta_data_key_id;
+ 65         sgx_cpu_svn_t    cpu_svn;
+ 66         sgx_isv_svn_t    isv_svn;
+ 67         uint8_t          use_user_kdk_key;
+ 68         sgx_attributes_t attribute_mask;
+ 69 
+ 70         sgx_aes_gcm_128bit_tag_t meta_data_gmac;
+ 71 
+ 72         uint8_t          update_flag;
+ 73 } meta_data_plain_t;
+ 74 
+ 75 // these are all defined as relative to node size, so we can decrease node size in tests and have deeper tree
+ 76 #define FILENAME_MAX_LEN  260
+ 77 #define MD_USER_DATA_SIZE (NODE_SIZE*3/4)  // 3072
+ 78 COMPILE_TIME_ASSERT(md_user_data_size, MD_USER_DATA_SIZE == 3072);
+```
+ `meta_data_encrypted`
+ 
+```
+ 80 typedef struct _meta_data_encrypted
+ 81 {
+ 82         char          clean_filename[FILENAME_MAX_LEN];
+ 83         int64_t       size;
+ 84 
+ 85         sgx_mc_uuid_t mc_uuid; // not used
+ 86         uint32_t      mc_value; // not used
+ 87 
+ 88         sgx_aes_gcm_128bit_key_t mht_key;
+ 89         sgx_aes_gcm_128bit_tag_t mht_gmac;
+ 90 
+ 91         uint8_t       data[MD_USER_DATA_SIZE];
+ 92 } meta_data_encrypted_t;
+ 93 
+ 94 typedef uint8_t meta_data_encrypted_blob_t[sizeof(meta_data_encrypted_t)];
+```
