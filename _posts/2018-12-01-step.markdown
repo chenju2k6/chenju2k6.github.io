@@ -1,0 +1,12 @@
+---
+layout: post
+title:  "SGX-step"
+date:   2018-11-30 23:00:28 -0500
+categories: jekyll update
+---
+
+# SGX-Step extension 
+
+* Mmap IDT and APIC MMIO to user space, enabling user-level ISR
+* Use basic statistical analysis techniques.
+* Recognize false zero-step interrupts 
