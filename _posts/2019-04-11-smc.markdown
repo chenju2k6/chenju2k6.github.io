@@ -11,3 +11,5 @@ https://web.archive.org/web/20100717072236/http://public.carnet.hr/~jbrecak/sm.h
 ```
 
 This piece of code can't be compiled on Mac, which complains undefined symbols.
+
+Self-modifying code is supported in Enclave? SgxElide uses SMC to support code secrecy... If code can be modified, how about the security and code measurement? 
