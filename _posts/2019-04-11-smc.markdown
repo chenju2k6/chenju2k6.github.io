@@ -1,0 +1,13 @@
+---
+layout: post
+title:  "Turing completeness of Makefile"
+date:   2019-04-11 23:00:28 -0500
+categories: jekyll update
+---
+
+# Self-modifying code 
+```
+https://web.archive.org/web/20100717072236/http://public.carnet.hr/~jbrecak/sm.html
+```
+
+This piece of code can't be compiled on Mac, which complains undefined symbols.
