@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Turing completeness of Makefile"
+title:  "self-modifying code"
 date:   2019-04-11 23:00:28 -0500
 categories: jekyll update
 ---
