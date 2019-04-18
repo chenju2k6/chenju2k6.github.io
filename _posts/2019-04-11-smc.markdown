@@ -14,6 +14,6 @@ This piece of code can't be compiled on Mac, which complains undefined symbols.
 
 Self-modifying code is supported in Enclave? SgxElide uses SMC to support code secrecy... If code can be modified, how about the security and code measurement? 
 
-~~~~
+
 The "x86 explained" says this": For a slightly more detailed trace, the kernel can set a desired page’s writable (W) attribute to 0 if the page fault’s error code indicates a read access, and only set it to 1 for write accesses. Also, applications that use a page as both code and data (self-modifying code and just-in-time compiling VMs) can be handled by setting a page’s disable execution (XD) flag to 0 for a data access, and by carefully accounting for the case where the last accessed data page is the same as the last accessed code page
-~~~~
+
