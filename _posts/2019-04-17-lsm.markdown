@@ -7,3 +7,18 @@ categories: jekyll update
 
 # Daily paper: Latest results about LSM and key-value stores
 
+## Key-Value seperation
+
+Many latest researches propose to seperate key and value in the storage. The rationale behind this is that the major read/write amplication comes from move the key-value pairs while value is not useful in building the index. In these designs, values are appended to a log-structured file, while key, the position of the value and the metadata are stored in a LSM-tree. The challenge comes from the garbage collection (GC), which serves to recycle the free space when the values are obsolete. To do this, the key-value storage initiates a GC process, which constantly scan the values log, for each item in the value log, it queries LSM tree to check if the value is still valid. The invalid values are discarded while the valid values are moving and merged to the new tail of the log. 
+
+These approaches reduces (dramatically) the overhead caused by compaction, but still suffers from overhead from garbage collection. The reasons are twofold, first, some data movements are unnessary. The real-world workloads often exhibits some locality. Concretely, some key-values are ``hot" and often get accessed, some key-values are ``cold" and are hardly get accessed. These frequently accessed key-values may be moved around during GC constantly, a great waste of the resources. The second reason is that to move the values, the GC queries the LSM-tree, and the key may be scattered in the LSM-tree storage.
+
+The measurement shows that the naive GC designs exhibits a write amplication of about 19.7x, close to LevelDB's 19.1 and higher than RocksDB's 7.9
+
+To mitigate the issue, HashKV proposes to partition the key-value paris into different locations. 
+
+Related works:
+
+1, HashKV: Enabling Efficient Updates in KV Storage via Hashing  
+2, Directload
+
