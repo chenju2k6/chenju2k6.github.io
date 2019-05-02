@@ -1,0 +1,14 @@
+---
+layout: post
+title:  "Techie: Keybase, telegram"
+date:   2019-05-02 23:00:28 -0500
+categories: jekyll update
+---
+
+# What is Keybase?
+
+I communicate with my friends using WeChat on a daily basis. According to some reports, these communications, are collected and stored in the servers. Technically, there's no secrecy at all. 
+
+Keybase enables end-to-end encryption, which means, all the communications in Keybase are encrypted and protected. Keybase servers can not see any secrets. 
+
+The biggest challenge to enable end-to-end encryption is to enable client authentication. We have CA system for server authentication, but there's no such a golden way for client authentication. The key idea of Keybase is to issue a public/private key pair for every participating client, and using client's public identity to back the public key. The public identities can include Twitter, Github, Reddit, Hack News, so on and so forth.
