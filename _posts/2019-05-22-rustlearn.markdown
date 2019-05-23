@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Techie: Keybase, telegram"
+title:  "Rust learning notes"
 date:   2019-05-22 23:00:28 -0500
 categories: jekyll update
 ---
