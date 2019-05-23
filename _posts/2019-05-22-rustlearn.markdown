@@ -45,3 +45,5 @@ pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
 
     }
 ```
+
+This is a common pattern in programming rust. The type of `Option<T>` is pervasily used in the language due to the reason found in here [I'm an inline-style link](http://www.nickknowlson.com/blog/2013/04/16/why-maybe-is-better-than-null/)
