@@ -46,4 +46,4 @@ pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
     }
 ```
 
-This is a common pattern in programming rust. The type of `Option<T>` is pervasily used in the language due to the reason found in here [I'm an inline-style link](http://www.nickknowlson.com/blog/2013/04/16/why-maybe-is-better-than-null/)
+This is a common pattern in programming rust. The type of `Option<T>` is pervasily used in the language. The use of `Option<T>` is considered as a measure to mitigate the `NULL` pointer issue. You can find more arguments found in here [The Definitive Reference To Why Maybe Is Better Than Null](http://www.nickknowlson.com/blog/2013/04/16/why-maybe-is-better-than-null/)
