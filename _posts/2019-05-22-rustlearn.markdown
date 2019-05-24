@@ -5,6 +5,8 @@ date:   2019-05-22 23:00:28 -0500
 categories: jekyll update
 ---
 
+
+# Using Match for enums
 I am a newbie of the Rust. If you are an advanced user, please turn off the page. 
 
 I decide to learn the language by practising. To start with, I write a simple program to solve the two sum problem. The code is ugly especially for the first `result.push` line 
@@ -87,4 +89,19 @@ fn main() {
         println!("value is {}",i);
     }
 } 
+```
+
+# Lifetime
+
+Lifetime is the most unique feature of the Rust. I am now struggling with it. In the Rust book, it mentions this example
+
+```rust
+fn longest(x: &str, y: &str) -> &str {
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}
+
 ```
