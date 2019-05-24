@@ -11,7 +11,7 @@ I am a newbie of the Rust. If you are an advanced user, please turn off the page
 
 I decide to learn the language by practising. To start with, I write a simple program to solve the two sum problem. The code is ugly especially for the first `result.push` line 
 
-```
+```rust
 pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
         let mut result = Vec::new();
         let mut mymap: HashMap<i32,i32> = HashMap::with_capacity(nums.len());
@@ -31,7 +31,7 @@ pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
 
 Turns out a better way to do this is 
 
-```
+```rust
 pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
         let mut result = Vec::new();
         let mut mymap = std::collections::HashMap::with_capacity(nums.len());
@@ -53,7 +53,7 @@ This is a common pattern in programming rust. The type of `Option<T>` is pervasi
 
 Later on, I am trying to print some value within a tuple. Like below
 
-```
+```rust
 enum List {
     Cons(i32, Box<List>),
     Nil,
@@ -72,7 +72,7 @@ fn main() {
 
 This code can't compile. The compiler complains that there is no such a filed in List enum type. Instead I have to do this
 
-```
+```rust
 enum List {
     Cons(i32, Box<List>),
     Nil,
@@ -105,3 +105,5 @@ fn longest(x: &str, y: &str) -> &str {
 }
 
 ```
+
+This code can't compile, because the `borrow checker` cannot decide which reference is returned at compile time.
