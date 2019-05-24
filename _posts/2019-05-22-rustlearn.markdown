@@ -174,4 +174,30 @@ fn main() {
 }
 ```
 
+The code will not compile because in the initialization code of `b`, the value `a` is already moved into `b`. The `a` will not be there because it has been moved. If we change the definition of the `Cons` to let it hold references, then we need to specify the lifetimes for the members.
 
+
+Note that in Rust, every value has only one owner. The value can be moved (by assigning) and borrowed (by reference), the there will not be two owners for one type
+
+
+Note that in Rust, every value has only one owner. The value can be moved (by assigning) and borrowed (by reference), the there will not be two owners for one value. Using `RC<T>`, we can virtually created multiple owners of the value. Each time we call `RC::Clone`, we create a new owner for the value.
+
+
+Using `RC<T>`, the above code can be optimized as below
+
+```rust
+enum List {
+    Cons(i32, Rc<List>),
+    Nil,
+}
+
+use crate::List::{Cons, Nil};
+use std::rc::Rc;
+
+fn main() {
+    let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
+    let b = Cons(3, Rc::clone(&a));
+    let c = Cons(4, Rc::clone(&a));
+}
+```
+Noted that `Box<T>' enables the pointers to the data storing on the heap.
