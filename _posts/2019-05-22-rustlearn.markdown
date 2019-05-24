@@ -200,4 +200,4 @@ fn main() {
     let c = Cons(4, Rc::clone(&a));
 }
 ```
-Noted that `Box<T>' enables the pointers to the data storing on the heap.
+Noted that `Box<T>' enables the pointers to the data storing on the heap. Also noted that, in the above code, the `Rc::clone()` does not make a deep copy of the reference. Instead, it only increases the refercount to the object. 
