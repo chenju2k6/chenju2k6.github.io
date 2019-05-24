@@ -107,3 +107,25 @@ fn longest(x: &str, y: &str) -> &str {
 ```
 
 This code can't compile, because the `borrow checker` cannot decide which reference is returned at compile time.
+
+
+But the below code can compile. Looks like the `borrow checker` can analyze the code in a single function, but cannot work crossing the function "boundary". For example, in the below code, the `borrow checker` can annotate the lifetime automatically for `str1` and `str2`. However, for the code listed above, the `borrow check` cannot decide the lifetime of the references passed in within the `longest` function. In addition, the `borrow checker` working in the main function cannot decide which reference will be returned by the `longest` function.
+
+The Rust book says that: 
+> When annotating lifetimes in functions, the annotations go in the function signature, not in the function body. Rust can analyze the code within the function without any help. However, when a function has references to or from the code outside the function, it becomes almost impossible for Rust to figure out the lifetimes of the parameters or return values on its own. The lifetimes might be different each time the function is called. This is why we need to annotate the lifetimes manually.
+```rust
+fn main() {
+    let string1 = String::from("abcd");
+    let str1 = string1.as_str();
+    let str2 = "xyz";
+
+    let result;
+    if str1.len() > str2.len() {
+        result = &str1;
+    }
+    else {
+        result = &str2;
+    }
+    println!("The longest string is {}", result);
+}
+```
