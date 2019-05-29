@@ -153,7 +153,7 @@ fn main() {
 ```
 
 
-## Why Rc<T>
+# Why Rc<T>
 
 The first dilemma of using lifetiems to annotate the references used in the structure comes from the below example
 
@@ -308,4 +308,68 @@ error[E0368]: binary assignment operation `+=` cannot be applied to type `std::r
    = note: an implementation of `std::ops::AddAssign` might be missing for `std::rc::Rc<i32>`
 ```
 
+Note that the fundamental differnce here is that we declare that the `Rc<T>` can be mutated, not the `<T>`. 
+
 There is a very good illustration of the Rust containers, ![alt text](https://i.redd.it/moxxoeir7iqz.png "The Rust contains cheatsheet")
+
+# Strong reference vs Weak reference
+
+The difference between strong and weak reference is that the weak count does not need to be zero for the pointee to be cleaned up. If you want to dereference a value pointed by weak reference, you need to first upgrade the reference to a strong reference. At runtime, you may or may not get a valid reference. Therefore, you need to first the check the existence of the data before access. In practise, which reference should we choose to use? This design question asks us to make clear of the ownership of an object. If the ownership is not clearly defined in the design time, it is easy to create a cycle, as demonstrated in the Rust Book.
+
+```rust
+use std::rc::Rc;
+use std::cell::RefCell;
+use crate::List::{Cons, Nil};
+
+#[derive(Debug)]
+enum List {
+    Cons(i32, RefCell<Rc<List>>),
+    Nil,
+}
+
+impl List {
+    fn tail(&self) -> Option<&RefCell<Rc<List>>> {
+        match self {
+            Cons(_, item) => Some(item),
+            Nil => None,
+        }
+    }
+}
+
+fn main() {
+    let a = Rc::new(Cons(5, RefCell::new(Rc::new(Nil))));
+
+    println!("a initial rc count = {}", Rc::strong_count(&a));
+    println!("a next item = {:?}", a.tail());
+
+    let b = Rc::new(Cons(10, RefCell::new(Rc::clone(&a))));
+
+    println!("a rc count after b creation = {}", Rc::strong_count(&a));
+    println!("b initial rc count = {}", Rc::strong_count(&b));
+    println!("b next item = {:?}", b.tail());
+
+    if let Some(link) = a.tail() {
+        *link.borrow_mut() = Rc::clone(&b);
+    }
+
+    println!("b rc count after changing a = {}", Rc::strong_count(&b));
+    println!("a rc count after changing a = {}", Rc::strong_count(&a));
+
+    // Uncomment the next line to see that we have a cycle;
+    // it will overflow the stack
+    // println!("a next item = {:?}", a.tail());
+}
+```
+
+In this example, the object of `a` and `b` will never be cleanup because of the referencing cycle. To solve the problem, specify the ownership of the object. If we do not own the object but still want to reference it, we choose to use weak reference instead. The below example is demonstrated in the rust book,
+
+```rust
+struct Node {
+    value: i32,
+    parent: RefCell<Weak<Node>>,
+    children: RefCell<Vec<Rc<Node>>>,
+}
+
+In this tree structure, the ownership rule is specified as: each node owns its children but not its parent. So that, we use weak references for the parent data.
+
+
