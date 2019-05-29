@@ -369,6 +369,8 @@ struct Node {
     parent: RefCell<Weak<Node>>,
     children: RefCell<Vec<Rc<Node>>>,
 }
+```
+
 
 In this tree structure, the ownership rule is specified as: each node owns its children but not its parent. So that, we use weak references for the parent data.
 
