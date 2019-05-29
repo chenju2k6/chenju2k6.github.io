@@ -275,4 +275,37 @@ The code cannot compile with the below errors,it says the value has already been
 ```
 
 
+Next, let us try the construct with `RefCell` and `Rc` order reversed, like below,
+
+```
+fn main() {
+    let value = RefCell::new(Rc::new(5));
+
+    let a = Cons(value, Rc::new(Nil));
+    let ap = Rc::new(a);
+
+    let b = Cons(RefCell::new(Rc::new(6)), Rc::clone(&ap));
+    let c = Cons(RefCell::new(Rc::new(7)), Rc::clone(&ap));
+
+    (*(value.borrow_mut())) += 10;
+
+    println!("a after = {:?}", ap);
+    println!("b after = {:?}", b);
+    println!("c after = {:?}", c);
+}
+```
+
+
+```
+error[E0368]: binary assignment operation `+=` cannot be applied to type `std::rc::Rc<i32>`
+  --> src/bin/ref.rs:43:5
+   |
+43 |     (*(value.borrow_mut())) += 10;
+   |     -----------------------^^^^^^
+   |     |
+   |     cannot use `+=` on type `std::rc::Rc<i32>`
+   |
+   = note: an implementation of `std::ops::AddAssign` might be missing for `std::rc::Rc<i32>`
+```
+
 There is a very good illustration of the Rust containers, ![alt text](https://i.redd.it/moxxoeir7iqz.png "The Rust contains cheatsheet")
