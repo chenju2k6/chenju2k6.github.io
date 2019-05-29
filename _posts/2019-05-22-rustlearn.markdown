@@ -201,3 +201,7 @@ fn main() {
 }
 ```
 Noted that `Box<T>' enables the pointers to the data storing on the heap. Also noted that, in the above code, the `Rc::clone()` does not make a deep copy of the reference. Instead, it only increases the refercount to the object. 
+
+
+
+There is a very good illustration of the Rust containers, ![alt text](https://i.redd.it/moxxoeir7iqz.png "The Rust contains cheatsheet")
