@@ -375,3 +375,23 @@ struct Node {
 In this tree structure, the ownership rule is specified as: each node owns its children but not its parent. So that, we use weak references for the parent data.
 
 
+The weak reference will not be printed as a full in the previous example. Instead, it prints this 
+
+```
+leaf parent = None
+leaf parent = Some(Node { value: 5, parent: RefCell { value: (Weak) }, children: RefCell { value: [Node { value: 3, parent: RefCell { value: (Weak) }, children: RefCell { value: [] } }] } })
+```
+
+Note that we need first upgrade the weak reference to a strong one to print out the content, and also note that the weak reference is printed as `Weak` in the output.
+
+
+If we visualize the strong and weak reference count, the output will be 
+
+```
+leaf strong = 1, weak = 0
+branch strong = 1, weak = 1
+leaf strong = 2, weak = 0
+leaf parent = None
+leaf strong = 1, weak = 0
+```
+Note that when the `branch` variable goes out of scope, its strong count decreases to zero but its weak count remains 1. Because the node will be dropped based on the strong count, the weak count does not have a say on the lifetime of the object. Once again, ownership specification + strong/weak pointers = memory safety.
