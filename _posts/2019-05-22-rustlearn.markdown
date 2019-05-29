@@ -204,4 +204,75 @@ Noted that `Box<T>' enables the pointers to the data storing on the heap. Also n
 
 
 
+To construct a LinkedList, we can do this 
+
+
+```rust
+#[derive(Debug)]
+enum List {
+    Cons(Rc<RefCell<i32>>, Rc<List>),
+    Nil,
+}
+
+use crate::List::{Cons, Nil};
+use std::rc::Rc;
+use std::cell::RefCell;
+
+fn main() {
+    let value = Rc::new(RefCell::new(5));
+
+    let a = Cons(Rc::clone(&value), Rc::new(Nil));
+    let ap = Rc::new(a);
+
+    let b = Rc::new(Cons(Rc::new(RefCell::new(6)), Rc::clone(&ap)));
+    let c = Cons(Rc::new(RefCell::new(10)), Rc::clone(&ap));
+
+    let d = Cons(Rc::new(RefCell::new(6)), Rc::clone(&b));
+    *value.borrow_mut() += 10;
+
+    println!("a after = {:?}", ap);
+    println!("b after = {:?}", b);
+    println!("c after = {:?}", c);
+}
+```
+
+The code is a bit confused at the first galance. But it becomes clearer if you play with it. The key here is that we want to create an object, and once we mutate the object, we want all the references to get updates. So we need a construct that could support multiple owners, this construct is `Rc`. Noticed that `Box` cannot support multiple owners. Plus, we also want the data type enclosed by `Rc` can be mutated, that is why we need a `RefCell` container to encapsulate the value.
+
+Another question is why don't we reverse the the order of `Rc` and `RefCell` and construct the list as below `RefCell<Rc<i32>>`?
+
+First, let us try the contruct with `RefCell` only, like below, 
+
+```rust
+fn main() {
+    let value = RefCell::new(5);
+
+    let a = Cons(value, Rc::new(Nil));
+    let ap = Rc::new(a);
+
+    let b = Cons(RefCell::new(6), Rc::clone(&ap));
+    let c = Cons(RefCell::new(7), Rc::clone(&ap));
+
+    *value.borrow_mut() += 10;
+
+    println!("a after = {:?}", ap);
+    println!("b after = {:?}", b);
+    println!("c after = {:?}", c);
+}
+```
+
+The code cannot compile with the below errors,it says the value has already been moved to a new place and does not allow to be borrowed once more.
+
+```
+   |
+35 |     let value = RefCell::new(5);
+   |         ----- move occurs because `value` has type `std::cell::RefCell<i32>`, which does not implement the `Copy` trait
+36 | 
+37 |     let a = Cons(value, Rc::new(Nil));
+   |                  ----- value moved here
+...
+43 |     *value.borrow_mut() += 10;
+   |      ^^^^^ value borrowed here after move
+```
+
+
 There is a very good illustration of the Rust containers, ![alt text](https://i.redd.it/moxxoeir7iqz.png "The Rust contains cheatsheet")
