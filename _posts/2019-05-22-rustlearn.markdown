@@ -395,3 +395,33 @@ leaf parent = None
 leaf strong = 1, weak = 0
 ```
 Note that when the `branch` variable goes out of scope, its strong count decreases to zero but its weak count remains 1. Because the node will be dropped based on the strong count, the weak count does not have a say on the lifetime of the object. Once again, ownership specification + strong/weak pointers = memory safety.
+
+# Concurrent programming
+
+Rust provides 1:1 threading model, which means that, if you create one thread using Rust standard library, we create one thread in the sense of the operating system or CPU.
+
+The `move` keyword is useful in the concurrent programming scenario, it forces the function to take the ownership of the value, eventhough the closure defined for the child threads does not explicitly say so. 
+
+To ensure the memory safety, Rust implements `channel`, a mechanism to do message-sending concurrency. Rust adopts the idea of using message-passing to ensure memory safety in the concurrent programming context. Rust book mentions a slogan from the Go programming language, which is "Do not communicate by sharing memory, instead, share memory by communicating".
+
+An interesting thing in Rust is that, once you send away a message, you send away the ownership of the message. See below example
+
+```rust
+use std::thread;
+use std::sync::mpsc;
+
+fn main() {
+    let (tx, rx) = mpsc::channel();
+
+    thread::spawn(move || {
+        let val = String::from("hi");
+        tx.send(val).unwrap();
+        println!("val is {}", val);
+    });
+
+    let received = rx.recv().unwrap();
+    println!("Got: {}", received);
+}
+```
+
+This code will not compile because the code tries to print the value of `Hi` after it is being sent away. I nfact, the `send` function takes the ownership of the value of `hi`.
