@@ -15,8 +15,12 @@ As suggested by the name, the out-of-order execution allows the instructions to 
 The Tomasulo algorithm is designed to schedule the instructions to allow out-of-order execution. The algorithm uses an unified researvation stations (RS). Instructions will first be issued and queued in the RS. If all the operands are ready, the instruction will be dispatched to the instruction unit to run. There is a bus, called common data bus to connet RS and all the execution units. The RS will listend on the CDB for the requiring operands. The RS will also rename the registers names and put it to a register alias table (RAT) to avoid RAW, WAR and WAW hazards. Consider the below example
 
 ```
-F1 = F2 + F3
-F4 = F1 - F2
-F1 = F2 / F3
 F2 = F4 + F1
+F1 = F2 / F3
+F4 = F1 - F2
+F1 = F2 + F3
 ```
+
+The fist instruction will be put to the reservation station for the ADD unit. Because the result is not ready, which means the F2 can not contain the latest result, the RAT table will have a entry with F2 points to RS1, meaning the latest value of F2 will be updated once the RS1 is finished executing. The next instruction, will be queued to the free reservation station entry, RS2. Meanwhile, because the operation depends on F2, one of its operand wil be marked as RS1, and there will be a new entry in the RAT with F1 points to RS2. Similarly, the next instruction will be inserted to RS3 with its two operands marked as RS1 and RS2. The last instruction will be inserted to RS4 with its operands marked as F3 and RS1. Interestingly, this operation will also replace the orginal entry ("F1 points to RS2") with ("F1 points to RS4"). This is because the latest result will be depends on the execution result of the last execution which is placed in RS4. Noted that the original dependency relationship is not violated, because once RS2 finishes executing, the RS3 will be notified. The entry with replaced content will only affect the upcoming instrutions which are not issued yet. 
+
+There is a great [resource](https://classroom.udacity.com/courses/ud007) to learn Tomasulo algorithm  
