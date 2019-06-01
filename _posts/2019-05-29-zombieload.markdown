@@ -34,7 +34,7 @@ On Intel CPUs, the out-of-order is implemented by employing the following compon
 
 ## Exploit of the microarchitecture
 
-Attach type|Components explots|sampling
----|---|---
-Meltdown|TODO|No
-Spetre|TODO|No
+|Attach type|Components explots|sampling|
+|---|:---:|---:|
+|Meltdown|TODO|No|
+|Spetre|TODO|No|
