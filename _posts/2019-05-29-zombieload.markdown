@@ -32,9 +32,11 @@ In Tomasulo algorithm, the instructions are issued by the program order, but not
 On Intel CPUs, the out-of-order is implemented by employing the following components, reorder buffer for register allocation, register naming and retiring. The unified revervation station connects the execution units and performs like a schedulear. The execution units include ALU, AGU and load/store units. The load and store connects to the memory subsystem. Intel CPUs also implement speculative execution which means the instructions on one branch path that are predicted by the branch prediction unit will be executed directly. If the prediction is wrong, then the reorder buffer will be cleared and the unified reservation station will be re-initialized.
 
 
-## Exploit of the microarchitecture
+## 2018: Meltdown and Spectre 
 
-|Attach type|Components explots|sampling|
+These two attacks both exploits the same vulnerabilities in the microarchitecture. Only that Spectre also trains the branch predictor to ensure that the code issuing unprivileged access will always be executed speculatively. Meaning that, in the Spectre attack, the branch predictor is fooled to make the wrong decision everytime. 
+
+|Attack|Microarchitectural state exploited|Data sampling|
 |---|:---:|---:|
 |Meltdown|TODO|No|
 |Spetre|TODO|No|
