@@ -36,7 +36,22 @@ On Intel CPUs, the out-of-order is implemented by employing the following compon
 
 These two attacks both exploits the same vulnerabilities in the microarchitecture. Only that Spectre also trains the branch predictor to ensure that the code issuing unprivileged access will always be executed speculatively. Meaning that, in the Spectre attack, the branch predictor is fooled to make the wrong decision everytime. 
 
+Let's begin with the Meltdown, the core of the Meltdown attack is as the following. In line 3, the program tries to access an value in the kernel space, which should raise an exeception. However, since the CPU design tries to maximize the utilization, the next instruction might have already get executed can cause the state change in the micro-architecutural status. In line 6, we access the probe array according to the secret value fetched fro the kernel space. 
+
+```
+, rcx = kernel, rbx = probe array
+1 xor rax, rax
+2 retry:
+3 mov al, byte [rcx]
+4 shl rax, 0xc
+5 jz retry
+6 mov rbx, qword [rbx+rax]
+```
+
 |Attack|Microarchitectural state exploited|Data sampling|
 |---|:---:|---:|
-|Meltdown|TODO|No|
-|Spetre|TODO|No|
+|Meltdown|L1D Cache|No|
+|Spetre|Branch prediction unit|No|
+|Micro-architectural Fill Buffer Data sampling-ZombieLoad|Line fill buffer|Yes|
+|Micro-architectual Store Buffer Data sampling|Store buffer|Yes|
+|Micro-architectual Data sampling uncacheble memory|Memory controller|Yes|
