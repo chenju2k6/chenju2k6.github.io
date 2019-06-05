@@ -6,3 +6,17 @@ categories: jekyll update
 ---
 
 # PATH ORAM
+
+In the outsourced storage applications, data can be leaked by access patterns. The obliviousness is a way to archieve privacy. An naive way to archive oblivious is to scan all the data in the server for each data access, but this method is not pratical and losts the point of data outsourcing.
+
+PATH ORAM is a practical protocol which aims to hide the access pattern in outsourced storage applications. In the protocol, the server is untrusted and the client is trusted. The goal is to ensure that the following information is not leaked during the read/write operations: 1) which data is being accessed, 2) how old it is, 3) whether the same data is being accssed, 4) access pattern and 5) wether the access is a read or a write. 
+
+The storage in the server side is a binary tree where each node is a bucket holding a fixed number of blocks. The blocks can be real blocks that store user data or dummy blocks that are used for padding. The number of blocks in the node can be a small number, such as 4. The total number of data blocks is N and the height of tree is then L=LogN. The client stores a small number of blocks in its local storage called stash. The client also stores a position map which maps a data block to its current path in the tree. Note that the block can also be in the stash. For each read or write operation, the client reads a path of ZlogN blocks from the server and writes them block (to obfuscate the read/write operation). Because each bucket in the position path stores a number between 0 and 2^L-1, and there are N such buckets (blocks), the storage size for client is NlogN bits, this storage cost can be optimized to (logN)^2/logX.  
+
+
+
+
+
+
+
+
