@@ -6,7 +6,7 @@ categories: jekyll update
 ---
 # BITE
 
-[BITE]() is a SEC'19 paper which uses Intel SGX to archieve privacy for simplied payment verfication in the Bitcoin network. It has two variants, the first one is using sliding window and the second one is to build a oblivious database. The second variant leverages PATH ORAM. In this post, I reviewed the PATH ORAM first and then discussed the paper.
+[BITE](https://www.usenix.org/system/files/sec19fall_matetic_prepub.pdf) is a SEC'19 paper which uses Intel SGX to archieve privacy for simplied payment verfication in the Bitcoin network. It has two variants, the first one is using sliding window and the second one is to build a oblivious database. The second variant leverages PATH ORAM. In this post, I reviewed the PATH ORAM first and then discussed the paper.
 
 
 # PATH ORAM
@@ -17,10 +17,26 @@ PATH ORAM is a practical protocol which aims to hide the access pattern in outso
 
 The storage in the server side is a binary tree where each node is a bucket holding a fixed number of blocks. The blocks can be real blocks that store user data or dummy blocks that are used for padding. The number of blocks in the node can be a small number, such as 4. The total number of data blocks is N and the height of tree is then L=LogN. The client stores a small number of blocks in its local storage called stash. The client also stores a position map which maps a data block to its current path in the tree. Note that the block can also be in the stash. For each read or write operation, the client reads a path of ZlogN blocks from the server and writes them block (to obfuscate the read/write operation). Because each bucket in the position path stores a number between 0 and 2^L-1, and there are N such buckets (blocks), the storage size for client is NlogN bits, this storage cost can be optimized to (logN)^2/logX.  
 
+The OPATH ORAM protocol can be described in the following pseudocode
 
+```
+ACCESS(op,a,data*)
+1: x <- position(a)
+2: position(a) <- UniformRandom {0..2^L-1}
 
+3: for l in 0..L do
+4:   S <- S U ReadBucket(P(x,l))
 
+5: data <- Read block a from S
+6: if op = write then
+7:   S <- S - {{a,data}} U {{a,data'}}
 
+8: for l in L..0 do
+9:   S' <- {(a',data') in S: P(x,l) = P(position(a'),l)}
+10:  S' <- Select min(|S'|,Z) blocks from S'
+11:  S  <- S - S'
+12:  WriteBuffer(P(x,l),S')
 
-
+13: return data
+```
 
