@@ -4,6 +4,10 @@ title:  "[paper reading] PATH ORAM and BITE"
 date:   2019-06-05 23:00:28 -0500
 categories: jekyll update
 ---
+# BITE
+
+[BITE]() is a SEC'19 paper which uses Intel SGX to archieve privacy for simplied payment verfication in the Bitcoin network. It has two variants, the first one is using sliding window and the second one is to build a oblivious database. The second variant leverages PATH ORAM. In this post, I reviewed the PATH ORAM first and then discussed the paper.
+
 
 # PATH ORAM
 
