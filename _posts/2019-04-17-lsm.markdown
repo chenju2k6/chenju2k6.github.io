@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "Daily paper: some latest results about LSM and key-value stores"
+title:  "Paper reading: some latest results about LSM and key-value stores"
 date:   2019-04-16 23:00:28 -0500
 categories: jekyll update
 ---
 
-# Daily paper: Latest results about LSM and key-value stores
+# Paper reading: Latest results about LSM and key-value stores
 
 ## Key-Value seperation
 
