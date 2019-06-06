@@ -17,7 +17,7 @@ PATH ORAM is a practical protocol which aims to hide the access pattern in outso
 
 The storage in the server side is a binary tree where each node is a bucket holding a fixed number of blocks. The blocks can be real blocks that store user data or dummy blocks that are used for padding. The number of blocks in the node can be a small number, such as 4. The total number of data blocks is N and the height of tree is then L=LogN. The client stores a small number of blocks in its local storage called stash. The client also stores a position map which maps a data block to its current path in the tree. Note that the block can also be in the stash. For each read or write operation, the client reads a path of ZlogN blocks from the server and writes them block (to obfuscate the read/write operation). Because each bucket in the position path stores a number between 0 and 2^L-1, and there are N such buckets (blocks), the storage size for client is NlogN bits, this storage cost can be optimized to (logN)^2/logX.  
 
-The OPATH ORAM protocol can be described in the following pseudocode. `L` denotes the level in the tree where 0 means root and L means the leaf level. P(x) means the path from node x in the leaf level to the root. P(x,l) means the bucket in P(x) at the level l in the tree. The read and update code in line 3-7 are straight forward. The tricky code lines are 8-12. In line 8, the block is assigned to a new position, and the block is written to the new path.  
+The OPATH ORAM protocol can be described in the following procedure ACESS written in pseudocode. The ACCESS is executed by the client. `L` denotes the level in the tree where 0 means root and L means the leaf level. P(x) means the path from node x in the leaf level to the root. P(x,l) means the bucket in P(x) at the level l in the tree. The read and update code in line 3-7 are straight forward. The tricky code lines are 8-12. In line 8, the block is assigned to a new position, and the block is written to the new path. In line 9, the blocks are collected to S' from S if the new path have overlaps with the old path. Then, as many as Z blocks are selected from S' and written to the path. Noted that the loops followings a inversed order from L to 0, it means that the blocks will push to the deep level in the tree. Also note that the `ReadBucket` function reads all Z blocks from the server. The client also decrypts them. In the `WriteBucket` procedure, all the blocks ( including the dummy blocks) are re-encrypted.  
 
 ```
 ACCESS(op,a,data*)
@@ -35,7 +35,7 @@ ACCESS(op,a,data*)
 9:   S' <- {(a',data') in S: P(x,l) = P(position(a'),l)}
 10:  S' <- Select min(|S'|,Z) blocks from S'
 11:  S  <- S - S'
-12:  WriteBuffer(P(x,l),S')
+12:  WriteBucket(P(x,l),S')
 
 13: return data
 ```
