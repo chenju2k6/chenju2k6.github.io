@@ -43,3 +43,10 @@ ACCESS(op,a,data*)
 Intuitively, the security of the algorithm comes from the fact that the server only sees the below sequence of data access {position_m[a_m], position_m-1[a_m-1], ... position1[a1]}. The sequence cannot be distingushed from a randomized encryption. 
 
 Becasue the client side storage NlogN is too big, there is optimization for the algorithm, that is to use another PATH ORAM to store the position map, and then use another PATH ORAM to store the position map of the previous PATH ORAM, by this means, the client side storage can be reduced with the cost of extra network traffic (communicating cost).
+
+
+# BITE
+
+To verify the transaction (check double-spending violation), the participants in the Bitcoin network essentially needs to download the full chain data, a task which is impossible for mobile devices. In practice, this task is often offloaded to the full node, and the client need to present the node with its public addresses and transaction data. In this procedure, the privacy of the user is disclosed. 
+
+The paper proposes to use SGX enclaves to solve the issue. 

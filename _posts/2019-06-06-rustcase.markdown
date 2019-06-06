@@ -1,0 +1,42 @@
+---
+layout: post
+title:  "Rust learning notes 2"
+date:   2019-05-22 23:00:28 -0500
+categories: jekyll update
+---
+
+The best way to learn is with doing and with failures.
+
+## Problem 1: Great Common Divisor of Strings
+
+
+Accepted Solution
+
+```rust
+pub fn gcd_of_strings(str1: String, str2: String) -> String {
+            fn gcd_string<'a>(str1: &'a String, str2: &'a String) -> usize {
+                if str1.len() == str2.len() {
+                    if str1 == str2 {
+                        str1.len()
+                    }
+                    else {
+                        0
+                    }
+                } else {
+                    let mut strs = str2;
+                    let mut strl = str1;
+                    if str1.len() < str2.len() {
+                        strs = str1;
+                        strl = str2;
+                    }
+                    if strs == &strl[0..strs.len()]  {
+                        gcd_string(&String::from(&strl[strs.len()..]),strs)
+                    }
+                    else {
+                        0
+                    }
+                }
+            }
+            str1[0..gcd_string(&str1,&str2)].to_string()
+    }
+```
