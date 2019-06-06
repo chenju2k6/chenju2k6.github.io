@@ -124,10 +124,40 @@ pub fn gcd_of_strings(str1: String, str2: String) -> String {
 Code data flow: both the two parameters are string and are moved to the function body. The function needs to return a string. In the function body, we define a function which will be called recursively. The inner function takes as input the references of the strings, because the function takes references as the parameters, we need to specify lifetimes.  
 
 
-Failure #1: Comparing String with slice in the String
+Failure #1: 
 
 ```
 if (strs == strl[0..strs.len()])
 
+```
+
+If we do this, the compiler will complain like below
 
 ```
+--> src/solution.rs:14:29
+   |
+14 |                     if strs == strl[0..strs.len()]  {
+   |                             ^^ no implementation for `&str == str`
+   |
+   = help: the trait `std::cmp::PartialEq<str>` is not implemented for `&str`
+```
+
+We can learn that, the `==` operator is actually implemented by a trait called `std::cmp::PartialEq<str>`. But why it says the PartialEq<str> is not implemented for `&str`. Interestingly, if we do this
+
+```
+if strl[0..strs.len()] == strs
+```
+
+Then the compiler says, `PartialEq<&str>` is not implemented for `str`! Why is that:
+
+```
+error[E0277]: can't compare `str` with `&str`
+  --> src/solution.rs:14:44
+   |
+14 |                     if strl[0..strs.len()] == strs {
+   |                                            ^^ no implementation for `str == &str`
+   |
+   = help: the trait `std::cmp::PartialEq<&str>` is not implemented for `str`
+```
+
+The reason is that, when evaluating the value of the `==` operator, the compiler will first decide to invoke which type is associated with the `PartialEq` trait. The compiler will decide which type to use by looking at the right side of `==` operator.  In this first case, becasue the type of strl[..] is `str`, the compiler will apply `PartialEq<str>` to evaluate the value of the expression, and becasue the left side `strs` has a type of `&str`, the compiler cannot match the type for calling the function associated with PartialEq. Similar analysis can be applied to case 2. 
