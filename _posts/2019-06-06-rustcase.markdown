@@ -72,6 +72,29 @@ pub fn gcd_of_strings(str1: String, str2: String) -> String {
     }
 ```
 
+The below version of code is more concise but is more costly (involving a lot of copies)
+
+```
+pub fn gcd_of_strings(str1: String, str2: String) -> String {
+        if str1 == str2 {
+            str1
+        } else {
+            let mut strs = &str2;
+            let mut strl = &str1;
+            if str1.len() < str2.len() {
+                strs = &str1;
+                strl = &str2;
+            }
+            if strs == &strl[0..strs.len()]  {
+                Solution::gcd_of_strings((&strl[strs.len()..]).to_string(),strs.to_string())
+            }
+            else {
+                "".to_string()
+            }
+        }
+    }
+```
+
 Actually we don't need to return the dividing index, instead, we return references
 
 ```
