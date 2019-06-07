@@ -7,10 +7,10 @@ categories: jekyll update
 
 The best way to learn is with doing and with failures.
 
-## Problem 1: Great Common Divisor of Strings
+## Great Common Divisor of Strings
 
 
-Accepted Solution
+Solution #1
 
 ```rust
 pub fn gcd_of_strings(str1: String, str2: String) -> String {
@@ -41,7 +41,7 @@ pub fn gcd_of_strings(str1: String, str2: String) -> String {
     }
 ```
 
-Another accepted solution
+Solution #2
 
 ```rust
 pub fn gcd_of_strings(str1: String, str2: String) -> String {
