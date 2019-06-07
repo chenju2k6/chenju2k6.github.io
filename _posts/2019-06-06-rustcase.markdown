@@ -43,7 +43,7 @@ pub fn gcd_of_strings(str1: String, str2: String) -> String {
 
 Another accepted solution
 
-```
+```rust
 pub fn gcd_of_strings(str1: String, str2: String) -> String {
             fn gcd_string<'a>(str1: &'a str, str2: &'a str) -> usize {
                 if str1.len() == str2.len() {
@@ -74,7 +74,7 @@ pub fn gcd_of_strings(str1: String, str2: String) -> String {
 
 The below version of code is more concise but is more costly (involving a lot of copies)
 
-```
+```rust
 pub fn gcd_of_strings(str1: String, str2: String) -> String {
         if str1 == str2 {
             str1
@@ -97,7 +97,7 @@ pub fn gcd_of_strings(str1: String, str2: String) -> String {
 
 Actually we don't need to return the dividing index, instead, we return references
 
-```
+```rust
 pub fn gcd_of_strings(str1: String, str2: String) -> String {
             fn gcd_string<'a>(str1: &'a str, str2: &'a str) -> &'a str {
                 if str1 == str2 {
@@ -161,3 +161,30 @@ error[E0277]: can't compare `str` with `&str`
 ```
 
 The reason is that, when evaluating the value of the `==` operator, the compiler will first decide to invoke which type is associated with the `PartialEq` trait. The compiler will decide which type to use by looking at the right side of `==` operator.  In this first case, becasue the type of strl[..] is `str`, the compiler will apply `PartialEq<str>` to evaluate the value of the expression, and becasue the left side `strs` has a type of `&str`, the compiler cannot match the type for calling the function associated with PartialEq. Similar analysis can be applied to case 2. 
+
+
+Failure #2: If we do this for the type with &String, the compiler will complain  
+
+```
+ --> src/solution.rs:13:21
+   |
+13 |             if strs == strl[0..strs.len()] {
+   |                     ^^ no implementation for `&std::string::String == str`
+   |
+   = help: the trait `std::cmp::PartialEq<str>` is not implemented for `&std::string::String`
+```
+
+But if we apply the `&` operator to the right side of the operator, it is fine. But the type of the right is &str, the left side is &String, why compiler does not complain? It is because the Rust has a feature called `deref coercion`. In this case, the reference to string can be converted to the reference to string slice.
+
+
+Failure #3: If we pass the type of `str` to String::from(), the compiler will complain like this
+
+```
+  --> src/solution.rs:14:42
+   |
+14 |                 Solution::gcd_of_strings(String::from(strl[strs.len()..]), strs.to_string())
+   |                                          ^^^^^^^^^^^^ doesn't have a size known at compile-time
+```
+
+
+
