@@ -1,0 +1,82 @@
+---
+layout: post
+title:  "Rust learning notes 3"
+date:   2019-06-11 23:00:28 -0500
+categories: jekyll update
+---
+
+The best way to learn is with doing and with failures.
+
+## Maximum Depth of Binary Tree
+
+```rust
+pub fn max_depth(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+        fn node_depth(node: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+            match node {
+                Some(node) => {
+                    let node = node.borrow();
+                    max(
+                        node_depth(node.left),
+                        node_depth(node.right),
+                    ) + 1
+                },
+                _ => 0,
+            }
+        }
+        
+        node_depth(root)
+    }
+```
+
+And the compiler complains:
+
+```
+cannot move out of borrowed content 
+   node_depth(node.left)
+
+cannot move out of data in a `&` reference 
+```
+
+The reason is that, node is reference to the TreeNode, which means it is a borrowed content. However, the signature of the node_depth() declared the first argument as `Option<Rc<RefCell<TreeNode>>>` which means it will consume the input value. So the complier complains that we cannot move move the conent from a borrowed object (reference).
+
+There are two ways to fix the problem, one is with the clone() method to create an cloned object that you own. Like below
+
+```rust
+pub fn max_depth(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+        fn node_depth(node: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+            match node {
+                Some(node) => {
+                    let node = node.borrow();
+                    max(
+                        node_depth(node.left.clone()),
+                        node_depth(node.right.clone()),
+                    ) + 1
+                },
+                _ => 0,
+            }
+        }
+        
+        node_depth(root)
+    }
+```
+
+The other way to fix it is to declare the arguments as the reference (not to consume the content)
+
+```rust
+pub fn max_depth(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+        fn node_depth(node: &Option<Rc<RefCell<TreeNode>>>) -> i32 {
+            match node {
+                Some(node) => {
+                    let node = node.borrow();
+                    max(
+                        node_depth(&node.left),
+                        node_depth(&node.right),
+                    ) + 1
+                },
+                _ => 0,
+            }
+        }
+
+        node_depth(&root)
+    }
+```
