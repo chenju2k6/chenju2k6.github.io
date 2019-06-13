@@ -166,3 +166,71 @@ pub fn sufficient_subset(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) -> Opt
         rc.clone()
     }
 ```
+
+This code has lot of problems. The first one is 
+
+```
+match node.borrow().left 
+   cannot move out of borrowed content
+
+some (nodeleft)
+   data moved here
+```
+
+If we change the code to below
+
+```rust
+pub fn sufficient_subset(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) -> Option<Rc<RefCell<TreeNode>>> {
+        fn helper(root: &Option<Rc<RefCell<TreeNode>>>, limit: i32) ->
+        &Option<Rc<RefCell<TreeNode>>> {
+           if let Some(node) = root {
+               match &node.borrow().left {
+                   Some(nodeleft) => {
+                       match &node.borrow().right {
+                          Some(noderight) => {
+                              let p1 = helper(&Some(*noderight),limit-node.borrow().val);
+                              let p2 = helper(&Some(*nodeleft),limit-node.borrow().val);
+                              if (p1 == p2) {
+                                &None
+                              }
+                              else {
+                                root
+                              }
+                                
+                          },
+                          None => {
+                              let p1 = helper(&Some(*nodeleft),limit-node.borrow().val);
+                              if let Some(v) = p1 {
+                                  root
+                              } else {
+                                  &None
+                              }
+                          },
+                       } 
+                   },
+                   None => {
+                      match &node.borrow().right {
+                          Some(noderight) => {
+                              let p1 = helper(&Some(*noderight),limit-node.borrow().val);
+                              if let Some(v) = p1 {
+                                  root
+                              } else {
+                                  &None
+                              }
+                          },
+                          None => {
+                              if node.borrow().val < limit {
+                                  &None
+                              } else {
+                                  root
+                              }
+                          },
+                       } 
+                   },
+               }
+           } else { root }
+        } 
+        let rc = helper(&root,limit);
+        rc.clone()
+    }
+```
