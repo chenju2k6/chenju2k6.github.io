@@ -80,3 +80,89 @@ pub fn max_depth(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
         node_depth(&root)
     }
 ```
+
+One interesting to note is that the `node` is a type of `Rc`, why can we call the `borrow` method which belongs to `RefCell`. The reason is that, the signature of the `borrow()` call takes as the parameter `&self` which is reference to `RefCell`. And because `Rc` implements the `Deref` trait, the reference to `Rc` will be converted to the reference to `RefCell` due to the mechanism of Deref coercion. In other way, `Rc` will automatically implments the immutatable methods of `RefCell` due to the mechanism of [Deref coercion](https://doc.rust-lang.org/std/ops/trait.Deref.html#more-on-deref-coercion)
+
+
+Another solution for this problem is like below, referenced [here](https://github.com/aylei/leetcode-rust/blob/master/src/n0104_maximum_depth_of_binary_tree.rs)
+
+```rust
+pub fn max_depth(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+        fn node_depth(node: Option<&Rc<RefCell<TreeNode>>>) -> i32 {
+            match node {
+                Some(node) => {
+                    let node = node.borrow();
+                    max(
+                        node_depth(node.left.as_ref()),
+                        node_depth(node.right.as_ref()),
+                    ) + 1
+                },
+                _ => 0,
+            }
+        }
+
+        node_depth(root.as_ref())
+    }
+```
+
+The trick here is that the `as_ref()` call can convert `&Option<T>` to `Option<&T>`
+
+
+## Insufficiant nodes 
+
+```rust
+
+pub fn sufficient_subset(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) -> Option<Rc<RefCell<TreeNode>>> {
+        fn helper(root: &Option<Rc<RefCell<TreeNode>>>, limit: i32) ->
+        &Option<Rc<RefCell<TreeNode>>> {
+           if let Some(node) = root {
+               match node.borrow().left {
+                   Some(nodeleft) => {
+                       match node.borrow().right {
+                          Some(noderight) => {
+                              let p1 = helper(&Some(noderight),limit-node.borrow().val);
+                              let p2 = helper(&Some(nodeleft),limit-node.borrow().val);
+                              if (p1 == p2) {
+                                &None
+                              }
+                              else {
+                                root
+                              }
+                                
+                          },
+                          None => {
+                              let p1 = helper(&Some(nodeleft),limit-node.borrow().val);
+                              if let Some(v) = p1 {
+                                  root
+                              } else {
+                                  &None
+                              }
+                          },
+                       } 
+                   },
+                   None => {
+                      match node.borrow().right {
+                          Some(noderight) => {
+                              let p1 = helper(&Some(noderight),limit-node.borrow().val);
+                              if let Some(v) = p1 {
+                                  root
+                              } else {
+                                  &None
+                              }
+                          },
+                          None => {
+                              if node.borrow().val < limit {
+                                  &None
+                              } else {
+                                  root
+                              }
+                          },
+                       } 
+                   },
+               }
+           } else { root }
+        } 
+        let rc = helper(&root,limit);
+        rc.clone()
+    }
+```
