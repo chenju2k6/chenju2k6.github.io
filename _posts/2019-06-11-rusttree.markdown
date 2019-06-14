@@ -234,3 +234,76 @@ pub fn sufficient_subset(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) -> Opt
         rc.clone()
     }
 ```
+
+The compiler will then complain
+
+```
+temporary value dropped while borrowed
+let p1 = helper(&Some(*noderight),limit-node.borrow().val);
+                 ^^^^^^^^^^^^
+               creates a temporary which is freed while still in use
+```
+
+The following code can compile 
+
+```rust
+pub fn sufficient_subset(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) -> Option<Rc<RefCell<TreeNode>>> {
+        fn helper(root: &Option<Rc<RefCell<TreeNode>>>, limit: i32) ->
+            &Option<Rc<RefCell<TreeNode>>> {
+                if let Some(node) = root {
+                    match &node.borrow().left {
+                        Some(nodeleft) => {
+                            match &node.borrow().right {
+                                Some(noderight) => {
+                                    let pp1 = &node.borrow().right;
+                                    let pp2 = &node.borrow().left;
+                                    let p1 = helper(pp1,limit-node.borrow().val);
+                                    let p2 = helper(pp2,limit-node.borrow().val);
+                                    if p1.is_none() && p2.is_none() {
+                                        &None
+                                    }
+                                    else {
+                                        root
+                                    }
+
+                                },
+                                None => {
+                                    let pp1 = &node.borrow().left;
+                                    let p1 = helper(pp1,limit-node.borrow().val);
+                                    if let Some(v) = p1 {
+                                        root
+                                    } else {
+                                        &None
+                                    }
+                                },
+                            }
+                        },
+                        None => {
+                            match &node.borrow().right {
+                                Some(noderight) => {
+                                    let pp1 = &node.borrow().right;
+                                    let p1 = helper(pp1,limit-node.borrow().val);
+                                    if let Some(v) = p1 {
+                                        root
+                                    } else {
+                                        &None
+                                    }
+                                },
+                                None => {
+                                    if node.borrow().val < limit {
+                                        &None
+                                    } else {
+                                        root
+                                    }
+                                },
+                            }
+                        },
+                    }
+                } else { root }
+            }
+        let rc = helper(&root,limit);
+        rc.clone()
+    }
+```
+
+But it outputs an incorrect answer.
