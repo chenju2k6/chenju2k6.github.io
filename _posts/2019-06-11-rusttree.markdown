@@ -256,8 +256,8 @@ pub fn sufficient_subset(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) -> Opt
                         Some(nodeleft) => {
                             match &cur.right {
                                 Some(noderight) => {
-                                    let p1 = helper(&cur.right,limit-cur.val);
-                                    let p2 = helper(&cur.left,limit-cur.val);
+                                    cur.left = helper(&cur.right,limit-cur.val);
+                                    cur.right = helper(&cur.left,limit-cur.val);
                                     if p1.is_none() && p2.is_none() {
                                         &None
                                     }
@@ -304,3 +304,85 @@ pub fn sufficient_subset(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) -> Opt
 ```
 
 But it outputs an incorrect answer. The reason is that it does not update the children.
+
+
+But if we update the children, there will be the following complain
+
+```rust
+pub fn sufficient_subset(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) -> Option<Rc<RefCell<TreeNode>>> {
+        fn helper(root: &Option<Rc<RefCell<TreeNode>>>, limit: i32) ->
+            &Option<Rc<RefCell<TreeNode>>> {
+                if let Some(node) = root {
+                    let mut cur = node.borrow_mut();
+                    match &cur.left {
+                        Some(nodeleft) => {
+                            match &cur.right {
+                                Some(noderight) => {
+                                    let p1 = helper(&cur.right,limit-cur.val);
+                                    let p2 = helper(&cur.left,limit-cur.val);
+                                    if p1.is_none() {
+                                        cur.right = None;
+                                    }
+                                    if p2.is_none() {
+                                        cur.left = None;
+                                    }
+                                    if p1.is_none() && p2.is_none() {
+                                        &None
+                                    }
+                                    else {
+                                        root
+                                    }
+
+                                },
+                                None => {
+                                    let p1 = helper(&cur.left,limit-cur.val);
+                                    if let Some(v) = p1 {
+                                        root
+                                    } else {
+                                        &None
+                                    }
+                                },
+                            }
+                        },
+                        None => {
+                            match &cur.right {
+                                Some(noderight) => {
+                                    let p1 = helper(&cur.right,limit-cur.val);
+                                    if let Some(v) = p1 {
+                                        root
+                                    } else {
+                                        &None
+                                    }
+                                },
+                                None => {
+                                    if cur.val < limit {
+                                        &None
+                                    } else {
+                                        root
+                                    }
+                                },
+                            }
+                        },
+                    }
+                } else { root }
+            }
+        let rc = helper(&root,limit);
+        rc.clone()
+    }
+```
+
+The compiler says
+
+```
+error[E0502]: cannot borrow `cur` as mutable because it is also borrowed as immutable
+   --> src/solution.rs:104:41
+    |
+101 |                                     let p1 = helper(&cur.right,limit-cur.val);
+    |                                                      --- immutable borrow occurs here
+...
+104 |                                         cur.right = None;
+    |                                         ^^^ mutable borrow occurs here
+...
+109 |                                     if p1.is_none() && p2.is_none() {
+    |                                        -- immutable borrow later used here
+```
