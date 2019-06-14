@@ -251,14 +251,13 @@ pub fn sufficient_subset(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) -> Opt
         fn helper(root: &Option<Rc<RefCell<TreeNode>>>, limit: i32) ->
             &Option<Rc<RefCell<TreeNode>>> {
                 if let Some(node) = root {
-                    match &node.borrow().left {
+                    let cur = node.borrow_mut();
+                    match &cur.left {
                         Some(nodeleft) => {
-                            match &node.borrow().right {
+                            match &cur.right {
                                 Some(noderight) => {
-                                    let pp1 = &node.borrow().right;
-                                    let pp2 = &node.borrow().left;
-                                    let p1 = helper(pp1,limit-node.borrow().val);
-                                    let p2 = helper(pp2,limit-node.borrow().val);
+                                    let p1 = helper(&cur.right,limit-cur.val);
+                                    let p2 = helper(&cur.left,limit-cur.val);
                                     if p1.is_none() && p2.is_none() {
                                         &None
                                     }
@@ -268,8 +267,7 @@ pub fn sufficient_subset(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) -> Opt
 
                                 },
                                 None => {
-                                    let pp1 = &node.borrow().left;
-                                    let p1 = helper(pp1,limit-node.borrow().val);
+                                    let p1 = helper(&cur.left,limit-cur.val);
                                     if let Some(v) = p1 {
                                         root
                                     } else {
@@ -279,10 +277,9 @@ pub fn sufficient_subset(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) -> Opt
                             }
                         },
                         None => {
-                            match &node.borrow().right {
+                            match &cur.right {
                                 Some(noderight) => {
-                                    let pp1 = &node.borrow().right;
-                                    let p1 = helper(pp1,limit-node.borrow().val);
+                                    let p1 = helper(&cur.right,limit-cur.val);
                                     if let Some(v) = p1 {
                                         root
                                     } else {
@@ -290,7 +287,7 @@ pub fn sufficient_subset(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) -> Opt
                                     }
                                 },
                                 None => {
-                                    if node.borrow().val < limit {
+                                    if cur.val < limit {
                                         &None
                                     } else {
                                         root
@@ -306,4 +303,4 @@ pub fn sufficient_subset(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) -> Opt
     }
 ```
 
-But it outputs an incorrect answer.
+But it outputs an incorrect answer. The reason is that it does not update the children.
