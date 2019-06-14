@@ -185,6 +185,3 @@ Failure #3: If we pass the type of `str` to String::from(), the compiler will co
 14 |                 Solution::gcd_of_strings(String::from(strl[strs.len()..]), strs.to_string())
    |                                          ^^^^^^^^^^^^ doesn't have a size known at compile-time
 ```
-
-
-

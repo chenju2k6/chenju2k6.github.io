@@ -386,3 +386,69 @@ error[E0502]: cannot borrow `cur` as mutable because it is also borrowed as immu
 109 |                                     if p1.is_none() && p2.is_none() {
     |                                        -- immutable borrow later used here
 ```
+
+
+After a lot of fixes, the below code runs and is correct
+
+```rust
+pub fn sufficient_subset(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) -> Option<Rc<RefCell<TreeNode>>> {
+        fn helper(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) ->
+            Option<Rc<RefCell<TreeNode>>> {
+                if let Some(node) = root {
+                    let mut cur = node.borrow_mut();
+                    match &cur.left {
+                        Some(nodeleft) => {
+                            match &cur.right {
+                                Some(noderight) => {
+                                    let p1 = helper(cur.right.clone(),limit-cur.val);
+                                    let p2 = helper(cur.left.clone(),limit-cur.val);
+                                    if p1.is_none() {
+                                        cur.right = None;
+                                    }
+                                    if p2.is_none() {
+                                        cur.left = None;
+                                    }
+                                    if p1.is_none() && p2.is_none() {
+                                        None
+                                    }
+                                    else {
+                                        Some(node.clone())
+                                    }
+
+                                },
+                                None => {
+                                    let p1 = helper(cur.left.clone(),limit-cur.val);
+                                    if let Some(v) = p1 {
+                                        Some(node.clone())
+                                    } else {
+                                        None
+                                    }
+                                },
+                            }
+                        },
+                        None => {
+                            match &cur.right {
+                                Some(noderight) => {
+                                    let p1 = helper(cur.right.clone(),limit-cur.val);
+                                    if let Some(v) = p1 {
+                                        Some(node.clone())
+                                    } else {
+                                        None
+                                    }
+                                },
+                                None => {
+                                    if cur.val < limit {
+                                        None
+                                    } else {
+                                        Some(node.clone())
+                                    }
+                                },
+                            }
+                        },
+                    }
+                } else { None }
+            }
+        let rc = helper(root,limit);
+        rc.clone()
+    }
+```
