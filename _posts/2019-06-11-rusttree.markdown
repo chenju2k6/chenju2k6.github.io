@@ -457,7 +457,7 @@ pub fn sufficient_subset(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) -> Opt
 An improved version
 
 
-```
+```rust
 pub fn sufficient_subset(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) -> Option<Rc<RefCell<TreeNode>>> {
         fn helper(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) ->
             Option<Rc<RefCell<TreeNode>>> {
@@ -503,5 +503,36 @@ pub fn sufficient_subset(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) -> Opt
         }
         let rc = helper(root,limit);
         rc.clone()
+    }
+```
+
+
+An further improved version
+
+```
+pub fn sufficient_subset(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) -> Option<Rc<RefCell<TreeNode>>> {
+        fn helper(root: &Option<Rc<RefCell<TreeNode>>>, limit: i32) ->
+            Option<Rc<RefCell<TreeNode>>> {
+                if let Some(node) = root {
+                    let mut cur = node.borrow_mut();
+                    if cur.left.is_none() && cur.right.is_none() {
+                        if cur.val < limit {
+                            None
+                        } else {
+                            Some(node.clone())
+                        }
+                    }  else {
+                        cur.right = helper(&cur.right,limit-cur.val);
+                        cur.left = helper(&cur.left,limit-cur.val);
+                        if cur.right.is_none() && cur.left.is_none() {
+                            None
+                        }
+                        else {
+                            Some(node.clone())
+                        }
+                    }
+                }  else { None }
+        }
+        helper(&root,limit)
     }
 ```
