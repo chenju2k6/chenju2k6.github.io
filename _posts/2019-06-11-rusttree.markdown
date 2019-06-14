@@ -452,3 +452,56 @@ pub fn sufficient_subset(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) -> Opt
         rc.clone()
     }
 ```
+
+
+An improved version
+
+
+```
+pub fn sufficient_subset(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) -> Option<Rc<RefCell<TreeNode>>> {
+        fn helper(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) ->
+            Option<Rc<RefCell<TreeNode>>> {
+                if let Some(node) = root {
+                    let mut cur = node.borrow_mut();
+                    if cur.left.is_some() && cur.right.is_some() {
+                        let p1 = helper(cur.right.clone(),limit-cur.val);
+                        let p2 = helper(cur.left.clone(),limit-cur.val);
+                        if p1.is_none() {
+                            cur.right = None;
+                        }
+                        if p2.is_none() {
+                            cur.left = None;
+                        }
+                        if p1.is_none() && p2.is_none() {
+                            None
+                        }
+                        else {
+                            Some(node.clone())
+                        }
+                    } else if cur.left.is_some() {
+                        let p1 = helper(cur.left.clone(),limit-cur.val);
+                        if let Some(v) = p1 {
+                            Some(node.clone())
+                        } else {
+                            None
+                        }
+                    } else if cur.right.is_some() {
+                        let p1 = helper(cur.right.clone(),limit-cur.val);
+                        if let Some(v) = p1 {
+                            Some(node.clone())
+                        } else {
+                            None
+                        }
+                    } else {
+                        if cur.val < limit {
+                            None
+                        } else {
+                            Some(node.clone())
+                        }
+                    }
+                }  else { None }
+        }
+        let rc = helper(root,limit);
+        rc.clone()
+    }
+```
