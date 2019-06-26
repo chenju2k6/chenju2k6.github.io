@@ -7,6 +7,8 @@ categories: jekyll update
 
 The best way to learn is with doing and with failures.
 
+## Brace expansion ii (Key point: multi dimensional array, string handling, recursive)
+
 ```rust
 pub fn brace(exp: String) -> Vec<String> {
         let mut group : Vec<Vec<Vec<String>>> = Vec::new();
@@ -61,4 +63,41 @@ pub fn brace(exp: String) -> Vec<String> {
         }
         res.sort();
 	res
+}
+```
+
+## Car pooling (Key point: array of structs, closure, sort_by)
+
+
+```rust
+pub fn car_pooling(trips: Vec<Vec<i32>>, capacity: i32) -> bool {
+        #[derive(Debug)]
+        struct loc {
+            location: i32,
+            np: i32,
+            pick: i32,
+        }
+        let mut data = Vec::new();
+        for pass in trips {
+            data.push(loc{location: pass[1],np: pass[0],pick: 1});
+            data.push(loc{location: pass[2],np: pass[0],pick: 0});
+        }
+        data.sort_by(|a,b| a.location.cmp(&b.location));
+        let mut np = 0;
+        let mut prev = -1;
+        for item in &data {
+            if item.location != prev {
+                prev = item.location;
+                if np > capacity {
+                    return false;
+                }
+            }
+            if item.pick == 1 {
+                np += item.np;
+            } else {
+                np -= item.np;
+            }
+        }
+        true
+    }
 ```
