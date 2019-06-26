@@ -509,7 +509,7 @@ pub fn sufficient_subset(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) -> Opt
 
 An further improved version
 
-```
+```rust
 pub fn sufficient_subset(root: Option<Rc<RefCell<TreeNode>>>, limit: i32) -> Option<Rc<RefCell<TreeNode>>> {
         fn helper(root: &Option<Rc<RefCell<TreeNode>>>, limit: i32) ->
             Option<Rc<RefCell<TreeNode>>> {

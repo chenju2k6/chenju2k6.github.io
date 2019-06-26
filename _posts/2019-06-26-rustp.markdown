@@ -1,0 +1,64 @@
+---
+layout: post
+title:  "Rust learning notes 4"
+date:   2019-06-26 23:00:28 -0500
+categories: jekyll update
+---
+
+The best way to learn is with doing and with failures.
+
+```rust
+pub fn brace(exp: String) -> Vec<String> {
+        let mut group : Vec<Vec<Vec<String>>> = Vec::new();
+        group.push(Vec::new());
+        let mut res = Vec::new();
+        let mut level = 0;
+        let mut start = 0;
+        for (i,c) in exp.chars().enumerate() {
+            if c=='{' {
+                if level == 0 {
+                   start = i+1;
+                }
+                level = level + 1;
+            } else if c=='}' {
+                level = level -1;
+                if level == 0 {
+                    let last = group.len()-1;
+                    group[last].push(Solution::brace(exp[start..i].to_string()));
+                }
+            } else if level == 0 && c == ',' {
+                let last = group.len()-1;
+                group.push(Vec::new());
+            } else if level == 0 {
+                let last = group.len()-1;
+                let mut v = String::new();
+                let mut vv = Vec::new();
+                v.push(c);
+                vv.push(v);
+                group[last].push(vv);
+            }
+        }
+        let mut result_set = HashSet::new();
+        for item in group {  //item is vec<vec<string>>> 
+            let mut cur = item[0].clone();
+            let mut prev = item[0].clone();
+            for thing in item[1..].iter() {
+               cur = Vec::new(); 
+               for p in prev {
+                   for q in thing {
+                        let r = p.clone()+&q.clone();
+                        cur.push(r);
+                   }
+               }
+               prev = cur;
+            }
+            for ss in prev {
+                result_set.insert(ss);
+            }
+        }
+        for ele in result_set {
+            res.push(ele);
+        }
+        res.sort();
+	res
+```
