@@ -200,3 +200,24 @@ pub fn max_area_of_island(grid: Vec<Vec<i32>>) -> i32 {
         res
     }
 ```
+
+## Number of perfect squares (Key point: init array, loop)
+
+```rust
+pub fn perfect(number: i32) -> i32 {
+        if number <= 0 {return 0;}
+        let mut data = vec![std::i32::MAX;number as usize + 1];
+        data[0] = 0;
+        for i in 1..number+1 {
+            let mut j = 1;
+            while j*j<=i {
+                let t = data[(i-j*j) as usize] + 1;
+                if t < data[i as usize] {
+                    data[i as usize] = t;
+                } 
+                j = j + 1;
+            }
+        }
+        data[number as usize]
+}
+
