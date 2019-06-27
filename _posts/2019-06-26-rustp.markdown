@@ -101,3 +101,37 @@ pub fn car_pooling(trips: Vec<Vec<i32>>, capacity: i32) -> bool {
         true
     }
 ```
+## Number of islands (Key point: update a two dimensional array)
+
+```rust
+pub fn num_is_islands(grid: Vec<Vec<char>>) -> i32 {
+        let mut visited = grid.clone();
+        let mut res = 0;
+        let height = grid.len();
+        let width = grid[0].len();
+        for row in &mut visited {
+            for c in row {
+                *c = 0 as char;
+            } 
+        }
+
+        fn dfs(grid: &Vec<Vec<char>>, visited: &mut Vec<Vec<char>>, i: usize, j: usize, height: usize, width: usize) {
+            visited[i][j] = 1 as char;
+            if i>0 && visited[i-1][j] == 0 as char && grid[i-1][j] == '1' { dfs(grid,visited,i-1,j,height,width); }
+            if j>0 && visited[i][j-1] == 0 as char && grid[i][j-1] == '1' { dfs(grid,visited,i,j-1,height,width); }
+            if i<height-1 && visited[i+1][j] == 0 as char && grid[i+1][j] == '1' { dfs(grid,visited,i+1,j,height,width); }
+            if j<width-1 && visited[i][j+1] == 0 as char && grid[i][j+1] == '1' { dfs(grid,visited,i,j+1,height,width); }
+        }
+
+        for (i,row) in grid.iter().enumerate() {
+            for (j,c) in row.iter().enumerate() {
+                if *c == '1' && visited[i][j] == 0 as char {
+                    res += 1;
+                    dfs(&grid,&mut visited,i,j, height, width);
+                }
+            }
+        }
+    
+        res
+    }
+```
