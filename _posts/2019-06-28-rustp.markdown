@@ -5,7 +5,7 @@ date:   2019-06-28 23:00:28 -0500
 categories: jekyll update
 ---
 
-WASI is a standard defining Webassembly system interface. WASI has some implementations, such as wasttime, Lucet and polyfill. WASI starts with WASI-core, for example
+WASI is a standard defining Webassembly system interface. WASI has some implementations, such as wasttime, Lucet and polyfill. WASI starts with WASI-core, for example, the below are two APIs defined in the WASI-core API set. The full list can be find [here](https://github.com/CraneStation/wasmtime/blob/d900a5f6efd78055017e089af4df0d89c18298de/docs/WASI-api.md)
 
 ```rust
 __wasi_fd_read
