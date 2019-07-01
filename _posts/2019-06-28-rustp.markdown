@@ -11,3 +11,10 @@ WASI is a standard defining Webassembly system interface. WASI has some implemen
 __wasi_fd_read
 __wasi_fd_write
 ```
+
+
+Wasmtime is a Webassembly runtime, it is a JIT plus a implementation of WASI. Wasmer is a standalone JIT Webassembly runtime, it aslo supports WASI. WASI is proposed by the Wasmtime project.
+
+The system resources defined by WASI include files and filesystems, Berkeley sockets, clocks and random numbers. The WASI is defined independently of specific web browsers or JS. WASI also integrates capability-based security.
+
+The webassembly has a textual representation of the WASM binary format. You can find the explanation [here](https://developer.mozilla.org/en-US/docs/WebAssembly/Understanding_the_text_format)
