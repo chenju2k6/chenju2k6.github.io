@@ -1,0 +1,8 @@
+---
+layout: post
+title:  "Raft"
+date:   2019-07-01 23:00:28 -0500
+categories: jekyll update
+---
+
+[Raft](https://raft.github.io/raft.pdf) is a consensus algorithm, it is equivalent to Paxos but is easier to understand.
