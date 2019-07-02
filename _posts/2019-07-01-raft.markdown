@@ -6,3 +6,12 @@ categories: jekyll update
 ---
 
 [Raft](https://raft.github.io/raft.pdf) is a consensus algorithm, it is equivalent to Paxos but is easier to understand.
+
+Specifically, Raft considers a group of servers (called a Raft cluster) which collectively maintains a replicated log. The Raft algorithm is to make sure that the replicated log is consistent even if some of the servers fail.
+
+From the systems perspective, a client sends commands to the Raft cluster, "the consensus module on a server receives commands from clients and adds them to its log. It communicates with the consensus modules on other servers to ensure that every log eventually contains the same requests in the same order, even if some servers fail", "as a result, the servers appear to form a single and highly reliable state machine".
+
+A server in the Raft cluster can be in one of three states, leader, follower or candidate. There is one and only one leader in the cluster. The leader handle all client requests. If a follower receives the request from the client, it forwards the request to the leader. Raft algorithm ensures that there is at most one leader at a given time.
+
+
+The Raft divides time into arbitrary-length units called terms. Each term begins with an election. Some elections fail, in which case the term ends without choosing a leader. "Different servers may observe the transitions between terms at different times, and in some situations a server may not observe an election or even entire terms. Each server stores a current term number, which increases monotonically over ti. Each server stores a current term number, which increases monotonically over time"
