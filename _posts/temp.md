@@ -8,4 +8,12 @@ Key point:
 Review:
 * A problem considers two string can sometime uses a two-dimensional array to store the answer for the sub-problem (Dynamic programming)
 
+Almost same questions:
+
+* Longest common subsequences
+
 ## Max Sum of Rectangle No Large than K
+
+Key point:
+
+* Fix one dimension, for another dimension, compute the max sum of the subarray no large than K.
