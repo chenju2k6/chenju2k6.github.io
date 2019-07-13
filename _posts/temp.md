@@ -17,3 +17,14 @@ Almost same questions:
 Key point:
 
 * Fix one dimension, for another dimension, compute the max sum of the subarray no large than K.
+
+The questions with the same idea:
+
+*  Number of submatrices that sum to target
+
+
+## Maximal Rectangle
+
+Key point:
+
+* Maintain a matrix of the same size of the original matrix, each item in the matrix is a tuple of <left,right,height>, which means the left, right and the height of the rectangle that covers the current item.
