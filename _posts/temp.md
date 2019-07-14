@@ -28,3 +28,11 @@ The questions with the same idea:
 Key point:
 
 * Maintain a matrix of the same size of the original matrix, each item in the matrix is a tuple of <left,right,height>, which means the left, right and the height of the rectangle that covers the current item.
+
+## Binary Tree Cameras
+
+Key point:
+
+* Tree problems can almost be solved recursively. The subproblem is the same problem with the children as the root node. The question is, how to figure out the states that are returned by the subproblem?
+
+
