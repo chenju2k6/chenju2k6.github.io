@@ -1,4 +1,4 @@
-## Distinct subsequences
+## 1 Distinct subsequences
 
 Key point: 
 *  Maintain a two-dimensional array which says the answer of the partial input s[0..i] and t[0..j]
@@ -11,8 +11,9 @@ Review:
 Almost same questions:
 
 * Longest common subsequences
+* Shortest common supersequences
 
-## Max Sum of Rectangle No Large than K
+## 2 Max Sum of Rectangle No Large than K
 
 Key point:
 
@@ -23,26 +24,40 @@ The questions with the same idea:
 *  Number of submatrices that sum to target
 
 
-## Maximal Rectangle
+## 3 Maximal Rectangle
 
 Key point:
 
 * Maintain a matrix of the same size of the original matrix, each item in the matrix is a tuple of <left,right,height>, which means the left, right and the height of the rectangle that covers the current item.
 
-## Binary Tree Cameras
+## 4 Binary Tree Cameras
 
 Key point:
 
 * Tree problems can almost be solved recursively. The subproblem is the same problem with the children as the root node. The question is, how to figure out the states that are returned by the subproblem?
 
-## Concatenated words
+## 5 Concatenated words
 
 Key point:
 
-This problem can be reduced to word break problem. Word break problem is solved by using DP. That is, maintain a array to record if not a word can be broken at a position.
+* This problem can be reduced to word break problem. Word break problem is solved by using DP. That is, maintain a array to record if not a word can be broken at a position.
 
 Related question:
 
-Word break
+* Word break
 
+## 6  Range Module TODO
+## 7  Race Car TODO
+
+## 8 Shortest path to get all keys
+
+Key point: For find the optimal answer, BFS is a must.
+
+## 9 Stamping the sequence TODO
+
+Key point: 
+
+* Think backwards. Generally, this is a searching problem, can then you realize that starting from the beginning seems like a impossible solution even with bruteforce method. 
+
+## 10 Minimum cost to hire K workers
 
