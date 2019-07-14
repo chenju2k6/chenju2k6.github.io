@@ -35,4 +35,14 @@ Key point:
 
 * Tree problems can almost be solved recursively. The subproblem is the same problem with the children as the root node. The question is, how to figure out the states that are returned by the subproblem?
 
+## Concatenated words
+
+Key point:
+
+This problem can be reduced to word break problem. Word break problem is solved by using DP. That is, maintain a array to record if not a word can be broken at a position.
+
+Related question:
+
+Word break
+
 
