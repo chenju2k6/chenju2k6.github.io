@@ -74,9 +74,19 @@ Key point:
 * Method 1: Binary search to probe the longest size the substring. For each size, use a slide window to find the duplicate string.
 * Method 2: (standard) Suffix array 
 
-## 13 Tallest Billboard
+## 13 Tallest Billboard (Need one more execerise)
 
 Key point:
 
 * Because the sum of the array is bouned, we can maintain a state for each possible sum.
 * First to think how to solve the problem brute forcelly, and then to think what computation are repeatedly performed.
+
+## 14 Largest Component size by common factor (Need one more exercise)
+
+Key point:
+
+* Connected component question can be answered by union-find.
+
+Similar questions:
+
+* Redundent connection
