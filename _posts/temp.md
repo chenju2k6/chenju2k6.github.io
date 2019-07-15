@@ -60,4 +60,23 @@ Key point:
 * Think backwards. Generally, this is a searching problem, can then you realize that starting from the beginning seems like a impossible solution even with bruteforce method. 
 
 ## 10 Minimum cost to hire K workers
+## 11 Find in Mountain Array
 
+Key point:
+
+* Find the peak in a array
+* Binary search the increasing part and then decreasing part.
+
+## 12 Longest Duplicate String TODO
+
+Key point:
+
+* Method 1: Binary search to probe the longest size the substring. For each size, use a slide window to find the duplicate string.
+* Method 2: (standard) Suffix array 
+
+## 13 Tallest Billboard
+
+Key point:
+
+* Because the sum of the array is bouned, we can maintain a state for each possible sum.
+* First to think how to solve the problem brute forcelly, and then to think what computation are repeatedly performed.
