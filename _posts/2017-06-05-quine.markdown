@@ -6,8 +6,7 @@ categories: jekyll update
 ---
 According to [Wikipedia][wiki-link], a quine program is a program that prints source code of itself. A quine program in C can be found [here][mit-example]. Quine program is a classic problem in computing theory, which is quite profound. We will come back to this topic in the future.
 
-
-[comment]: <> Checkout this image ![Here]({{ site.url }}/assets/ju.jpg).
+More quine programs can be found [here](https://cs.lmu.edu/~ray/notes/quineprograms/)
 
 [wiki-link]: https://en.wikipedia.org/wiki/Quine_(computing) 
 [mit-example]: http://people.csail.mit.edu/alinush/quine/quine.html 
