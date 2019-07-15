@@ -90,3 +90,13 @@ Key point:
 Similar questions:
 
 * Redundent connection
+
+## 15 Find the shortest substring (TODO)
+
+## 16 Distinct Subsequences 
+
+Key point:
+
+* It is easy to identify the sub-problem. The question is, how to write the transfer function.
+
+## 17 Three equal parts
