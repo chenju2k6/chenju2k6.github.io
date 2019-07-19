@@ -51,9 +51,46 @@ If the opcode is Gosecure, the `Gosecload` function will be called, see below co
 ```go
 case OGOSECURE:
    s.call(n.Left, callGosecure)
+```
 
 ```go
 case k==callGosecure
    call = s.newValue1A(ssa.OpStaticCall, types.TypeMem, Gosecload, s.mem())
 ```
 
+## Init and Load
+
+Files:
+
+* src/cmd/go/internal/work/gosec.go
+
+The `CreateEnclaveExec` function is called at the compile time. It creates the temporaries files necessary to create the enclave executableu
+
+The `CreateEnclaveExec` will register `gosec`,  the `gosec` will call `generateMain` function to create the main go file for the enclave executable. The filename is hardcoded as `encl.go`. The `encl.go` file will contain the following content
+
+```
+const (
+	gosectmpl = `
+package main
+import(
+	"gosecu"
+	//"runtime"
+	{{range .Imports}}
+	{{ printf "%q" . }}{{end}}
+)
+func main() {
+	// Starting the functions.
+	{{range .Functions}}
+	gosecu.RegisterSecureFunction({{ . }})
+	{{end}}
+	gosecu.EcallServer()
+}
+`
+)
+``` 
+
+
+## Data movement
+
+Data movement between secure and unsecure world is done by deep copying the data on the interface. The code is at "gotee/src/goseccommon/copy.go".
+ 
