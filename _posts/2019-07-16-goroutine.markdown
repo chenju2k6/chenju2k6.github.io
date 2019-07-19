@@ -38,9 +38,22 @@ func main() {
 
 The GoTee extends the Go compiler to include the keyword of "gosecure", 
 
-In the file of "src/cmd/compile/internal/syntax/tokens.go", the "gosecure" has a name "_Gosecure".
+In the file of "src/cmd/compile/internal/syntax/tokens.go", the "gosecure" has a name "_Gosecure". The "_Gosecure" is then treated as an operation with the opcode of "OGOSECURE".
 
 ```
-_Gosecure:    "gosecure",
+case syntax.Gosecure:
+	op = OGOSECURE
+```
+
+
+If the opcode is Gosecure, the `Gosecload` function will be called, see below code in "src/cmd/compile/internal/gc/ssa.go"
+
+```go
+case OGOSECURE:
+   s.call(n.Left, callGosecure)
+
+```go
+case k==callGosecure
+   call = s.newValue1A(ssa.OpStaticCall, types.TypeMem, Gosecload, s.mem())
 ```
 
