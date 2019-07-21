@@ -100,3 +100,11 @@ Key point:
 * It is easy to identify the sub-problem. The question is, how to write the transfer function.
 
 ## 17 Three equal parts
+## 18 Remove boxes, Burst Ballons, Minimum Cost to merge stones
+
+Key point:
+
+* Burst Ballons: reverse thinking, as design mem[l][k]
+* Remove boxes, design memorization as mem[l][r][k], means the solution for array from l to r with k boxes as the same color as array[r]. The key observation is that for strings like abcddd could be reduced to solution as abc + ddd
+
+
