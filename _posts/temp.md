@@ -104,7 +104,7 @@ Key point:
 
 Key point:
 
-* Burst Ballons: reverse thinking, as design mem[l][k]
+* Burst Ballons: reverse thinking, as design mem[l][k] means to burst all the ballons between l and k.
 * Remove boxes, design memorization as mem[l][r][k], means the solution for array from l to r with k boxes as the same color as array[r]. The key observation is that for strings like abcddd could be reduced to solution as abc + ddd
 
 
