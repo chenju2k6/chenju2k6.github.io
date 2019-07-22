@@ -133,7 +133,7 @@ The cooperative runtime is initialized in `InitCooperativeRuntime()`, which is c
 
 ## Scheduler Init
 
-The scheduler init function is defined in `schedinit()`, the code that is related to Enclave is defined in 
+The scheduler init function is defined in `schedinit()`. The below code pieces are related to sgx. `allocm()` allocates a machine thread and `newproc` inits a user-thread.
 
 ```go
 if isEnclave {
