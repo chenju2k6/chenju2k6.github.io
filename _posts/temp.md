@@ -110,3 +110,13 @@ Key point:
 ## 19 Longest Increasing Path in a Matrix
 
 Key point: DFS and to cache the result for each point
+
+## 20 Reverse pairs, Count of small numbers after self, Count of range sum
+
+Key point: 
+
+* Reverse pairs: using BIT or using modifed merge sort
+* Count of small numbers after self: using merge sort
+* Count of range sum: using merge sort
+
+
