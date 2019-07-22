@@ -170,4 +170,9 @@ if isEnclave {
 }
 ```
 
-
+## References 
+[1](https://www.cnblogs.com/WCFGROUP/p/8437382.html)
+[2](https://hustcat.github.io/dive-into-goroutine/)
+[3](https://juejin.im/entry/5a603c48f265da3e591e5477)
+[4](https://hustcat.github.io/dive-into-stack-defer-panic-recover-in-go/)
+[5](https://www.cnblogs.com/zkweb/p/7815600.html)
