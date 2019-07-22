@@ -98,7 +98,8 @@ Data movement between secure and unsecure world is done by deep copying the data
 
 The cooperative runtime is defined in "gotee/src/runtime/gosec.go"
 
-```gotype CooperativeRuntime struct {
+```go
+type CooperativeRuntime struct {
 	EcallSrv chan *EcallServerReq
 	Ocall    chan OcallReq
 
