@@ -143,3 +143,31 @@ if isEnclave {
 }
 ```
 
+And also the below code
+
+```go
+if isEnclave {
+		//TODO use a lock
+		id := -1
+		var tcs *SgxTCSInfo
+		for i := range Cooprt.Tcss {
+			if Cooprt.Tcss[i].Used {
+				continue
+			}
+			id = i
+			tcs = &Cooprt.Tcss[i]
+			tcs.Used = true
+			break
+		}
+		//TODO unlock
+		if tcs == nil {
+			throw("Unable to acquire a tcs for the enclave")
+		}
+		//mp = tls - m_tls - 8
+		addrp := tcs.Tls - 0x70 - 8
+		mp = (*m)(unsafe.Pointer(addrp))
+                mp.procid = uint64(id)
+}
+```
+
+
