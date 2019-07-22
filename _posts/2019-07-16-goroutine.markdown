@@ -129,3 +129,4 @@ type CooperativeRuntime struct {
 	Uach chan uintptr
 }
 ```
+The cooperative runtime is initialized in `InitCooperativeRuntime()`, which is called in `Gosecload`.
