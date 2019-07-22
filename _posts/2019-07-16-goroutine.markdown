@@ -94,3 +94,37 @@ func main() {
 
 Data movement between secure and unsecure world is done by deep copying the data on the interface. The code is at "gotee/src/goseccommon/copy.go".
  
+## Cooperative runtime
+
+The cooperative runtime is defined in "gotee/src/runtime/gosec.go"
+
+```gotype CooperativeRuntime struct {
+	EcallSrv chan *EcallServerReq
+	Ocall    chan OcallReq
+
+	argc int32
+	argv **byte
+
+	readyE slqueue //Ready to be rescheduled in the enclave
+	readyO slqueue //Ready to be rescheduled outside of the enclave
+
+	//pool of answer channels.
+	sysPool []*poolSysChan
+
+	membuf_head uintptr
+
+	StartUnsafe uintptr
+	SizeUnsafe  uintptr
+
+	// The enclave heap region.
+	// This is the equivalent of my previous preallocated regions.
+	// TODO secure it somehow.
+	eHeap            uintptr
+	Tcss             []SgxTCSInfo // array of tcs infos used in spawnThread
+	Notes            [10]note     // notes for futex calls.
+	OEntry           uintptr
+	ExceptionHandler uint64
+
+	Uach chan uintptr
+}
+```
