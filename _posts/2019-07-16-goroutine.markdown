@@ -130,3 +130,16 @@ type CooperativeRuntime struct {
 }
 ```
 The cooperative runtime is initialized in `InitCooperativeRuntime()`, which is called in `Gosecload`.
+
+## Scheduler Init
+
+The scheduler init function is defined in `schedinit()`, the code that is related to Enclave is defined in 
+
+```go
+if isEnclave {
+		UnsafeAllocator.Initialize(Cooprt.StartUnsafe, Cooprt.SizeUnsafe)
+		procs = 2 //TODO modify this for more threads in enclave.
+		sched.lastpoll = ENCL_NPOLLING
+}
+```
+
