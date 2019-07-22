@@ -170,6 +170,10 @@ if isEnclave {
 }
 ```
 
+## Key structures
+
+The P,M,G structure is defined in "src/runtime/runtime2.go".
+
 ## References 
 [1](https://www.cnblogs.com/WCFGROUP/p/8437382.html)
 [2](https://hustcat.github.io/dive-into-goroutine/)
