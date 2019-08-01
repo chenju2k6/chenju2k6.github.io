@@ -17,7 +17,7 @@ Almost same questions:
 
 Key point:
 
-* Fix one dimension, for another dimension, compute the max sum of the subarray no large than K.
+* Do exhaustive searching for one dimension, that is to say, consider all sub-section for rows or coloumns, and then for another dimension, compute the max sum of the subarray no large than K. 
 
 The questions with the same idea:
 
