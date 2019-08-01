@@ -130,3 +130,7 @@ Key point: Monotonic Stack
 ## Super washing machine
 
 TODO
+
+## Longest Increasing Subsequence
+
+Key point: Because the longest increasing subsequence upto point i has nothing to do with the elements come after the current point, we can solve it using dynamic programming. Let's say we remember the longest subsequence upto point i-1, noted as dp[i-1], what should be do about number[i]? If number[i] is larger than dp[i-1], we are happily to append it to dp[i], but what if number[i] is smaller than dp[i-1]?
