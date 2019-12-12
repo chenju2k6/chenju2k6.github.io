@@ -1,0 +1,23 @@
+---
+layout: post
+title:  "CS218 Notes"
+date:   2019-12-12 23:00:28 -0500
+categories: jekyll update
+---
+
+## NP-completeness
+
+P means programs that can be solved in polynomial time. NP means the problems which solutions can be "checked" in polynomial time. Clearly, P is a subset of NP. The open question is, does P equal to NP? 
+
+If a problem A can be reduced to B, then B is at least as hard as A. If all the problems in NP can be reduced to a problem Alpha, then Alpha is a NP-hard problem. If Alpha belongs to NP, then Alpha is NP-complete.
+
+## Examples of NP-complete problems
+
+### SAT
+
+### 3-partition
+
+### Tetris
+
+
+
