@@ -1,0 +1,72 @@
+---
+layout: post
+title:  "Vehicle load"
+date:   2019-09-23 23:00:28 -0500
+categories: jekyll update
+---
+
+## Check the below code
+
+```C++
+
+#include<iostream>
+class Vehicle {
+  public:
+    Vehicle();
+    void setNext(Vehicle* next);
+    virtual void load();
+  protected:
+    Vehicle* next_;
+};
+
+class Pickup : public Vehicle {
+  public:
+    void load() override; 
+};
+
+class SUV : public Vehicle {
+  public:
+//    void load() override;
+};
+
+
+class Car : public Vehicle {
+  public:
+ //   void load() override; 
+};
+
+Vehicle::Vehicle(): next_(NULL) {}
+
+void Vehicle::setNext(Vehicle* next) {
+  next_ = next;
+}
+
+void Vehicle::load()
+{
+  std::cout << "Vehicle finding next one to load" << std::endl;
+  return next_->load();
+}
+
+void Pickup::load()
+{
+  std::cout << "Pickup load" << std::endl;
+  return;
+}
+
+int main() {
+  Vehicle* v1 = new Car();
+  Vehicle* v2 = new SUV();
+  Vehicle* v3 = new Pickup(); 
+  v1->setNext(v2);
+  v2->setNext(v3);
+  v1->load();
+}
+```
+
+The output is 
+
+```
+Vehicle finding next one to load
+Vehicle finding next one to load
+Pickup load
+```
