@@ -17,7 +17,9 @@
 <html>
     <head>
         <title>
-            FuzzBench: three-fuzzer report
+            FuzzBench: cocofuzz report
+            
+            (running)
             
         </title>
 
@@ -31,8 +33,12 @@
     <div class="container"><div class="row"><div class="col s12 m10 l10">
 
         <h1 class="center-align brown-text text-darken-3">
-            FuzzBench: three-fuzzer report
+            FuzzBench: cocofuzz report
         </h1>
+        
+        <h5 class="center-align brown-text text-darken-4">
+            (experiment incomplete/still running...)
+        </h5>
         
 
         <div class="card-panel amber lighten-5">
@@ -77,9 +83,11 @@
       <th>fuzzer</th>
       <th>aflplusplus</th>
       <th>kirenenko</th>
+      <th>honggfuzz</th>
     </tr>
     <tr>
       <th>benchmark</th>
+      <th></th>
       <th></th>
       <th></th>
     </tr>
@@ -87,8 +95,9 @@
   <tbody>
     <tr>
       <th>libpng-1.2.56</th>
-      <td>1837</td>
-      <td>1831</td>
+      <td>1926.0</td>
+      <td>1912.0</td>
+      <td>1889.5</td>
     </tr>
   </tbody>
 </table>
@@ -167,27 +176,39 @@
   <tbody>
     <tr>
       <th>aflplusplus</th>
-      <th>180</th>
-      <td>1.0</td>
-      <td>1837.0</td>
-      <td>NaN</td>
-      <td>1837.0</td>
-      <td>1837.0</td>
-      <td>1837.0</td>
-      <td>1837.0</td>
-      <td>1837.0</td>
+      <th>570</th>
+      <td>5.0</td>
+      <td>1915.6</td>
+      <td>23.922792</td>
+      <td>1881.0</td>
+      <td>1901.0</td>
+      <td>1926.0</td>
+      <td>1932.0</td>
+      <td>1938.0</td>
     </tr>
     <tr>
       <th>kirenenko</th>
-      <th>180</th>
-      <td>1.0</td>
-      <td>1831.0</td>
-      <td>NaN</td>
-      <td>1831.0</td>
-      <td>1831.0</td>
-      <td>1831.0</td>
-      <td>1831.0</td>
-      <td>1831.0</td>
+      <th>570</th>
+      <td>5.0</td>
+      <td>1928.2</td>
+      <td>44.846405</td>
+      <td>1894.0</td>
+      <td>1899.0</td>
+      <td>1912.0</td>
+      <td>1932.0</td>
+      <td>2004.0</td>
+    </tr>
+    <tr>
+      <th>honggfuzz</th>
+      <th>570</th>
+      <td>4.0</td>
+      <td>1889.5</td>
+      <td>3.109126</td>
+      <td>1886.0</td>
+      <td>1887.5</td>
+      <td>1889.5</td>
+      <td>1891.5</td>
+      <td>1893.0</td>
     </tr>
   </tbody>
 </table>
@@ -211,55 +232,6 @@
             </ul>
 
             
-            <ul class="collapsible">
-                <li>
-                    <div class="collapsible-header">
-                        Unique coverage plots
-                    </div>
-                    <div class="collapsible-body">
-
-                        <div class="row">
-                            <div class="col s6 offset-s3">
-                                <h5 class="center-align">Ranking by unique regions covered</h4>
-                                    <img class="responsive-img materialboxed"
-                                         src="libpng-1.2.56_ranking_unique_region.svg">
-                                    Each bar shows the total number of regions found by a given fuzzer.
-                                    The colored area shows the number of unique regions
-                                    (i.e., regions that were not covered by any other fuzzers).
-                            </div>
-                        </div> <!-- row -->
-
-                        <div class="row">
-                            <div class="col s6 offset-s3">
-                                <h5 class="center-align">Pairwise unique coverage</h4>
-                                    <img class="responsive-img materialboxed"
-                                         src="libpng-1.2.56_pairwise_unique_coverage_plot.svg">
-                                    Each cell represents the number of regions covered by the fuzzer
-                                    of the column but not by the fuzzer of the row
-                            </div>
-                        </div> <!-- row -->
-
-                    </div>
-                </li>
-            </ul>
-
-            <ul class="collapsible">
-                <li>
-                    <div class="collapsible-header">
-                        Coverage reports for each fuzzer on this benchmark
-                    </div>
-                    <div class="collapsible-body">
-                        <div class="collection">
-                            
-                            <a href="/home/cju/experiment-data/three-fuzzer/coverage/reports/libpng-1.2.56/aflplusplus/index.html" class="collection-item">aflplusplus</a>
-                            
-                            <a href="/home/cju/experiment-data/three-fuzzer/coverage/reports/libpng-1.2.56/kirenenko/index.html" class="collection-item">kirenenko</a>
-                            
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            
 
         </div> <!-- id="libpng-1.2.56" -->
         
@@ -275,7 +247,7 @@
             
             <br><br>
             The experiment was conducted using this FuzzBench commit:
-            <a href="https://github.com/google/fuzzbench/commits/4b5ecaaac9cae2005deadc3c9a39a93951224c98">4b5ecaaac9cae2005deadc3c9a39a93951224c98</a>
+            <a href="https://github.com/google/fuzzbench/commits/b1e185788285fd94dc810e4fd49c08710091ee2a">b1e185788285fd94dc810e4fd49c08710091ee2a</a>
             
 
             
