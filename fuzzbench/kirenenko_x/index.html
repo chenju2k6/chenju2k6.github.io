@@ -67,7 +67,117 @@
 
             
 
-            No aggregate ranking as the data contains a single benchmark.
+            
+
+            We show two different aggregate (cross-benchmark) rankings of fuzzers.
+            The first is based on the average of per-benchmarks scores, where
+            the score represents the percentage of the highest reached median
+            code-coverage on a given benchmark (higher value is better).
+
+            The second ranking shows the average rank of fuzzers, after we rank
+            them on each benchmark according to their median reached
+            code-covereges (lower value is better).
+
+            <div class="row">
+                <div class="col s5 offset-s1">
+                    <h5 class="center-align">By avg. score</h5>
+                    <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>average normalized score</th>
+    </tr>
+    <tr>
+      <th>fuzzer</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/2c6a016d8df9698908185dca3153656bac297694/fuzzers/kirenenko">kirenenko</a></th>
+      <td>99.90</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/2c6a016d8df9698908185dca3153656bac297694/fuzzers/fastgen">fastgen</a></th>
+      <td>89.93</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/2c6a016d8df9698908185dca3153656bac297694/fuzzers/aflplusplus_optimal">aflplusplus_optimal</a></th>
+      <td>75.69</td>
+    </tr>
+  </tbody>
+</table>
+                </div>
+                <div class="col s5">
+                    <h5 class="center-align">By avg. rank</h5>
+                    <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>average rank</th>
+    </tr>
+    <tr>
+      <th>fuzzer</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/2c6a016d8df9698908185dca3153656bac297694/fuzzers/kirenenko">kirenenko</a></th>
+      <td>1.33</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/2c6a016d8df9698908185dca3153656bac297694/fuzzers/fastgen">fastgen</a></th>
+      <td>2.00</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/2c6a016d8df9698908185dca3153656bac297694/fuzzers/aflplusplus_optimal">aflplusplus_optimal</a></th>
+      <td>2.67</td>
+    </tr>
+  </tbody>
+</table>
+                </div>
+            </div>
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Critical difference diagram
+                    </div>
+                    <div class="collapsible-body">
+
+
+            
+
+            The diagram visualizes the average rank of fuzzers (second ranking
+            above) while showing the significance of the differences as well.
+            What is considered a "critical difference" (CD) is based on the
+            Friedman/Nemenyi post-hoc test. See more in the <a
+            href="https://google.github.io/fuzzbench/reference/report/">
+            documentation</a>.
+
+            <br>
+
+            <div class="row">
+                <div class="col s7 offset-s3">
+                    <img class="responsive-img materialboxed"
+                         src="experiment_critical_difference_plot.svg">
+                </div>
+            </div>
+
+            Note: If a fuzzer does not support all benchmarks, its ranking as
+            shown in this diagram can be lower than it should be. So please
+            check the list of supported benchmarks for the fuzzer(s) of your interest.
+            The list could be specified in the fuzzer's README.md like
+            <a href="https://github.com/google/fuzzbench/blob/master/fuzzers/aflsmart/README.md">this</a>.
+
+             
+
+                    </div>
+                </li>
+            </ul>
+
+             
 
              
 
@@ -81,9 +191,9 @@
   <thead>
     <tr style="text-align: right;">
       <th>fuzzer</th>
-      <th>kirenenko</th>
       <th>aflplusplus_optimal</th>
       <th>fastgen</th>
+      <th>kirenenko</th>
     </tr>
     <tr>
       <th>benchmark</th>
@@ -94,10 +204,22 @@
   </thead>
   <tbody>
     <tr>
+      <th>libjpeg-turbo-07-2017</th>
+      <td>1780</td>
+      <td>3310</td>
+      <td>3607</td>
+    </tr>
+    <tr>
       <th>libpng-1.2.56</th>
-      <td>2145</td>
-      <td>1990</td>
-      <td>1609</td>
+      <td>1716</td>
+      <td>1601</td>
+      <td>2052</td>
+    </tr>
+    <tr>
+      <th>sqlite3_ossfuzz</th>
+      <td>18216</td>
+      <td>19356</td>
+      <td>19299</td>
     </tr>
   </tbody>
 </table>
@@ -106,6 +228,152 @@
             </ul>
         </div> <!-- id="experiment" -->
 
+        
+
+        <div id="libjpeg-turbo-07-2017" class="section scrollspy">
+
+            <h2 class="green-text text-darken-3">libjpeg-turbo-07-2017 summary</h2>
+
+            <div class="row">
+                <div class="col s6">
+            
+                    <h5 class="center-align">Ranking by median reached code coverage</h5>
+                    <img class="responsive-img materialboxed"
+                         src="libjpeg-turbo-07-2017_ranking.svg">
+            
+                </div>
+                <div class="col s6">
+                    <h5 class="center-align">Reached code coverage distribution</h5>
+                    <img class="responsive-img materialboxed"
+                         src="libjpeg-turbo-07-2017_boxplot.svg">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+            
+                      <li class="tab col s6"><a href="#libjpeg-turbo-07-2017_code_normal" class="green-text text-darken-3">Code coverage (linear)</a></li>
+                      <li class="tab col s6"><a href="#libjpeg-turbo-07-2017_code_logscale" class="green-text text-darken-3">Code coverage (log)</a></li>
+            
+                    </ul>
+                </div>
+                <div id="libjpeg-turbo-07-2017_code_normal" class="col s12">
+                    <h5 class="center-align">Mean code coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="libjpeg-turbo-07-2017_coverage_growth.svg">
+                </div>
+                <div id="libjpeg-turbo-07-2017_code_logscale" class="col s12">
+                    <h5 class="center-align">Mean code coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="libjpeg-turbo-07-2017_coverage_growth_logscale.svg">
+                </div>
+            
+                <div class="center-align">
+                    * The error bands show the 95% confidence interval
+                      around the mean code coverage.
+                </div>
+            </div>
+
+            
+
+            
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Sample statistics and statistical significance (code coverage)
+                    </div>
+                    <div class="collapsible-body">
+
+                        <h5 class="center-align">Code coverage sample statistics</h5>
+                        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>median</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>fuzzer</th>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>kirenenko</th>
+      <th>900</th>
+      <td>5.0</td>
+      <td>3572.2</td>
+      <td>159.670598</td>
+      <td>3302.0</td>
+      <td>3605.0</td>
+      <td>3607.0</td>
+      <td>3618.0</td>
+      <td>3729.0</td>
+    </tr>
+    <tr>
+      <th>fastgen</th>
+      <th>900</th>
+      <td>5.0</td>
+      <td>3293.4</td>
+      <td>32.814631</td>
+      <td>3236.0</td>
+      <td>3296.0</td>
+      <td>3310.0</td>
+      <td>3312.0</td>
+      <td>3313.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus_optimal</th>
+      <th>900</th>
+      <td>5.0</td>
+      <td>1780.0</td>
+      <td>0.000000</td>
+      <td>1780.0</td>
+      <td>1780.0</td>
+      <td>1780.0</td>
+      <td>1780.0</td>
+      <td>1780.0</td>
+    </tr>
+  </tbody>
+</table>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s6 offset-s3">
+                                <h5 class="center-align">Mann-Whitney U test</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="libjpeg-turbo-07-2017_mann_whitney_plot.svg">
+                                    The table summarizes the p values of
+                                    pairwise Mann-Whitney U tests.
+                                    Green cells indicate that the reached
+                                    coverage distribution of a given fuzzer pair
+                                    is significantly different.
+                            </div>
+                        </div> <!-- row -->
+
+                    </div>
+                </li>
+            </ul>
+
+            
+
+        </div> <!-- id="libjpeg-turbo-07-2017" -->
         
 
         <div id="libpng-1.2.56" class="section scrollspy">
@@ -194,39 +462,39 @@
   <tbody>
     <tr>
       <th>kirenenko</th>
-      <th>8100</th>
+      <th>900</th>
       <td>5.0</td>
-      <td>2144.0</td>
-      <td>30.182777</td>
-      <td>2101.0</td>
-      <td>2131.0</td>
-      <td>2145.0</td>
-      <td>2164.0</td>
-      <td>2179.0</td>
+      <td>2013.0</td>
+      <td>56.665686</td>
+      <td>1948.0</td>
+      <td>1954.0</td>
+      <td>2052.0</td>
+      <td>2054.0</td>
+      <td>2057.0</td>
     </tr>
     <tr>
       <th>aflplusplus_optimal</th>
-      <th>8100</th>
+      <th>900</th>
       <td>5.0</td>
-      <td>1985.0</td>
-      <td>13.564660</td>
-      <td>1964.0</td>
-      <td>1980.0</td>
-      <td>1990.0</td>
-      <td>1992.0</td>
-      <td>1999.0</td>
+      <td>1749.2</td>
+      <td>86.369555</td>
+      <td>1697.0</td>
+      <td>1712.0</td>
+      <td>1716.0</td>
+      <td>1718.0</td>
+      <td>1903.0</td>
     </tr>
     <tr>
       <th>fastgen</th>
-      <th>8100</th>
+      <th>900</th>
       <td>5.0</td>
-      <td>1611.8</td>
-      <td>15.959323</td>
-      <td>1597.0</td>
-      <td>1600.0</td>
-      <td>1609.0</td>
-      <td>1616.0</td>
-      <td>1637.0</td>
+      <td>1575.4</td>
+      <td>58.474781</td>
+      <td>1471.0</td>
+      <td>1596.0</td>
+      <td>1601.0</td>
+      <td>1603.0</td>
+      <td>1606.0</td>
     </tr>
   </tbody>
 </table>
@@ -254,6 +522,152 @@
         </div> <!-- id="libpng-1.2.56" -->
         
 
+        <div id="sqlite3_ossfuzz" class="section scrollspy">
+
+            <h2 class="green-text text-darken-3">sqlite3_ossfuzz summary</h2>
+
+            <div class="row">
+                <div class="col s6">
+            
+                    <h5 class="center-align">Ranking by median reached code coverage</h5>
+                    <img class="responsive-img materialboxed"
+                         src="sqlite3_ossfuzz_ranking.svg">
+            
+                </div>
+                <div class="col s6">
+                    <h5 class="center-align">Reached code coverage distribution</h5>
+                    <img class="responsive-img materialboxed"
+                         src="sqlite3_ossfuzz_boxplot.svg">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+            
+                      <li class="tab col s6"><a href="#sqlite3_ossfuzz_code_normal" class="green-text text-darken-3">Code coverage (linear)</a></li>
+                      <li class="tab col s6"><a href="#sqlite3_ossfuzz_code_logscale" class="green-text text-darken-3">Code coverage (log)</a></li>
+            
+                    </ul>
+                </div>
+                <div id="sqlite3_ossfuzz_code_normal" class="col s12">
+                    <h5 class="center-align">Mean code coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="sqlite3_ossfuzz_coverage_growth.svg">
+                </div>
+                <div id="sqlite3_ossfuzz_code_logscale" class="col s12">
+                    <h5 class="center-align">Mean code coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="sqlite3_ossfuzz_coverage_growth_logscale.svg">
+                </div>
+            
+                <div class="center-align">
+                    * The error bands show the 95% confidence interval
+                      around the mean code coverage.
+                </div>
+            </div>
+
+            
+
+            
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Sample statistics and statistical significance (code coverage)
+                    </div>
+                    <div class="collapsible-body">
+
+                        <h5 class="center-align">Code coverage sample statistics</h5>
+                        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>median</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>fuzzer</th>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>fastgen</th>
+      <th>900</th>
+      <td>5.0</td>
+      <td>19465.6</td>
+      <td>444.935164</td>
+      <td>19032.0</td>
+      <td>19096.0</td>
+      <td>19356.0</td>
+      <td>19783.0</td>
+      <td>20061.0</td>
+    </tr>
+    <tr>
+      <th>kirenenko</th>
+      <th>900</th>
+      <td>5.0</td>
+      <td>19251.4</td>
+      <td>568.875470</td>
+      <td>18366.0</td>
+      <td>19105.0</td>
+      <td>19299.0</td>
+      <td>19708.0</td>
+      <td>19779.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus_optimal</th>
+      <th>900</th>
+      <td>5.0</td>
+      <td>18553.4</td>
+      <td>674.155620</td>
+      <td>18094.0</td>
+      <td>18190.0</td>
+      <td>18216.0</td>
+      <td>18547.0</td>
+      <td>19720.0</td>
+    </tr>
+  </tbody>
+</table>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s6 offset-s3">
+                                <h5 class="center-align">Mann-Whitney U test</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="sqlite3_ossfuzz_mann_whitney_plot.svg">
+                                    The table summarizes the p values of
+                                    pairwise Mann-Whitney U tests.
+                                    Green cells indicate that the reached
+                                    coverage distribution of a given fuzzer pair
+                                    is significantly different.
+                            </div>
+                        </div> <!-- row -->
+
+                    </div>
+                </li>
+            </ul>
+
+            
+
+        </div> <!-- id="sqlite3_ossfuzz" -->
+        
+
         <div id="data" class="section scrollspy">
             <h2 class="green-text text-darken-3">experiment data</h2>
             You can download the raw data for this report <a href="data.csv.gz">here</a>.
@@ -265,7 +679,7 @@
             
             <br><br>
             The experiment was conducted using this FuzzBench commit:
-            <a href="https://github.com/google/fuzzbench/commits/4d24dba369024a0ca0246f16249e3df35b422f84">4d24dba369024a0ca0246f16249e3df35b422f84</a>
+            <a href="https://github.com/google/fuzzbench/commits/2c6a016d8df9698908185dca3153656bac297694">2c6a016d8df9698908185dca3153656bac297694</a>
             
 
             
@@ -281,7 +695,11 @@
         <ul class="section table-of-contents">
             <li><a href="#summary">experiment summary</a></li>
             
+            <li><a href="#libjpeg-turbo-07-2017">libjpeg-turbo-07-2017</a></li>
+            
             <li><a href="#libpng-1.2.56">libpng-1.2.56</a></li>
+            
+            <li><a href="#sqlite3_ossfuzz">sqlite3_ossfuzz</a></li>
             
             <li><a href="#data">experiment data</a></li>
         </ul>
