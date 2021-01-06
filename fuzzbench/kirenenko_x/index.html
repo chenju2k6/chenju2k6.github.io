@@ -94,16 +94,20 @@
   </thead>
   <tbody>
     <tr>
-      <th><a href="https://github.com/google/fuzzbench/blob/2c6a016d8df9698908185dca3153656bac297694/fuzzers/kirenenko">kirenenko</a></th>
-      <td>96.34</td>
+      <th><a href="https://github.com/google/fuzzbench/blob/e39c7698a0176e02efaade1a238f29eec60ac91a/fuzzers/fastgenz3">fastgenz3</a></th>
+      <td>99.25</td>
     </tr>
     <tr>
-      <th><a href="https://github.com/google/fuzzbench/blob/2c6a016d8df9698908185dca3153656bac297694/fuzzers/aflplusplus_optimal">aflplusplus_optimal</a></th>
-      <td>90.29</td>
+      <th><a href="https://github.com/google/fuzzbench/blob/e39c7698a0176e02efaade1a238f29eec60ac91a/fuzzers/aflplusplus_optimal">aflplusplus_optimal</a></th>
+      <td>89.20</td>
     </tr>
     <tr>
-      <th><a href="https://github.com/google/fuzzbench/blob/2c6a016d8df9698908185dca3153656bac297694/fuzzers/fastgen">fastgen</a></th>
-      <td>88.95</td>
+      <th><a href="https://github.com/google/fuzzbench/blob/e39c7698a0176e02efaade1a238f29eec60ac91a/fuzzers/fastgen">fastgen</a></th>
+      <td>88.24</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/e39c7698a0176e02efaade1a238f29eec60ac91a/fuzzers/kirenenko">kirenenko</a></th>
+      <td>87.72</td>
     </tr>
   </tbody>
 </table>
@@ -123,16 +127,20 @@
   </thead>
   <tbody>
     <tr>
-      <th><a href="https://github.com/google/fuzzbench/blob/2c6a016d8df9698908185dca3153656bac297694/fuzzers/kirenenko">kirenenko</a></th>
-      <td>1.33</td>
+      <th><a href="https://github.com/google/fuzzbench/blob/e39c7698a0176e02efaade1a238f29eec60ac91a/fuzzers/fastgenz3">fastgenz3</a></th>
+      <td>1.75</td>
     </tr>
     <tr>
-      <th><a href="https://github.com/google/fuzzbench/blob/2c6a016d8df9698908185dca3153656bac297694/fuzzers/fastgen">fastgen</a></th>
-      <td>2.00</td>
+      <th><a href="https://github.com/google/fuzzbench/blob/e39c7698a0176e02efaade1a238f29eec60ac91a/fuzzers/kirenenko">kirenenko</a></th>
+      <td>1.75</td>
     </tr>
     <tr>
-      <th><a href="https://github.com/google/fuzzbench/blob/2c6a016d8df9698908185dca3153656bac297694/fuzzers/aflplusplus_optimal">aflplusplus_optimal</a></th>
+      <th><a href="https://github.com/google/fuzzbench/blob/e39c7698a0176e02efaade1a238f29eec60ac91a/fuzzers/fastgen">fastgen</a></th>
       <td>2.50</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/e39c7698a0176e02efaade1a238f29eec60ac91a/fuzzers/aflplusplus_optimal">aflplusplus_optimal</a></th>
+      <td>4.00</td>
     </tr>
   </tbody>
 </table>
@@ -193,10 +201,12 @@
       <th>fuzzer</th>
       <th>aflplusplus_optimal</th>
       <th>fastgen</th>
+      <th>fastgenz3</th>
       <th>kirenenko</th>
     </tr>
     <tr>
       <th>benchmark</th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -206,20 +216,30 @@
     <tr>
       <th>libjpeg-turbo-07-2017</th>
       <td>NaN</td>
-      <td>3474.0</td>
-      <td>3802.0</td>
+      <td>3415.0</td>
+      <td>3760.0</td>
+      <td>3805.0</td>
     </tr>
     <tr>
       <th>libpng-1.2.56</th>
-      <td>2000.0</td>
-      <td>1618.0</td>
-      <td>2144.0</td>
+      <td>2002.0</td>
+      <td>2071.0</td>
+      <td>2067.0</td>
+      <td>2105.0</td>
+    </tr>
+    <tr>
+      <th>libxml2-v2.9.2</th>
+      <td>NaN</td>
+      <td>6913.0</td>
+      <td>10456.0</td>
+      <td>6949.0</td>
     </tr>
     <tr>
       <th>sqlite3_ossfuzz</th>
-      <td>29164.0</td>
-      <td>33406.0</td>
-      <td>29735.0</td>
+      <td>26910.0</td>
+      <td>31899.0</td>
+      <td>32311.0</td>
+      <td>27278.0</td>
     </tr>
   </tbody>
 </table>
@@ -316,34 +336,56 @@
   <tbody>
     <tr>
       <th>kirenenko</th>
-      <th>22500</th>
+      <th>20700</th>
       <td>5.0</td>
-      <td>3805.6</td>
-      <td>7.700649</td>
-      <td>3800.0</td>
-      <td>3802.0</td>
-      <td>3802.0</td>
+      <td>3800.4</td>
+      <td>13.903237</td>
+      <td>3776.0</td>
+      <td>3803.0</td>
       <td>3805.0</td>
-      <td>3819.0</td>
+      <td>3808.0</td>
+      <td>3810.0</td>
+    </tr>
+    <tr>
+      <th>fastgenz3</th>
+      <th>20700</th>
+      <td>5.0</td>
+      <td>3763.2</td>
+      <td>8.408329</td>
+      <td>3756.0</td>
+      <td>3758.0</td>
+      <td>3760.0</td>
+      <td>3765.0</td>
+      <td>3777.0</td>
     </tr>
     <tr>
       <th>fastgen</th>
-      <th>22500</th>
+      <th>20700</th>
       <td>5.0</td>
-      <td>3589.6</td>
-      <td>188.067275</td>
-      <td>3433.0</td>
-      <td>3451.0</td>
-      <td>3474.0</td>
-      <td>3794.0</td>
-      <td>3796.0</td>
+      <td>3488.0</td>
+      <td>144.086779</td>
+      <td>3413.0</td>
+      <td>3415.0</td>
+      <td>3415.0</td>
+      <td>3453.0</td>
+      <td>3744.0</td>
     </tr>
   </tbody>
 </table>
                         <br>
 
                         <div class="row">
-                            <div class="col s6 offset-s3">
+                            <div class="col s6">
+                                <h5 class="center-align">Vargha-Delaney A12 measure</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="libjpeg-turbo-07-2017_varga_delaney_a12_plot.svg">
+                                    The table summarizes the A12 values from the
+                                    pairwise Vargha-Delaney A measure of effect size.
+                                    Green cells indicate the probability the fuzzer in the
+                                    row will outperform the fuzzer in the column.
+                            </div>
+
+                            <div class="col s6">
                                 <h5 class="center-align">Mann-Whitney U test</h4>
                                     <img class="responsive-img materialboxed"
                                          src="libjpeg-turbo-07-2017_mann_whitney_plot.svg">
@@ -450,46 +492,68 @@
   <tbody>
     <tr>
       <th>kirenenko</th>
-      <th>22500</th>
+      <th>21600</th>
       <td>5.0</td>
-      <td>2146.0</td>
-      <td>5.787918</td>
-      <td>2141.0</td>
-      <td>2141.0</td>
-      <td>2144.0</td>
-      <td>2150.0</td>
-      <td>2154.0</td>
-    </tr>
-    <tr>
-      <th>aflplusplus_optimal</th>
-      <th>22500</th>
-      <td>5.0</td>
-      <td>2003.2</td>
-      <td>5.403702</td>
-      <td>1998.0</td>
-      <td>2000.0</td>
-      <td>2000.0</td>
-      <td>2008.0</td>
-      <td>2010.0</td>
+      <td>2138.4</td>
+      <td>48.034363</td>
+      <td>2102.0</td>
+      <td>2103.0</td>
+      <td>2105.0</td>
+      <td>2190.0</td>
+      <td>2192.0</td>
     </tr>
     <tr>
       <th>fastgen</th>
-      <th>22500</th>
+      <th>21600</th>
       <td>5.0</td>
-      <td>1616.8</td>
-      <td>5.167204</td>
-      <td>1608.0</td>
-      <td>1617.0</td>
-      <td>1618.0</td>
-      <td>1620.0</td>
-      <td>1621.0</td>
+      <td>2070.8</td>
+      <td>2.863564</td>
+      <td>2067.0</td>
+      <td>2070.0</td>
+      <td>2071.0</td>
+      <td>2071.0</td>
+      <td>2075.0</td>
+    </tr>
+    <tr>
+      <th>fastgenz3</th>
+      <th>21600</th>
+      <td>5.0</td>
+      <td>2067.8</td>
+      <td>4.266146</td>
+      <td>2064.0</td>
+      <td>2064.0</td>
+      <td>2067.0</td>
+      <td>2070.0</td>
+      <td>2074.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus_optimal</th>
+      <th>21600</th>
+      <td>5.0</td>
+      <td>2001.4</td>
+      <td>1.949359</td>
+      <td>1998.0</td>
+      <td>2002.0</td>
+      <td>2002.0</td>
+      <td>2002.0</td>
+      <td>2003.0</td>
     </tr>
   </tbody>
 </table>
                         <br>
 
                         <div class="row">
-                            <div class="col s6 offset-s3">
+                            <div class="col s6">
+                                <h5 class="center-align">Vargha-Delaney A12 measure</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="libpng-1.2.56_varga_delaney_a12_plot.svg">
+                                    The table summarizes the A12 values from the
+                                    pairwise Vargha-Delaney A measure of effect size.
+                                    Green cells indicate the probability the fuzzer in the
+                                    row will outperform the fuzzer in the column.
+                            </div>
+
+                            <div class="col s6">
                                 <h5 class="center-align">Mann-Whitney U test</h4>
                                     <img class="responsive-img materialboxed"
                                          src="libpng-1.2.56_mann_whitney_plot.svg">
@@ -508,6 +572,162 @@
             
 
         </div> <!-- id="libpng-1.2.56" -->
+        
+
+        <div id="libxml2-v2.9.2" class="section scrollspy">
+
+            <h2 class="green-text text-darken-3">libxml2-v2.9.2 summary</h2>
+
+            <div class="row">
+                <div class="col s6">
+            
+                    <h5 class="center-align">Ranking by median reached code coverage</h5>
+                    <img class="responsive-img materialboxed"
+                         src="libxml2-v2.9.2_ranking.svg">
+            
+                </div>
+                <div class="col s6">
+                    <h5 class="center-align">Reached code coverage distribution</h5>
+                    <img class="responsive-img materialboxed"
+                         src="libxml2-v2.9.2_boxplot.svg">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+            
+                      <li class="tab col s6"><a href="#libxml2-v2.9.2_code_normal" class="green-text text-darken-3">Code coverage (linear)</a></li>
+                      <li class="tab col s6"><a href="#libxml2-v2.9.2_code_logscale" class="green-text text-darken-3">Code coverage (log)</a></li>
+            
+                    </ul>
+                </div>
+                <div id="libxml2-v2.9.2_code_normal" class="col s12">
+                    <h5 class="center-align">Mean code coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="libxml2-v2.9.2_coverage_growth.svg">
+                </div>
+                <div id="libxml2-v2.9.2_code_logscale" class="col s12">
+                    <h5 class="center-align">Mean code coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="libxml2-v2.9.2_coverage_growth_logscale.svg">
+                </div>
+            
+                <div class="center-align">
+                    * The error bands show the 95% confidence interval
+                      around the mean code coverage.
+                </div>
+            </div>
+
+            
+
+            
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Sample statistics and statistical significance (code coverage)
+                    </div>
+                    <div class="collapsible-body">
+
+                        <h5 class="center-align">Code coverage sample statistics</h5>
+                        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>median</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>fuzzer</th>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>fastgenz3</th>
+      <th>20700</th>
+      <td>5.0</td>
+      <td>9236.8</td>
+      <td>1953.902812</td>
+      <td>6879.0</td>
+      <td>7337.0</td>
+      <td>10456.0</td>
+      <td>10749.0</td>
+      <td>10763.0</td>
+    </tr>
+    <tr>
+      <th>kirenenko</th>
+      <th>20700</th>
+      <td>5.0</td>
+      <td>7067.6</td>
+      <td>215.114621</td>
+      <td>6858.0</td>
+      <td>6938.0</td>
+      <td>6949.0</td>
+      <td>7244.0</td>
+      <td>7349.0</td>
+    </tr>
+    <tr>
+      <th>fastgen</th>
+      <th>20700</th>
+      <td>5.0</td>
+      <td>7508.0</td>
+      <td>1354.026588</td>
+      <td>6879.0</td>
+      <td>6899.0</td>
+      <td>6913.0</td>
+      <td>6919.0</td>
+      <td>9930.0</td>
+    </tr>
+  </tbody>
+</table>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s6">
+                                <h5 class="center-align">Vargha-Delaney A12 measure</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="libxml2-v2.9.2_varga_delaney_a12_plot.svg">
+                                    The table summarizes the A12 values from the
+                                    pairwise Vargha-Delaney A measure of effect size.
+                                    Green cells indicate the probability the fuzzer in the
+                                    row will outperform the fuzzer in the column.
+                            </div>
+
+                            <div class="col s6">
+                                <h5 class="center-align">Mann-Whitney U test</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="libxml2-v2.9.2_mann_whitney_plot.svg">
+                                    The table summarizes the p values of
+                                    pairwise Mann-Whitney U tests.
+                                    Green cells indicate that the reached
+                                    coverage distribution of a given fuzzer pair
+                                    is significantly different.
+                            </div>
+                        </div> <!-- row -->
+
+                    </div>
+                </li>
+            </ul>
+
+            
+
+        </div> <!-- id="libxml2-v2.9.2" -->
         
 
         <div id="sqlite3_ossfuzz" class="section scrollspy">
@@ -595,47 +815,69 @@
   </thead>
   <tbody>
     <tr>
-      <th>fastgen</th>
-      <th>22500</th>
+      <th>fastgenz3</th>
+      <th>20700</th>
       <td>5.0</td>
-      <td>33609.0</td>
-      <td>743.107327</td>
-      <td>32707.0</td>
-      <td>33273.0</td>
-      <td>33406.0</td>
-      <td>34011.0</td>
-      <td>34648.0</td>
+      <td>32089.4</td>
+      <td>647.099142</td>
+      <td>31346.0</td>
+      <td>31459.0</td>
+      <td>32311.0</td>
+      <td>32588.0</td>
+      <td>32743.0</td>
+    </tr>
+    <tr>
+      <th>fastgen</th>
+      <th>20700</th>
+      <td>5.0</td>
+      <td>32056.6</td>
+      <td>844.508318</td>
+      <td>31253.0</td>
+      <td>31327.0</td>
+      <td>31899.0</td>
+      <td>32570.0</td>
+      <td>33234.0</td>
     </tr>
     <tr>
       <th>kirenenko</th>
-      <th>22500</th>
+      <th>20700</th>
       <td>5.0</td>
-      <td>28975.8</td>
-      <td>2150.090626</td>
-      <td>25918.0</td>
-      <td>27875.0</td>
-      <td>29735.0</td>
-      <td>29788.0</td>
-      <td>31563.0</td>
+      <td>27103.8</td>
+      <td>1482.731162</td>
+      <td>25363.0</td>
+      <td>25909.0</td>
+      <td>27278.0</td>
+      <td>27988.0</td>
+      <td>28981.0</td>
     </tr>
     <tr>
       <th>aflplusplus_optimal</th>
-      <th>22500</th>
+      <th>20700</th>
       <td>5.0</td>
-      <td>29469.2</td>
-      <td>914.079428</td>
-      <td>28617.0</td>
-      <td>28685.0</td>
-      <td>29164.0</td>
-      <td>30333.0</td>
-      <td>30547.0</td>
+      <td>26848.6</td>
+      <td>2624.211177</td>
+      <td>23074.0</td>
+      <td>25711.0</td>
+      <td>26910.0</td>
+      <td>28931.0</td>
+      <td>29617.0</td>
     </tr>
   </tbody>
 </table>
                         <br>
 
                         <div class="row">
-                            <div class="col s6 offset-s3">
+                            <div class="col s6">
+                                <h5 class="center-align">Vargha-Delaney A12 measure</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="sqlite3_ossfuzz_varga_delaney_a12_plot.svg">
+                                    The table summarizes the A12 values from the
+                                    pairwise Vargha-Delaney A measure of effect size.
+                                    Green cells indicate the probability the fuzzer in the
+                                    row will outperform the fuzzer in the column.
+                            </div>
+
+                            <div class="col s6">
                                 <h5 class="center-align">Mann-Whitney U test</h4>
                                     <img class="responsive-img materialboxed"
                                          src="sqlite3_ossfuzz_mann_whitney_plot.svg">
@@ -667,7 +909,7 @@
             
             <br><br>
             The experiment was conducted using this FuzzBench commit:
-            <a href="https://github.com/google/fuzzbench/commits/2c6a016d8df9698908185dca3153656bac297694">2c6a016d8df9698908185dca3153656bac297694</a>
+            <a href="https://github.com/google/fuzzbench/commits/e39c7698a0176e02efaade1a238f29eec60ac91a">e39c7698a0176e02efaade1a238f29eec60ac91a</a>
             
 
             
@@ -686,6 +928,8 @@
             <li><a href="#libjpeg-turbo-07-2017">libjpeg-turbo-07-2017</a></li>
             
             <li><a href="#libpng-1.2.56">libpng-1.2.56</a></li>
+            
+            <li><a href="#libxml2-v2.9.2">libxml2-v2.9.2</a></li>
             
             <li><a href="#sqlite3_ossfuzz">sqlite3_ossfuzz</a></li>
             
