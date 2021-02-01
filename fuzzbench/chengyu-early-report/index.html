@@ -1,0 +1,6046 @@
+<!--
+     Copyright 2020 Google LLC
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            FuzzBench: 2021-01-03 report
+            
+        </title>
+
+        <!-- Import Materialize CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <!-- Import Google Material Icon Font -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    </head>
+<body>
+    <div class="container"><div class="row"><div class="col s12 m10 l10">
+
+        <h1 class="center-align brown-text text-darken-3">
+            FuzzBench: 2021-01-03 report
+        </h1>
+        
+
+        <div class="card-panel amber lighten-5">
+            <div class="row">
+                <div class="col s4 m2 center-align">
+                    <i class="medium material-icons">warning</i>
+                </div>
+                <div class="col s8 m10">
+                    <span class="black-text">
+                        Please consider this as a preliminary report to
+                        demonstrate the capabilities of FuzzBench. While we have
+                        tried our best, we have not confirmed that we configured
+                        everything correctly. We are hoping to work together
+                        with the community to validate results and improve the
+                        set of fuzzers, benchmarks, and their configurations in
+                        the future.
+                        See <a href="https://google.github.io/fuzzbench/faq">FAQ</a>
+                        for more details.
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div id="summary" class="section scrollspy">
+            <h2 class="green-text text-darken-3">experiment summary</h2>
+
+            
+
+            
+
+            We show two different aggregate (cross-benchmark) rankings of fuzzers.
+            The first is based on the average of per-benchmarks scores, where
+            the score represents the percentage of the highest reached median
+            coverage on a given benchmark (higher value is better).
+
+            The second ranking shows the average rank of fuzzers, after we rank
+            them on each benchmark according to their median reached covereges
+            (lower value is better).
+
+            <div class="row">
+                <div class="col s5 offset-s1">
+                    <h5 class="center-align">By avg. score</h5>
+                    <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>average normalized score</th>
+    </tr>
+    <tr>
+      <th>fuzzer</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/aflplusplus">aflplusplus</a></th>
+      <td>95.78</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/jigsaw_new">jigsaw_new</a></th>
+      <td>95.26</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/aflplusplus_optimal">aflplusplus_optimal</a></th>
+      <td>95.14</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/jigsaw">jigsaw</a></th>
+      <td>94.37</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/z3_new">z3_new</a></th>
+      <td>92.82</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/eclipser">eclipser</a></th>
+      <td>92.14</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/entropic">entropic</a></th>
+      <td>91.54</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/honggfuzz">honggfuzz</a></th>
+      <td>91.16</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/aflsmart">aflsmart</a></th>
+      <td>89.48</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/afl">afl</a></th>
+      <td>88.78</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/mopt">mopt</a></th>
+      <td>88.18</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/libfuzzer">libfuzzer</a></th>
+      <td>87.17</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/aflfast">aflfast</a></th>
+      <td>84.83</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/lafintel">lafintel</a></th>
+      <td>83.75</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/fairfuzz">fairfuzz</a></th>
+      <td>82.50</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/jigsaw_new_standalone">jigsaw_new_standalone</a></th>
+      <td>82.15</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/z3_new_standalone">z3_new_standalone</a></th>
+      <td>56.70</td>
+    </tr>
+  </tbody>
+</table>
+                </div>
+                <div class="col s5">
+                    <h5 class="center-align">By avg. rank</h5>
+                    <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>average rank</th>
+    </tr>
+    <tr>
+      <th>fuzzer</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/aflplusplus">aflplusplus</a></th>
+      <td>3.62</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/aflplusplus_optimal">aflplusplus_optimal</a></th>
+      <td>4.03</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/jigsaw_new">jigsaw_new</a></th>
+      <td>6.32</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/jigsaw">jigsaw</a></th>
+      <td>6.46</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/eclipser">eclipser</a></th>
+      <td>6.62</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/entropic">entropic</a></th>
+      <td>7.38</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/aflsmart">aflsmart</a></th>
+      <td>7.47</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/honggfuzz">honggfuzz</a></th>
+      <td>7.62</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/afl">afl</a></th>
+      <td>7.79</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/z3_new">z3_new</a></th>
+      <td>8.21</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/mopt">mopt</a></th>
+      <td>8.74</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/libfuzzer">libfuzzer</a></th>
+      <td>10.97</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/fairfuzz">fairfuzz</a></th>
+      <td>12.12</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/aflfast">aflfast</a></th>
+      <td>12.18</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/lafintel">lafintel</a></th>
+      <td>12.38</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/jigsaw_new_standalone">jigsaw_new_standalone</a></th>
+      <td>13.35</td>
+    </tr>
+    <tr>
+      <th><a href="https://github.com/google/fuzzbench/blob/master/fuzzers/z3_new_standalone">z3_new_standalone</a></th>
+      <td>15.73</td>
+    </tr>
+  </tbody>
+</table>
+                </div>
+            </div>
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Critical difference diagram
+                    </div>
+                    <div class="collapsible-body">
+
+
+            
+
+            The diagram visualizes the average rank of fuzzers (second ranking
+            above) while showing the significance of the differences as well.
+            What is considered a "critical difference" (CD) is based on the
+            Friedman/Nemenyi post-hoc test. See more in the <a
+            href="https://google.github.io/fuzzbench/reference/report/">
+            documentation</a>.
+
+            <br>
+
+            <div class="row">
+                <div class="col s7 offset-s3">
+                    <img class="responsive-img materialboxed"
+                         src="experiment_critical_difference_plot.svg">
+                </div>
+            </div>
+
+            Note: If a fuzzer does not support all benchmarks, its ranking as
+            shown in this diagram can be lower than it should be. So please
+            check the list of supported benchmarks for the fuzzer(s) of your interest.
+            The list could be specified in the fuzzer's README.md like
+            <a href="https://github.com/google/fuzzbench/blob/master/fuzzers/aflsmart/README.md">this</a>.
+
+             
+
+                    </div>
+                </li>
+            </ul>
+
+             
+
+             
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Median coverages on each benchmark
+                    </div>
+                    <div class="collapsible-body">
+                        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>fuzzer</th>
+      <th>afl</th>
+      <th>aflfast</th>
+      <th>aflplusplus</th>
+      <th>aflplusplus_optimal</th>
+      <th>aflsmart</th>
+      <th>eclipser</th>
+      <th>entropic</th>
+      <th>fairfuzz</th>
+      <th>honggfuzz</th>
+      <th>jigsaw</th>
+      <th>jigsaw_new</th>
+      <th>jigsaw_new_standalone</th>
+      <th>lafintel</th>
+      <th>libfuzzer</th>
+      <th>mopt</th>
+      <th>z3_new</th>
+      <th>z3_new_standalone</th>
+    </tr>
+    <tr>
+      <th>benchmark</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>curl_curl_fuzzer_http</th>
+      <td>17667.5</td>
+      <td>17435.0</td>
+      <td>18273.5</td>
+      <td>18230.0</td>
+      <td>17663.0</td>
+      <td>17655.5</td>
+      <td>16876.0</td>
+      <td>17289.0</td>
+      <td>17892.5</td>
+      <td>17564.5</td>
+      <td>17586.0</td>
+      <td>14589.0</td>
+      <td>17539.0</td>
+      <td>15815.0</td>
+      <td>17582.5</td>
+      <td>17461.5</td>
+      <td>13909.0</td>
+    </tr>
+    <tr>
+      <th>freetype2-2017</th>
+      <td>20497.0</td>
+      <td>20121.5</td>
+      <td>26807.5</td>
+      <td>27017.5</td>
+      <td>20350.0</td>
+      <td>22280.0</td>
+      <td>23969.5</td>
+      <td>20317.0</td>
+      <td>20620.5</td>
+      <td>25450.0</td>
+      <td>25486.5</td>
+      <td>20163.5</td>
+      <td>18980.0</td>
+      <td>19017.0</td>
+      <td>20364.0</td>
+      <td>24896.0</td>
+      <td>18139.0</td>
+    </tr>
+    <tr>
+      <th>harfbuzz-1.3.2</th>
+      <td>8373.5</td>
+      <td>8301.0</td>
+      <td>8933.5</td>
+      <td>8838.0</td>
+      <td>8386.0</td>
+      <td>8386.0</td>
+      <td>8475.5</td>
+      <td>8435.5</td>
+      <td>8588.5</td>
+      <td>8554.5</td>
+      <td>8645.0</td>
+      <td>8323.0</td>
+      <td>8313.5</td>
+      <td>8325.5</td>
+      <td>8346.0</td>
+      <td>8350.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>jsoncpp_jsoncpp_fuzzer</th>
+      <td>639.0</td>
+      <td>639.0</td>
+      <td>639.0</td>
+      <td>638.5</td>
+      <td>639.0</td>
+      <td>639.0</td>
+      <td>641.0</td>
+      <td>639.0</td>
+      <td>641.0</td>
+      <td>NaN</td>
+      <td>639.0</td>
+      <td>635.0</td>
+      <td>639.0</td>
+      <td>641.0</td>
+      <td>639.0</td>
+      <td>639.0</td>
+      <td>96.0</td>
+    </tr>
+    <tr>
+      <th>lcms-2017-03-21</th>
+      <td>2650.0</td>
+      <td>2423.0</td>
+      <td>3522.0</td>
+      <td>3297.5</td>
+      <td>2645.0</td>
+      <td>2646.5</td>
+      <td>3412.5</td>
+      <td>2436.0</td>
+      <td>2722.0</td>
+      <td>3912.0</td>
+      <td>3918.5</td>
+      <td>3810.0</td>
+      <td>2507.0</td>
+      <td>3302.0</td>
+      <td>2483.5</td>
+      <td>3437.0</td>
+      <td>2850.0</td>
+    </tr>
+    <tr>
+      <th>libjpeg-turbo-07-2017</th>
+      <td>3777.0</td>
+      <td>3454.0</td>
+      <td>3800.5</td>
+      <td>3802.0</td>
+      <td>3770.5</td>
+      <td>3781.0</td>
+      <td>3804.5</td>
+      <td>3614.0</td>
+      <td>3754.0</td>
+      <td>3808.0</td>
+      <td>3807.5</td>
+      <td>3409.0</td>
+      <td>3420.5</td>
+      <td>3754.0</td>
+      <td>3777.0</td>
+      <td>3803.0</td>
+      <td>2941.5</td>
+    </tr>
+    <tr>
+      <th>libpng-1.2.56</th>
+      <td>1510.0</td>
+      <td>1510.0</td>
+      <td>1948.0</td>
+      <td>2008.5</td>
+      <td>1616.5</td>
+      <td>1783.5</td>
+      <td>2010.0</td>
+      <td>1510.0</td>
+      <td>2138.0</td>
+      <td>2084.5</td>
+      <td>2083.5</td>
+      <td>2023.0</td>
+      <td>1607.0</td>
+      <td>1999.0</td>
+      <td>1510.0</td>
+      <td>2072.0</td>
+      <td>1932.0</td>
+    </tr>
+    <tr>
+      <th>libxml2-v2.9.2</th>
+      <td>10151.5</td>
+      <td>6430.5</td>
+      <td>12332.0</td>
+      <td>12687.5</td>
+      <td>10781.5</td>
+      <td>10583.0</td>
+      <td>6993.0</td>
+      <td>6566.0</td>
+      <td>8076.0</td>
+      <td>11312.5</td>
+      <td>11706.0</td>
+      <td>8808.5</td>
+      <td>6233.5</td>
+      <td>6437.0</td>
+      <td>9480.0</td>
+      <td>11924.0</td>
+      <td>2348.0</td>
+    </tr>
+    <tr>
+      <th>libxslt_xpath</th>
+      <td>18859.5</td>
+      <td>18693.0</td>
+      <td>19095.0</td>
+      <td>19072.0</td>
+      <td>18890.5</td>
+      <td>18890.0</td>
+      <td>16416.0</td>
+      <td>18829.0</td>
+      <td>19074.0</td>
+      <td>NaN</td>
+      <td>18117.5</td>
+      <td>14855.0</td>
+      <td>18612.5</td>
+      <td>15804.5</td>
+      <td>18633.0</td>
+      <td>18006.0</td>
+      <td>14580.0</td>
+    </tr>
+    <tr>
+      <th>mbedtls_fuzz_dtlsclient</th>
+      <td>8264.5</td>
+      <td>8099.0</td>
+      <td>8225.0</td>
+      <td>8301.0</td>
+      <td>8267.0</td>
+      <td>8223.0</td>
+      <td>8174.0</td>
+      <td>8262.0</td>
+      <td>8078.0</td>
+      <td>NaN</td>
+      <td>10855.0</td>
+      <td>8095.0</td>
+      <td>8148.5</td>
+      <td>7693.5</td>
+      <td>8257.5</td>
+      <td>8206.0</td>
+      <td>7870.0</td>
+    </tr>
+    <tr>
+      <th>openssl_x509</th>
+      <td>13784.0</td>
+      <td>13782.0</td>
+      <td>13784.0</td>
+      <td>13786.0</td>
+      <td>13784.0</td>
+      <td>13784.0</td>
+      <td>13763.0</td>
+      <td>13766.0</td>
+      <td>13735.5</td>
+      <td>13784.0</td>
+      <td>13784.0</td>
+      <td>13692.0</td>
+      <td>13761.0</td>
+      <td>13757.0</td>
+      <td>13784.0</td>
+      <td>13784.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>openthread-2019-12-23</th>
+      <td>5836.5</td>
+      <td>5254.5</td>
+      <td>5845.0</td>
+      <td>5845.0</td>
+      <td>5814.0</td>
+      <td>5871.0</td>
+      <td>5904.5</td>
+      <td>4143.0</td>
+      <td>5832.5</td>
+      <td>5259.0</td>
+      <td>5245.5</td>
+      <td>5109.0</td>
+      <td>5266.5</td>
+      <td>5900.0</td>
+      <td>5840.0</td>
+      <td>5248.0</td>
+      <td>4096.0</td>
+    </tr>
+    <tr>
+      <th>proj4-2017-08-14</th>
+      <td>4524.0</td>
+      <td>4196.0</td>
+      <td>5968.0</td>
+      <td>5381.0</td>
+      <td>4759.0</td>
+      <td>7027.0</td>
+      <td>7758.5</td>
+      <td>4922.5</td>
+      <td>7029.5</td>
+      <td>5272.0</td>
+      <td>5278.0</td>
+      <td>1275.0</td>
+      <td>4311.5</td>
+      <td>7650.0</td>
+      <td>4712.0</td>
+      <td>5200.0</td>
+      <td>180.0</td>
+    </tr>
+    <tr>
+      <th>re2-2014-12-09</th>
+      <td>3516.0</td>
+      <td>3516.0</td>
+      <td>3549.5</td>
+      <td>3519.0</td>
+      <td>3526.0</td>
+      <td>3531.5</td>
+      <td>3525.0</td>
+      <td>3509.5</td>
+      <td>3513.5</td>
+      <td>3510.0</td>
+      <td>3513.0</td>
+      <td>3123.0</td>
+      <td>3505.0</td>
+      <td>3516.0</td>
+      <td>3516.5</td>
+      <td>3504.0</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>sqlite3_ossfuzz</th>
+      <td>35214.5</td>
+      <td>34695.5</td>
+      <td>35667.5</td>
+      <td>35331.5</td>
+      <td>34886.0</td>
+      <td>35061.5</td>
+      <td>31437.5</td>
+      <td>24093.5</td>
+      <td>31164.0</td>
+      <td>34680.0</td>
+      <td>34463.5</td>
+      <td>25413.5</td>
+      <td>26695.0</td>
+      <td>23885.0</td>
+      <td>35092.0</td>
+      <td>35378.0</td>
+      <td>17947.0</td>
+    </tr>
+    <tr>
+      <th>vorbis-2017-12-11</th>
+      <td>2167.0</td>
+      <td>2163.5</td>
+      <td>2170.0</td>
+      <td>2175.5</td>
+      <td>2165.5</td>
+      <td>2164.0</td>
+      <td>2162.0</td>
+      <td>2130.5</td>
+      <td>2156.0</td>
+      <td>2165.0</td>
+      <td>2165.5</td>
+      <td>2054.0</td>
+      <td>2160.5</td>
+      <td>2149.5</td>
+      <td>2167.0</td>
+      <td>2162.0</td>
+      <td>1769.0</td>
+    </tr>
+    <tr>
+      <th>woff2-2016-05-06</th>
+      <td>1863.0</td>
+      <td>1823.5</td>
+      <td>1931.0</td>
+      <td>1896.0</td>
+      <td>1872.5</td>
+      <td>1895.0</td>
+      <td>1856.0</td>
+      <td>1672.5</td>
+      <td>1909.5</td>
+      <td>1853.0</td>
+      <td>1850.0</td>
+      <td>1754.0</td>
+      <td>1867.0</td>
+      <td>1698.0</td>
+      <td>1855.0</td>
+      <td>1845.0</td>
+      <td>1566.5</td>
+    </tr>
+  </tbody>
+</table>
+                    </div>
+                </li>
+            </ul>
+        </div> <!-- id="experiment" -->
+
+        
+
+        <div id="curl_curl_fuzzer_http" class="section scrollspy">
+
+            <h2 class="green-text text-darken-3">curl_curl_fuzzer_http summary</h2>
+
+            <div class="row">
+                <div class="col s6">
+                    <h5 class="center-align">Ranking by median reached coverage</h5>
+                    <img class="responsive-img materialboxed"
+                         src="curl_curl_fuzzer_http_ranking.svg">
+                </div>
+                <div class="col s6">
+                    <h5 class="center-align">Reached coverage distribution</h5>
+                    <img class="responsive-img materialboxed"
+                         src="curl_curl_fuzzer_http_violin.svg">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                      <li class="tab col s6"><a href="#curl_curl_fuzzer_http_region_normal" class="green-text text-darken-3">Region coverage (linear)</a></li>
+                      <li class="tab col s6"><a href="#curl_curl_fuzzer_http_region_logscale" class="green-text text-darken-3">Region coverage (log)</a></li>
+                    </ul>
+                </div>
+                <div id="curl_curl_fuzzer_http_region_normal" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="curl_curl_fuzzer_http_coverage_growth.svg">
+                </div>
+                <div id="curl_curl_fuzzer_http_region_logscale" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="curl_curl_fuzzer_http_coverage_growth_logscale.svg">
+                </div>
+                <div class="center-align">
+                    * The error bands show the 95% confidence interval
+                      around the mean coverage.
+                </div>
+            </div>
+
+
+            
+            <div class="card-panel deep-orange lighten-3">
+                <div class="row valign-wrapper">
+                    <div class="col s4 m2 center-align">
+                        <i class="medium material-icons">error</i>
+                    </div>
+                    <div class="col s8 m10">
+                        <span class="black-text">
+                            The following fuzzers do not have enough samples:
+                            <strong>
+                                z3_new.
+                            </strong>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Sample statistics and statistical significance
+                    </div>
+                    <div class="collapsible-body">
+
+                        <h5 class="center-align">Coverage sample statistics</h5>
+                        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>median</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>fuzzer</th>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>aflplusplus</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>18255.750000</td>
+      <td>67.782838</td>
+      <td>18010.0</td>
+      <td>18234.25</td>
+      <td>18273.5</td>
+      <td>18291.25</td>
+      <td>18326.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus_optimal</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>18218.750000</td>
+      <td>69.382142</td>
+      <td>18111.0</td>
+      <td>18143.00</td>
+      <td>18230.0</td>
+      <td>18273.25</td>
+      <td>18327.0</td>
+    </tr>
+    <tr>
+      <th>honggfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>17894.000000</td>
+      <td>97.094636</td>
+      <td>17743.0</td>
+      <td>17814.75</td>
+      <td>17892.5</td>
+      <td>17954.50</td>
+      <td>18078.0</td>
+    </tr>
+    <tr>
+      <th>afl</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>17674.650000</td>
+      <td>49.671844</td>
+      <td>17584.0</td>
+      <td>17643.75</td>
+      <td>17667.5</td>
+      <td>17700.25</td>
+      <td>17778.0</td>
+    </tr>
+    <tr>
+      <th>aflsmart</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>17693.550000</td>
+      <td>72.874423</td>
+      <td>17589.0</td>
+      <td>17650.75</td>
+      <td>17663.0</td>
+      <td>17738.75</td>
+      <td>17834.0</td>
+    </tr>
+    <tr>
+      <th>eclipser</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>17658.500000</td>
+      <td>80.298456</td>
+      <td>17538.0</td>
+      <td>17598.00</td>
+      <td>17655.5</td>
+      <td>17684.00</td>
+      <td>17831.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new</th>
+      <th>82800</th>
+      <td>16.0</td>
+      <td>17592.125000</td>
+      <td>132.731245</td>
+      <td>17346.0</td>
+      <td>17541.50</td>
+      <td>17586.0</td>
+      <td>17684.50</td>
+      <td>17801.0</td>
+    </tr>
+    <tr>
+      <th>mopt</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>17577.100000</td>
+      <td>49.380265</td>
+      <td>17465.0</td>
+      <td>17555.25</td>
+      <td>17582.5</td>
+      <td>17600.50</td>
+      <td>17663.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>17579.777778</td>
+      <td>120.550968</td>
+      <td>17353.0</td>
+      <td>17501.50</td>
+      <td>17564.5</td>
+      <td>17668.00</td>
+      <td>17801.0</td>
+    </tr>
+    <tr>
+      <th>lafintel</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>17557.050000</td>
+      <td>62.941472</td>
+      <td>17459.0</td>
+      <td>17520.25</td>
+      <td>17539.0</td>
+      <td>17607.25</td>
+      <td>17682.0</td>
+    </tr>
+    <tr>
+      <th>z3_new</th>
+      <th>82800</th>
+      <td>14.0</td>
+      <td>17442.000000</td>
+      <td>131.044913</td>
+      <td>17269.0</td>
+      <td>17341.50</td>
+      <td>17461.5</td>
+      <td>17509.75</td>
+      <td>17750.0</td>
+    </tr>
+    <tr>
+      <th>aflfast</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>17454.150000</td>
+      <td>75.948234</td>
+      <td>17353.0</td>
+      <td>17390.75</td>
+      <td>17435.0</td>
+      <td>17514.50</td>
+      <td>17599.0</td>
+    </tr>
+    <tr>
+      <th>fairfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>17094.350000</td>
+      <td>495.207269</td>
+      <td>16014.0</td>
+      <td>16930.50</td>
+      <td>17289.0</td>
+      <td>17486.00</td>
+      <td>17561.0</td>
+    </tr>
+    <tr>
+      <th>entropic</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>16878.950000</td>
+      <td>586.208107</td>
+      <td>15758.0</td>
+      <td>16582.75</td>
+      <td>16876.0</td>
+      <td>17415.50</td>
+      <td>17720.0</td>
+    </tr>
+    <tr>
+      <th>libfuzzer</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>15827.150000</td>
+      <td>903.435273</td>
+      <td>14259.0</td>
+      <td>15462.25</td>
+      <td>15815.0</td>
+      <td>16503.50</td>
+      <td>17294.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new_standalone</th>
+      <th>82800</th>
+      <td>19.0</td>
+      <td>14603.368421</td>
+      <td>150.384770</td>
+      <td>14381.0</td>
+      <td>14512.50</td>
+      <td>14589.0</td>
+      <td>14689.50</td>
+      <td>14885.0</td>
+    </tr>
+    <tr>
+      <th>z3_new_standalone</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>13904.722222</td>
+      <td>12.568895</td>
+      <td>13865.0</td>
+      <td>13897.75</td>
+      <td>13909.0</td>
+      <td>13913.75</td>
+      <td>13919.0</td>
+    </tr>
+  </tbody>
+</table>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s6 offset-s3">
+                                <h5 class="center-align">Mann-Whitney U test</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="curl_curl_fuzzer_http_mann_whitney_plot.svg">
+                                    The table summarizes the p values of
+                                    pairwise Mann-Whitney U tests.
+                                    Green cells indicate that the reached
+                                    coverage distribution of a given fuzzer pair
+                                    is significantly different.
+                            </div>
+                        </div> <!-- row -->
+
+                    </div>
+                </li>
+            </ul>
+
+            
+
+        </div> <!-- id="curl_curl_fuzzer_http" -->
+        
+
+        <div id="freetype2-2017" class="section scrollspy">
+
+            <h2 class="green-text text-darken-3">freetype2-2017 summary</h2>
+
+            <div class="row">
+                <div class="col s6">
+                    <h5 class="center-align">Ranking by median reached coverage</h5>
+                    <img class="responsive-img materialboxed"
+                         src="freetype2-2017_ranking.svg">
+                </div>
+                <div class="col s6">
+                    <h5 class="center-align">Reached coverage distribution</h5>
+                    <img class="responsive-img materialboxed"
+                         src="freetype2-2017_violin.svg">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                      <li class="tab col s6"><a href="#freetype2-2017_region_normal" class="green-text text-darken-3">Region coverage (linear)</a></li>
+                      <li class="tab col s6"><a href="#freetype2-2017_region_logscale" class="green-text text-darken-3">Region coverage (log)</a></li>
+                    </ul>
+                </div>
+                <div id="freetype2-2017_region_normal" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="freetype2-2017_coverage_growth.svg">
+                </div>
+                <div id="freetype2-2017_region_logscale" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="freetype2-2017_coverage_growth_logscale.svg">
+                </div>
+                <div class="center-align">
+                    * The error bands show the 95% confidence interval
+                      around the mean coverage.
+                </div>
+            </div>
+
+
+            
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Sample statistics and statistical significance
+                    </div>
+                    <div class="collapsible-body">
+
+                        <h5 class="center-align">Coverage sample statistics</h5>
+                        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>median</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>fuzzer</th>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>aflplusplus_optimal</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>26949.450000</td>
+      <td>429.011774</td>
+      <td>25770.0</td>
+      <td>26838.75</td>
+      <td>27017.5</td>
+      <td>27180.75</td>
+      <td>27486.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>26766.200000</td>
+      <td>397.137733</td>
+      <td>25552.0</td>
+      <td>26596.00</td>
+      <td>26807.5</td>
+      <td>26948.25</td>
+      <td>27432.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>25799.611111</td>
+      <td>1000.014890</td>
+      <td>24361.0</td>
+      <td>25186.75</td>
+      <td>25486.5</td>
+      <td>26686.75</td>
+      <td>27521.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw</th>
+      <th>82800</th>
+      <td>19.0</td>
+      <td>25817.473684</td>
+      <td>1107.330994</td>
+      <td>24204.0</td>
+      <td>25040.50</td>
+      <td>25450.0</td>
+      <td>26785.50</td>
+      <td>27740.0</td>
+    </tr>
+    <tr>
+      <th>z3_new</th>
+      <th>82800</th>
+      <td>17.0</td>
+      <td>24989.588235</td>
+      <td>693.562548</td>
+      <td>23853.0</td>
+      <td>24572.00</td>
+      <td>24896.0</td>
+      <td>25265.00</td>
+      <td>26318.0</td>
+    </tr>
+    <tr>
+      <th>entropic</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>23922.950000</td>
+      <td>1296.060203</td>
+      <td>20839.0</td>
+      <td>23100.50</td>
+      <td>23969.5</td>
+      <td>24846.25</td>
+      <td>26230.0</td>
+    </tr>
+    <tr>
+      <th>eclipser</th>
+      <th>82800</th>
+      <td>17.0</td>
+      <td>22293.470588</td>
+      <td>223.042069</td>
+      <td>21874.0</td>
+      <td>22123.00</td>
+      <td>22280.0</td>
+      <td>22383.00</td>
+      <td>22700.0</td>
+    </tr>
+    <tr>
+      <th>honggfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>20768.050000</td>
+      <td>538.984667</td>
+      <td>20133.0</td>
+      <td>20398.75</td>
+      <td>20620.5</td>
+      <td>21056.25</td>
+      <td>21978.0</td>
+    </tr>
+    <tr>
+      <th>afl</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>20506.850000</td>
+      <td>156.527541</td>
+      <td>20235.0</td>
+      <td>20387.75</td>
+      <td>20497.0</td>
+      <td>20566.75</td>
+      <td>20879.0</td>
+    </tr>
+    <tr>
+      <th>mopt</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>20355.250000</td>
+      <td>168.904169</td>
+      <td>20016.0</td>
+      <td>20272.25</td>
+      <td>20364.0</td>
+      <td>20443.00</td>
+      <td>20736.0</td>
+    </tr>
+    <tr>
+      <th>aflsmart</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>20373.850000</td>
+      <td>211.002189</td>
+      <td>20073.0</td>
+      <td>20254.25</td>
+      <td>20350.0</td>
+      <td>20436.25</td>
+      <td>20858.0</td>
+    </tr>
+    <tr>
+      <th>fairfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>20270.350000</td>
+      <td>458.648045</td>
+      <td>18808.0</td>
+      <td>20198.00</td>
+      <td>20317.0</td>
+      <td>20521.75</td>
+      <td>20849.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new_standalone</th>
+      <th>82800</th>
+      <td>16.0</td>
+      <td>20199.062500</td>
+      <td>617.819873</td>
+      <td>19220.0</td>
+      <td>19849.75</td>
+      <td>20163.5</td>
+      <td>20763.75</td>
+      <td>20963.0</td>
+    </tr>
+    <tr>
+      <th>aflfast</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>20061.350000</td>
+      <td>287.620963</td>
+      <td>19005.0</td>
+      <td>19961.75</td>
+      <td>20121.5</td>
+      <td>20218.25</td>
+      <td>20350.0</td>
+    </tr>
+    <tr>
+      <th>libfuzzer</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>19464.250000</td>
+      <td>1030.416159</td>
+      <td>18073.0</td>
+      <td>18631.75</td>
+      <td>19017.0</td>
+      <td>20491.25</td>
+      <td>21236.0</td>
+    </tr>
+    <tr>
+      <th>lafintel</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>19143.500000</td>
+      <td>589.188157</td>
+      <td>18263.0</td>
+      <td>18765.25</td>
+      <td>18980.0</td>
+      <td>19588.25</td>
+      <td>20230.0</td>
+    </tr>
+    <tr>
+      <th>z3_new_standalone</th>
+      <th>82800</th>
+      <td>17.0</td>
+      <td>18068.529412</td>
+      <td>265.476957</td>
+      <td>17346.0</td>
+      <td>17920.00</td>
+      <td>18139.0</td>
+      <td>18234.00</td>
+      <td>18416.0</td>
+    </tr>
+  </tbody>
+</table>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s6 offset-s3">
+                                <h5 class="center-align">Mann-Whitney U test</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="freetype2-2017_mann_whitney_plot.svg">
+                                    The table summarizes the p values of
+                                    pairwise Mann-Whitney U tests.
+                                    Green cells indicate that the reached
+                                    coverage distribution of a given fuzzer pair
+                                    is significantly different.
+                            </div>
+                        </div> <!-- row -->
+
+                    </div>
+                </li>
+            </ul>
+
+            
+
+        </div> <!-- id="freetype2-2017" -->
+        
+
+        <div id="harfbuzz-1.3.2" class="section scrollspy">
+
+            <h2 class="green-text text-darken-3">harfbuzz-1.3.2 summary</h2>
+
+            <div class="row">
+                <div class="col s6">
+                    <h5 class="center-align">Ranking by median reached coverage</h5>
+                    <img class="responsive-img materialboxed"
+                         src="harfbuzz-1.3.2_ranking.svg">
+                </div>
+                <div class="col s6">
+                    <h5 class="center-align">Reached coverage distribution</h5>
+                    <img class="responsive-img materialboxed"
+                         src="harfbuzz-1.3.2_violin.svg">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                      <li class="tab col s6"><a href="#harfbuzz-1.3.2_region_normal" class="green-text text-darken-3">Region coverage (linear)</a></li>
+                      <li class="tab col s6"><a href="#harfbuzz-1.3.2_region_logscale" class="green-text text-darken-3">Region coverage (log)</a></li>
+                    </ul>
+                </div>
+                <div id="harfbuzz-1.3.2_region_normal" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="harfbuzz-1.3.2_coverage_growth.svg">
+                </div>
+                <div id="harfbuzz-1.3.2_region_logscale" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="harfbuzz-1.3.2_coverage_growth_logscale.svg">
+                </div>
+                <div class="center-align">
+                    * The error bands show the 95% confidence interval
+                      around the mean coverage.
+                </div>
+            </div>
+
+
+            
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Sample statistics and statistical significance
+                    </div>
+                    <div class="collapsible-body">
+
+                        <h5 class="center-align">Coverage sample statistics</h5>
+                        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>median</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>fuzzer</th>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>aflplusplus</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>8875.000000</td>
+      <td>208.685107</td>
+      <td>8439.0</td>
+      <td>8718.75</td>
+      <td>8933.5</td>
+      <td>9025.00</td>
+      <td>9108.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus_optimal</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>8817.900000</td>
+      <td>222.590703</td>
+      <td>8434.0</td>
+      <td>8636.25</td>
+      <td>8838.0</td>
+      <td>9037.00</td>
+      <td>9123.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new</th>
+      <th>82800</th>
+      <td>17.0</td>
+      <td>8602.176471</td>
+      <td>99.293904</td>
+      <td>8440.0</td>
+      <td>8491.00</td>
+      <td>8645.0</td>
+      <td>8673.00</td>
+      <td>8731.0</td>
+    </tr>
+    <tr>
+      <th>honggfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>8570.400000</td>
+      <td>102.408059</td>
+      <td>8339.0</td>
+      <td>8537.25</td>
+      <td>8588.5</td>
+      <td>8622.25</td>
+      <td>8716.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>8599.277778</td>
+      <td>177.738673</td>
+      <td>8430.0</td>
+      <td>8463.00</td>
+      <td>8554.5</td>
+      <td>8663.25</td>
+      <td>9102.0</td>
+    </tr>
+    <tr>
+      <th>entropic</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>8501.250000</td>
+      <td>109.925274</td>
+      <td>8345.0</td>
+      <td>8405.25</td>
+      <td>8475.5</td>
+      <td>8584.75</td>
+      <td>8685.0</td>
+    </tr>
+    <tr>
+      <th>fairfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>8425.850000</td>
+      <td>126.397983</td>
+      <td>8139.0</td>
+      <td>8335.00</td>
+      <td>8435.5</td>
+      <td>8538.25</td>
+      <td>8593.0</td>
+    </tr>
+    <tr>
+      <th>aflsmart</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>8421.850000</td>
+      <td>80.850919</td>
+      <td>8329.0</td>
+      <td>8357.75</td>
+      <td>8386.0</td>
+      <td>8515.75</td>
+      <td>8551.0</td>
+    </tr>
+    <tr>
+      <th>eclipser</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>8412.950000</td>
+      <td>81.589779</td>
+      <td>8304.0</td>
+      <td>8344.75</td>
+      <td>8386.0</td>
+      <td>8499.50</td>
+      <td>8572.0</td>
+    </tr>
+    <tr>
+      <th>afl</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>8430.850000</td>
+      <td>115.235354</td>
+      <td>8303.0</td>
+      <td>8332.50</td>
+      <td>8373.5</td>
+      <td>8545.50</td>
+      <td>8607.0</td>
+    </tr>
+    <tr>
+      <th>z3_new</th>
+      <th>82800</th>
+      <td>19.0</td>
+      <td>8421.157895</td>
+      <td>169.264508</td>
+      <td>8313.0</td>
+      <td>8339.00</td>
+      <td>8350.0</td>
+      <td>8418.00</td>
+      <td>9024.0</td>
+    </tr>
+    <tr>
+      <th>mopt</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>8375.650000</td>
+      <td>72.430202</td>
+      <td>8289.0</td>
+      <td>8327.50</td>
+      <td>8346.0</td>
+      <td>8404.75</td>
+      <td>8525.0</td>
+    </tr>
+    <tr>
+      <th>libfuzzer</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>8363.400000</td>
+      <td>105.349244</td>
+      <td>8217.0</td>
+      <td>8287.50</td>
+      <td>8325.5</td>
+      <td>8465.25</td>
+      <td>8545.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new_standalone</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>8329.000000</td>
+      <td>66.528190</td>
+      <td>8240.0</td>
+      <td>8273.25</td>
+      <td>8323.0</td>
+      <td>8385.50</td>
+      <td>8434.0</td>
+    </tr>
+    <tr>
+      <th>lafintel</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>8345.800000</td>
+      <td>91.612226</td>
+      <td>8224.0</td>
+      <td>8286.25</td>
+      <td>8313.5</td>
+      <td>8398.75</td>
+      <td>8589.0</td>
+    </tr>
+    <tr>
+      <th>aflfast</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>8330.600000</td>
+      <td>73.666675</td>
+      <td>8249.0</td>
+      <td>8288.50</td>
+      <td>8301.0</td>
+      <td>8336.50</td>
+      <td>8509.0</td>
+    </tr>
+  </tbody>
+</table>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s6 offset-s3">
+                                <h5 class="center-align">Mann-Whitney U test</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="harfbuzz-1.3.2_mann_whitney_plot.svg">
+                                    The table summarizes the p values of
+                                    pairwise Mann-Whitney U tests.
+                                    Green cells indicate that the reached
+                                    coverage distribution of a given fuzzer pair
+                                    is significantly different.
+                            </div>
+                        </div> <!-- row -->
+
+                    </div>
+                </li>
+            </ul>
+
+            
+
+        </div> <!-- id="harfbuzz-1.3.2" -->
+        
+
+        <div id="jsoncpp_jsoncpp_fuzzer" class="section scrollspy">
+
+            <h2 class="green-text text-darken-3">jsoncpp_jsoncpp_fuzzer summary</h2>
+
+            <div class="row">
+                <div class="col s6">
+                    <h5 class="center-align">Ranking by median reached coverage</h5>
+                    <img class="responsive-img materialboxed"
+                         src="jsoncpp_jsoncpp_fuzzer_ranking.svg">
+                </div>
+                <div class="col s6">
+                    <h5 class="center-align">Reached coverage distribution</h5>
+                    <img class="responsive-img materialboxed"
+                         src="jsoncpp_jsoncpp_fuzzer_violin.svg">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                      <li class="tab col s6"><a href="#jsoncpp_jsoncpp_fuzzer_region_normal" class="green-text text-darken-3">Region coverage (linear)</a></li>
+                      <li class="tab col s6"><a href="#jsoncpp_jsoncpp_fuzzer_region_logscale" class="green-text text-darken-3">Region coverage (log)</a></li>
+                    </ul>
+                </div>
+                <div id="jsoncpp_jsoncpp_fuzzer_region_normal" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="jsoncpp_jsoncpp_fuzzer_coverage_growth.svg">
+                </div>
+                <div id="jsoncpp_jsoncpp_fuzzer_region_logscale" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="jsoncpp_jsoncpp_fuzzer_coverage_growth_logscale.svg">
+                </div>
+                <div class="center-align">
+                    * The error bands show the 95% confidence interval
+                      around the mean coverage.
+                </div>
+            </div>
+
+
+            
+            <div class="card-panel deep-orange lighten-3">
+                <div class="row valign-wrapper">
+                    <div class="col s4 m2 center-align">
+                        <i class="medium material-icons">error</i>
+                    </div>
+                    <div class="col s8 m10">
+                        <span class="black-text">
+                            The following fuzzers do not have enough samples:
+                            <strong>
+                                jigsaw_new.
+                            </strong>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Sample statistics and statistical significance
+                    </div>
+                    <div class="collapsible-body">
+
+                        <h5 class="center-align">Coverage sample statistics</h5>
+                        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>median</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>fuzzer</th>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>entropic</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>641.000000</td>
+      <td>0.000000</td>
+      <td>641.0</td>
+      <td>641.00</td>
+      <td>641.0</td>
+      <td>641.00</td>
+      <td>641.0</td>
+    </tr>
+    <tr>
+      <th>honggfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>641.000000</td>
+      <td>0.000000</td>
+      <td>641.0</td>
+      <td>641.00</td>
+      <td>641.0</td>
+      <td>641.00</td>
+      <td>641.0</td>
+    </tr>
+    <tr>
+      <th>libfuzzer</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>641.000000</td>
+      <td>0.000000</td>
+      <td>641.0</td>
+      <td>641.00</td>
+      <td>641.0</td>
+      <td>641.00</td>
+      <td>641.0</td>
+    </tr>
+    <tr>
+      <th>afl</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>639.000000</td>
+      <td>0.000000</td>
+      <td>639.0</td>
+      <td>639.00</td>
+      <td>639.0</td>
+      <td>639.00</td>
+      <td>639.0</td>
+    </tr>
+    <tr>
+      <th>aflfast</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>638.950000</td>
+      <td>0.223607</td>
+      <td>638.0</td>
+      <td>639.00</td>
+      <td>639.0</td>
+      <td>639.00</td>
+      <td>639.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>639.000000</td>
+      <td>0.000000</td>
+      <td>639.0</td>
+      <td>639.00</td>
+      <td>639.0</td>
+      <td>639.00</td>
+      <td>639.0</td>
+    </tr>
+    <tr>
+      <th>aflsmart</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>639.000000</td>
+      <td>0.000000</td>
+      <td>639.0</td>
+      <td>639.00</td>
+      <td>639.0</td>
+      <td>639.00</td>
+      <td>639.0</td>
+    </tr>
+    <tr>
+      <th>eclipser</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>639.000000</td>
+      <td>0.000000</td>
+      <td>639.0</td>
+      <td>639.00</td>
+      <td>639.0</td>
+      <td>639.00</td>
+      <td>639.0</td>
+    </tr>
+    <tr>
+      <th>fairfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>639.000000</td>
+      <td>0.000000</td>
+      <td>639.0</td>
+      <td>639.00</td>
+      <td>639.0</td>
+      <td>639.00</td>
+      <td>639.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new</th>
+      <th>82800</th>
+      <td>15.0</td>
+      <td>639.000000</td>
+      <td>0.000000</td>
+      <td>639.0</td>
+      <td>639.00</td>
+      <td>639.0</td>
+      <td>639.00</td>
+      <td>639.0</td>
+    </tr>
+    <tr>
+      <th>lafintel</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>639.000000</td>
+      <td>0.000000</td>
+      <td>639.0</td>
+      <td>639.00</td>
+      <td>639.0</td>
+      <td>639.00</td>
+      <td>639.0</td>
+    </tr>
+    <tr>
+      <th>mopt</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>639.000000</td>
+      <td>0.000000</td>
+      <td>639.0</td>
+      <td>639.00</td>
+      <td>639.0</td>
+      <td>639.00</td>
+      <td>639.0</td>
+    </tr>
+    <tr>
+      <th>z3_new</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>639.000000</td>
+      <td>0.000000</td>
+      <td>639.0</td>
+      <td>639.00</td>
+      <td>639.0</td>
+      <td>639.00</td>
+      <td>639.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus_optimal</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>638.500000</td>
+      <td>0.512989</td>
+      <td>638.0</td>
+      <td>638.00</td>
+      <td>638.5</td>
+      <td>639.00</td>
+      <td>639.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new_standalone</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>632.055556</td>
+      <td>4.451995</td>
+      <td>621.0</td>
+      <td>628.25</td>
+      <td>635.0</td>
+      <td>635.75</td>
+      <td>636.0</td>
+    </tr>
+    <tr>
+      <th>z3_new_standalone</th>
+      <th>82800</th>
+      <td>19.0</td>
+      <td>96.000000</td>
+      <td>0.000000</td>
+      <td>96.0</td>
+      <td>96.00</td>
+      <td>96.0</td>
+      <td>96.00</td>
+      <td>96.0</td>
+    </tr>
+  </tbody>
+</table>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s6 offset-s3">
+                                <h5 class="center-align">Mann-Whitney U test</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="jsoncpp_jsoncpp_fuzzer_mann_whitney_plot.svg">
+                                    The table summarizes the p values of
+                                    pairwise Mann-Whitney U tests.
+                                    Green cells indicate that the reached
+                                    coverage distribution of a given fuzzer pair
+                                    is significantly different.
+                            </div>
+                        </div> <!-- row -->
+
+                    </div>
+                </li>
+            </ul>
+
+            
+
+        </div> <!-- id="jsoncpp_jsoncpp_fuzzer" -->
+        
+
+        <div id="lcms-2017-03-21" class="section scrollspy">
+
+            <h2 class="green-text text-darken-3">lcms-2017-03-21 summary</h2>
+
+            <div class="row">
+                <div class="col s6">
+                    <h5 class="center-align">Ranking by median reached coverage</h5>
+                    <img class="responsive-img materialboxed"
+                         src="lcms-2017-03-21_ranking.svg">
+                </div>
+                <div class="col s6">
+                    <h5 class="center-align">Reached coverage distribution</h5>
+                    <img class="responsive-img materialboxed"
+                         src="lcms-2017-03-21_violin.svg">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                      <li class="tab col s6"><a href="#lcms-2017-03-21_region_normal" class="green-text text-darken-3">Region coverage (linear)</a></li>
+                      <li class="tab col s6"><a href="#lcms-2017-03-21_region_logscale" class="green-text text-darken-3">Region coverage (log)</a></li>
+                    </ul>
+                </div>
+                <div id="lcms-2017-03-21_region_normal" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="lcms-2017-03-21_coverage_growth.svg">
+                </div>
+                <div id="lcms-2017-03-21_region_logscale" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="lcms-2017-03-21_coverage_growth_logscale.svg">
+                </div>
+                <div class="center-align">
+                    * The error bands show the 95% confidence interval
+                      around the mean coverage.
+                </div>
+            </div>
+
+
+            
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Sample statistics and statistical significance
+                    </div>
+                    <div class="collapsible-body">
+
+                        <h5 class="center-align">Coverage sample statistics</h5>
+                        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>median</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>fuzzer</th>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>jigsaw_new</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>3902.722222</td>
+      <td>62.697974</td>
+      <td>3789.0</td>
+      <td>3847.75</td>
+      <td>3918.5</td>
+      <td>3938.00</td>
+      <td>4030.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw</th>
+      <th>82800</th>
+      <td>19.0</td>
+      <td>3906.947368</td>
+      <td>72.062838</td>
+      <td>3769.0</td>
+      <td>3850.00</td>
+      <td>3912.0</td>
+      <td>3962.50</td>
+      <td>4062.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new_standalone</th>
+      <th>82800</th>
+      <td>17.0</td>
+      <td>3789.647059</td>
+      <td>76.366666</td>
+      <td>3653.0</td>
+      <td>3727.00</td>
+      <td>3810.0</td>
+      <td>3838.00</td>
+      <td>3926.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3525.550000</td>
+      <td>128.810540</td>
+      <td>3276.0</td>
+      <td>3465.75</td>
+      <td>3522.0</td>
+      <td>3604.50</td>
+      <td>3753.0</td>
+    </tr>
+    <tr>
+      <th>z3_new</th>
+      <th>82800</th>
+      <td>16.0</td>
+      <td>3424.812500</td>
+      <td>114.877453</td>
+      <td>3247.0</td>
+      <td>3326.25</td>
+      <td>3437.0</td>
+      <td>3510.00</td>
+      <td>3606.0</td>
+    </tr>
+    <tr>
+      <th>entropic</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3409.750000</td>
+      <td>94.112405</td>
+      <td>3168.0</td>
+      <td>3379.50</td>
+      <td>3412.5</td>
+      <td>3485.00</td>
+      <td>3542.0</td>
+    </tr>
+    <tr>
+      <th>libfuzzer</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3297.400000</td>
+      <td>141.049599</td>
+      <td>3116.0</td>
+      <td>3149.25</td>
+      <td>3302.0</td>
+      <td>3368.25</td>
+      <td>3603.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus_optimal</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3334.650000</td>
+      <td>115.259558</td>
+      <td>3168.0</td>
+      <td>3264.75</td>
+      <td>3297.5</td>
+      <td>3402.00</td>
+      <td>3609.0</td>
+    </tr>
+    <tr>
+      <th>z3_new_standalone</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>2845.333333</td>
+      <td>46.715661</td>
+      <td>2761.0</td>
+      <td>2815.25</td>
+      <td>2850.0</td>
+      <td>2863.75</td>
+      <td>2918.0</td>
+    </tr>
+    <tr>
+      <th>honggfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2673.950000</td>
+      <td>158.691848</td>
+      <td>2495.0</td>
+      <td>2543.00</td>
+      <td>2722.0</td>
+      <td>2738.50</td>
+      <td>3193.0</td>
+    </tr>
+    <tr>
+      <th>afl</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2519.150000</td>
+      <td>268.850433</td>
+      <td>1475.0</td>
+      <td>2467.25</td>
+      <td>2650.0</td>
+      <td>2658.50</td>
+      <td>2695.0</td>
+    </tr>
+    <tr>
+      <th>eclipser</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2589.250000</td>
+      <td>96.987723</td>
+      <td>2456.0</td>
+      <td>2467.00</td>
+      <td>2646.5</td>
+      <td>2652.00</td>
+      <td>2712.0</td>
+    </tr>
+    <tr>
+      <th>aflsmart</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2572.350000</td>
+      <td>96.709154</td>
+      <td>2447.0</td>
+      <td>2470.50</td>
+      <td>2645.0</td>
+      <td>2660.00</td>
+      <td>2675.0</td>
+    </tr>
+    <tr>
+      <th>lafintel</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2471.150000</td>
+      <td>324.970327</td>
+      <td>1592.0</td>
+      <td>2494.75</td>
+      <td>2507.0</td>
+      <td>2563.00</td>
+      <td>2981.0</td>
+    </tr>
+    <tr>
+      <th>mopt</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2552.900000</td>
+      <td>98.469285</td>
+      <td>2460.0</td>
+      <td>2461.00</td>
+      <td>2483.5</td>
+      <td>2650.00</td>
+      <td>2688.0</td>
+    </tr>
+    <tr>
+      <th>fairfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2338.850000</td>
+      <td>321.432693</td>
+      <td>1359.0</td>
+      <td>2432.00</td>
+      <td>2436.0</td>
+      <td>2457.00</td>
+      <td>2492.0</td>
+    </tr>
+    <tr>
+      <th>aflfast</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2116.500000</td>
+      <td>506.452211</td>
+      <td>1328.0</td>
+      <td>1438.00</td>
+      <td>2423.0</td>
+      <td>2448.25</td>
+      <td>2628.0</td>
+    </tr>
+  </tbody>
+</table>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s6 offset-s3">
+                                <h5 class="center-align">Mann-Whitney U test</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="lcms-2017-03-21_mann_whitney_plot.svg">
+                                    The table summarizes the p values of
+                                    pairwise Mann-Whitney U tests.
+                                    Green cells indicate that the reached
+                                    coverage distribution of a given fuzzer pair
+                                    is significantly different.
+                            </div>
+                        </div> <!-- row -->
+
+                    </div>
+                </li>
+            </ul>
+
+            
+
+        </div> <!-- id="lcms-2017-03-21" -->
+        
+
+        <div id="libjpeg-turbo-07-2017" class="section scrollspy">
+
+            <h2 class="green-text text-darken-3">libjpeg-turbo-07-2017 summary</h2>
+
+            <div class="row">
+                <div class="col s6">
+                    <h5 class="center-align">Ranking by median reached coverage</h5>
+                    <img class="responsive-img materialboxed"
+                         src="libjpeg-turbo-07-2017_ranking.svg">
+                </div>
+                <div class="col s6">
+                    <h5 class="center-align">Reached coverage distribution</h5>
+                    <img class="responsive-img materialboxed"
+                         src="libjpeg-turbo-07-2017_violin.svg">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                      <li class="tab col s6"><a href="#libjpeg-turbo-07-2017_region_normal" class="green-text text-darken-3">Region coverage (linear)</a></li>
+                      <li class="tab col s6"><a href="#libjpeg-turbo-07-2017_region_logscale" class="green-text text-darken-3">Region coverage (log)</a></li>
+                    </ul>
+                </div>
+                <div id="libjpeg-turbo-07-2017_region_normal" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="libjpeg-turbo-07-2017_coverage_growth.svg">
+                </div>
+                <div id="libjpeg-turbo-07-2017_region_logscale" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="libjpeg-turbo-07-2017_coverage_growth_logscale.svg">
+                </div>
+                <div class="center-align">
+                    * The error bands show the 95% confidence interval
+                      around the mean coverage.
+                </div>
+            </div>
+
+
+            
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Sample statistics and statistical significance
+                    </div>
+                    <div class="collapsible-body">
+
+                        <h5 class="center-align">Coverage sample statistics</h5>
+                        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>median</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>fuzzer</th>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>jigsaw</th>
+      <th>82800</th>
+      <td>17.0</td>
+      <td>3812.000000</td>
+      <td>9.949874</td>
+      <td>3805.0</td>
+      <td>3807.00</td>
+      <td>3808.0</td>
+      <td>3809.00</td>
+      <td>3844.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>3805.444444</td>
+      <td>12.344192</td>
+      <td>3778.0</td>
+      <td>3805.00</td>
+      <td>3807.5</td>
+      <td>3808.00</td>
+      <td>3825.0</td>
+    </tr>
+    <tr>
+      <th>entropic</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3808.050000</td>
+      <td>14.565551</td>
+      <td>3762.0</td>
+      <td>3804.00</td>
+      <td>3804.5</td>
+      <td>3813.50</td>
+      <td>3830.0</td>
+    </tr>
+    <tr>
+      <th>z3_new</th>
+      <th>82800</th>
+      <td>19.0</td>
+      <td>3800.105263</td>
+      <td>14.180953</td>
+      <td>3778.0</td>
+      <td>3785.00</td>
+      <td>3803.0</td>
+      <td>3807.00</td>
+      <td>3823.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus_optimal</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3798.950000</td>
+      <td>9.023216</td>
+      <td>3782.0</td>
+      <td>3794.75</td>
+      <td>3802.0</td>
+      <td>3803.00</td>
+      <td>3816.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3800.200000</td>
+      <td>12.407977</td>
+      <td>3776.0</td>
+      <td>3796.50</td>
+      <td>3800.5</td>
+      <td>3805.50</td>
+      <td>3820.0</td>
+    </tr>
+    <tr>
+      <th>eclipser</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3749.350000</td>
+      <td>101.631054</td>
+      <td>3455.0</td>
+      <td>3767.75</td>
+      <td>3781.0</td>
+      <td>3793.00</td>
+      <td>3805.0</td>
+    </tr>
+    <tr>
+      <th>afl</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3740.800000</td>
+      <td>109.095130</td>
+      <td>3373.0</td>
+      <td>3756.75</td>
+      <td>3777.0</td>
+      <td>3781.25</td>
+      <td>3801.0</td>
+    </tr>
+    <tr>
+      <th>mopt</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3769.400000</td>
+      <td>30.069043</td>
+      <td>3670.0</td>
+      <td>3758.00</td>
+      <td>3777.0</td>
+      <td>3790.75</td>
+      <td>3799.0</td>
+    </tr>
+    <tr>
+      <th>aflsmart</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3664.250000</td>
+      <td>164.993740</td>
+      <td>3412.0</td>
+      <td>3458.25</td>
+      <td>3770.5</td>
+      <td>3786.00</td>
+      <td>3818.0</td>
+    </tr>
+    <tr>
+      <th>libfuzzer</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3584.400000</td>
+      <td>337.887306</td>
+      <td>2414.0</td>
+      <td>3466.25</td>
+      <td>3754.0</td>
+      <td>3755.00</td>
+      <td>3757.0</td>
+    </tr>
+    <tr>
+      <th>honggfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3683.500000</td>
+      <td>142.817329</td>
+      <td>3328.0</td>
+      <td>3714.75</td>
+      <td>3754.0</td>
+      <td>3756.00</td>
+      <td>3800.0</td>
+    </tr>
+    <tr>
+      <th>fairfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3588.950000</td>
+      <td>189.484752</td>
+      <td>3349.0</td>
+      <td>3423.00</td>
+      <td>3614.0</td>
+      <td>3770.00</td>
+      <td>3787.0</td>
+    </tr>
+    <tr>
+      <th>aflfast</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3534.450000</td>
+      <td>174.994579</td>
+      <td>3331.0</td>
+      <td>3411.25</td>
+      <td>3454.0</td>
+      <td>3748.25</td>
+      <td>3818.0</td>
+    </tr>
+    <tr>
+      <th>lafintel</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3512.200000</td>
+      <td>153.243391</td>
+      <td>3329.0</td>
+      <td>3410.00</td>
+      <td>3420.5</td>
+      <td>3664.25</td>
+      <td>3754.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new_standalone</th>
+      <th>82800</th>
+      <td>19.0</td>
+      <td>3408.105263</td>
+      <td>39.061056</td>
+      <td>3332.0</td>
+      <td>3396.00</td>
+      <td>3409.0</td>
+      <td>3418.00</td>
+      <td>3538.0</td>
+    </tr>
+    <tr>
+      <th>z3_new_standalone</th>
+      <th>82800</th>
+      <td>16.0</td>
+      <td>2935.562500</td>
+      <td>22.686174</td>
+      <td>2899.0</td>
+      <td>2921.25</td>
+      <td>2941.5</td>
+      <td>2952.25</td>
+      <td>2966.0</td>
+    </tr>
+  </tbody>
+</table>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s6 offset-s3">
+                                <h5 class="center-align">Mann-Whitney U test</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="libjpeg-turbo-07-2017_mann_whitney_plot.svg">
+                                    The table summarizes the p values of
+                                    pairwise Mann-Whitney U tests.
+                                    Green cells indicate that the reached
+                                    coverage distribution of a given fuzzer pair
+                                    is significantly different.
+                            </div>
+                        </div> <!-- row -->
+
+                    </div>
+                </li>
+            </ul>
+
+            
+
+        </div> <!-- id="libjpeg-turbo-07-2017" -->
+        
+
+        <div id="libpng-1.2.56" class="section scrollspy">
+
+            <h2 class="green-text text-darken-3">libpng-1.2.56 summary</h2>
+
+            <div class="row">
+                <div class="col s6">
+                    <h5 class="center-align">Ranking by median reached coverage</h5>
+                    <img class="responsive-img materialboxed"
+                         src="libpng-1.2.56_ranking.svg">
+                </div>
+                <div class="col s6">
+                    <h5 class="center-align">Reached coverage distribution</h5>
+                    <img class="responsive-img materialboxed"
+                         src="libpng-1.2.56_violin.svg">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                      <li class="tab col s6"><a href="#libpng-1.2.56_region_normal" class="green-text text-darken-3">Region coverage (linear)</a></li>
+                      <li class="tab col s6"><a href="#libpng-1.2.56_region_logscale" class="green-text text-darken-3">Region coverage (log)</a></li>
+                    </ul>
+                </div>
+                <div id="libpng-1.2.56_region_normal" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="libpng-1.2.56_coverage_growth.svg">
+                </div>
+                <div id="libpng-1.2.56_region_logscale" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="libpng-1.2.56_coverage_growth_logscale.svg">
+                </div>
+                <div class="center-align">
+                    * The error bands show the 95% confidence interval
+                      around the mean coverage.
+                </div>
+            </div>
+
+
+            
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Sample statistics and statistical significance
+                    </div>
+                    <div class="collapsible-body">
+
+                        <h5 class="center-align">Coverage sample statistics</h5>
+                        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>median</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>fuzzer</th>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>honggfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2133.400000</td>
+      <td>24.086249</td>
+      <td>2089.0</td>
+      <td>2115.75</td>
+      <td>2138.0</td>
+      <td>2151.00</td>
+      <td>2173.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw</th>
+      <th>82800</th>
+      <td>16.0</td>
+      <td>2089.875000</td>
+      <td>17.663050</td>
+      <td>2071.0</td>
+      <td>2076.75</td>
+      <td>2084.5</td>
+      <td>2097.25</td>
+      <td>2122.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2098.250000</td>
+      <td>26.568432</td>
+      <td>2071.0</td>
+      <td>2075.75</td>
+      <td>2083.5</td>
+      <td>2125.00</td>
+      <td>2148.0</td>
+    </tr>
+    <tr>
+      <th>z3_new</th>
+      <th>82800</th>
+      <td>17.0</td>
+      <td>2070.529412</td>
+      <td>23.361608</td>
+      <td>2019.0</td>
+      <td>2069.00</td>
+      <td>2072.0</td>
+      <td>2076.00</td>
+      <td>2115.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new_standalone</th>
+      <th>82800</th>
+      <td>16.0</td>
+      <td>1993.687500</td>
+      <td>116.072804</td>
+      <td>1562.0</td>
+      <td>2020.25</td>
+      <td>2023.0</td>
+      <td>2024.50</td>
+      <td>2061.0</td>
+    </tr>
+    <tr>
+      <th>entropic</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2010.600000</td>
+      <td>4.805698</td>
+      <td>2004.0</td>
+      <td>2007.00</td>
+      <td>2010.0</td>
+      <td>2012.25</td>
+      <td>2023.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus_optimal</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2008.100000</td>
+      <td>2.403944</td>
+      <td>2001.0</td>
+      <td>2008.00</td>
+      <td>2008.5</td>
+      <td>2010.00</td>
+      <td>2010.0</td>
+    </tr>
+    <tr>
+      <th>libfuzzer</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>1993.150000</td>
+      <td>16.291021</td>
+      <td>1945.0</td>
+      <td>1995.00</td>
+      <td>1999.0</td>
+      <td>2000.00</td>
+      <td>2001.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>1947.700000</td>
+      <td>1.128576</td>
+      <td>1945.0</td>
+      <td>1947.75</td>
+      <td>1948.0</td>
+      <td>1948.00</td>
+      <td>1949.0</td>
+    </tr>
+    <tr>
+      <th>z3_new_standalone</th>
+      <th>82800</th>
+      <td>17.0</td>
+      <td>1932.000000</td>
+      <td>0.866025</td>
+      <td>1929.0</td>
+      <td>1932.00</td>
+      <td>1932.0</td>
+      <td>1932.00</td>
+      <td>1933.0</td>
+    </tr>
+    <tr>
+      <th>eclipser</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>1717.900000</td>
+      <td>119.169892</td>
+      <td>1510.0</td>
+      <td>1717.00</td>
+      <td>1783.5</td>
+      <td>1786.25</td>
+      <td>1788.0</td>
+    </tr>
+    <tr>
+      <th>aflsmart</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>1625.800000</td>
+      <td>24.016661</td>
+      <td>1613.0</td>
+      <td>1615.50</td>
+      <td>1616.5</td>
+      <td>1620.25</td>
+      <td>1693.0</td>
+    </tr>
+    <tr>
+      <th>lafintel</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>1614.600000</td>
+      <td>13.303739</td>
+      <td>1604.0</td>
+      <td>1606.00</td>
+      <td>1607.0</td>
+      <td>1617.75</td>
+      <td>1642.0</td>
+    </tr>
+    <tr>
+      <th>aflfast</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>1509.750000</td>
+      <td>0.550120</td>
+      <td>1508.0</td>
+      <td>1510.00</td>
+      <td>1510.0</td>
+      <td>1510.00</td>
+      <td>1510.0</td>
+    </tr>
+    <tr>
+      <th>fairfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>1514.100000</td>
+      <td>6.332040</td>
+      <td>1508.0</td>
+      <td>1510.00</td>
+      <td>1510.0</td>
+      <td>1520.00</td>
+      <td>1528.0</td>
+    </tr>
+    <tr>
+      <th>mopt</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>1511.050000</td>
+      <td>3.913203</td>
+      <td>1508.0</td>
+      <td>1509.00</td>
+      <td>1510.0</td>
+      <td>1510.00</td>
+      <td>1520.0</td>
+    </tr>
+    <tr>
+      <th>afl</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>1511.550000</td>
+      <td>5.062504</td>
+      <td>1508.0</td>
+      <td>1509.75</td>
+      <td>1510.0</td>
+      <td>1510.00</td>
+      <td>1528.0</td>
+    </tr>
+  </tbody>
+</table>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s6 offset-s3">
+                                <h5 class="center-align">Mann-Whitney U test</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="libpng-1.2.56_mann_whitney_plot.svg">
+                                    The table summarizes the p values of
+                                    pairwise Mann-Whitney U tests.
+                                    Green cells indicate that the reached
+                                    coverage distribution of a given fuzzer pair
+                                    is significantly different.
+                            </div>
+                        </div> <!-- row -->
+
+                    </div>
+                </li>
+            </ul>
+
+            
+
+        </div> <!-- id="libpng-1.2.56" -->
+        
+
+        <div id="libxml2-v2.9.2" class="section scrollspy">
+
+            <h2 class="green-text text-darken-3">libxml2-v2.9.2 summary</h2>
+
+            <div class="row">
+                <div class="col s6">
+                    <h5 class="center-align">Ranking by median reached coverage</h5>
+                    <img class="responsive-img materialboxed"
+                         src="libxml2-v2.9.2_ranking.svg">
+                </div>
+                <div class="col s6">
+                    <h5 class="center-align">Reached coverage distribution</h5>
+                    <img class="responsive-img materialboxed"
+                         src="libxml2-v2.9.2_violin.svg">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                      <li class="tab col s6"><a href="#libxml2-v2.9.2_region_normal" class="green-text text-darken-3">Region coverage (linear)</a></li>
+                      <li class="tab col s6"><a href="#libxml2-v2.9.2_region_logscale" class="green-text text-darken-3">Region coverage (log)</a></li>
+                    </ul>
+                </div>
+                <div id="libxml2-v2.9.2_region_normal" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="libxml2-v2.9.2_coverage_growth.svg">
+                </div>
+                <div id="libxml2-v2.9.2_region_logscale" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="libxml2-v2.9.2_coverage_growth_logscale.svg">
+                </div>
+                <div class="center-align">
+                    * The error bands show the 95% confidence interval
+                      around the mean coverage.
+                </div>
+            </div>
+
+
+            
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Sample statistics and statistical significance
+                    </div>
+                    <div class="collapsible-body">
+
+                        <h5 class="center-align">Coverage sample statistics</h5>
+                        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>median</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>fuzzer</th>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>aflplusplus_optimal</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>12715.950000</td>
+      <td>308.951619</td>
+      <td>12230.0</td>
+      <td>12531.50</td>
+      <td>12687.5</td>
+      <td>12812.75</td>
+      <td>13618.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>12390.550000</td>
+      <td>471.491304</td>
+      <td>11426.0</td>
+      <td>12048.50</td>
+      <td>12332.0</td>
+      <td>12943.50</td>
+      <td>13110.0</td>
+    </tr>
+    <tr>
+      <th>z3_new</th>
+      <th>82800</th>
+      <td>16.0</td>
+      <td>11565.812500</td>
+      <td>1358.479406</td>
+      <td>6904.0</td>
+      <td>11330.75</td>
+      <td>11924.0</td>
+      <td>12221.75</td>
+      <td>12614.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>11420.500000</td>
+      <td>1105.523419</td>
+      <td>7379.0</td>
+      <td>11161.25</td>
+      <td>11706.0</td>
+      <td>11874.50</td>
+      <td>12419.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>11522.111111</td>
+      <td>549.968650</td>
+      <td>10246.0</td>
+      <td>11191.50</td>
+      <td>11312.5</td>
+      <td>11989.25</td>
+      <td>12245.0</td>
+    </tr>
+    <tr>
+      <th>aflsmart</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>10358.350000</td>
+      <td>1244.737016</td>
+      <td>7103.0</td>
+      <td>10311.50</td>
+      <td>10781.5</td>
+      <td>11088.75</td>
+      <td>11436.0</td>
+    </tr>
+    <tr>
+      <th>eclipser</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>10045.200000</td>
+      <td>1418.692786</td>
+      <td>6727.0</td>
+      <td>9992.50</td>
+      <td>10583.0</td>
+      <td>10892.25</td>
+      <td>11328.0</td>
+    </tr>
+    <tr>
+      <th>afl</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>9753.650000</td>
+      <td>1574.072602</td>
+      <td>6845.0</td>
+      <td>9477.50</td>
+      <td>10151.5</td>
+      <td>10870.00</td>
+      <td>11566.0</td>
+    </tr>
+    <tr>
+      <th>mopt</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>9561.350000</td>
+      <td>683.654828</td>
+      <td>8289.0</td>
+      <td>9058.75</td>
+      <td>9480.0</td>
+      <td>10310.75</td>
+      <td>10457.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new_standalone</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>8088.500000</td>
+      <td>1405.623841</td>
+      <td>5832.0</td>
+      <td>6466.25</td>
+      <td>8808.5</td>
+      <td>9108.00</td>
+      <td>9696.0</td>
+    </tr>
+    <tr>
+      <th>honggfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>8047.550000</td>
+      <td>1017.514851</td>
+      <td>6356.0</td>
+      <td>7314.00</td>
+      <td>8076.0</td>
+      <td>8571.25</td>
+      <td>10294.0</td>
+    </tr>
+    <tr>
+      <th>entropic</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>7151.250000</td>
+      <td>601.696363</td>
+      <td>6420.0</td>
+      <td>6539.25</td>
+      <td>6993.0</td>
+      <td>7633.50</td>
+      <td>8086.0</td>
+    </tr>
+    <tr>
+      <th>fairfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>7129.800000</td>
+      <td>1898.765100</td>
+      <td>4586.0</td>
+      <td>5498.75</td>
+      <td>6566.0</td>
+      <td>8281.00</td>
+      <td>10318.0</td>
+    </tr>
+    <tr>
+      <th>libfuzzer</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>6843.900000</td>
+      <td>578.314329</td>
+      <td>6396.0</td>
+      <td>6424.00</td>
+      <td>6437.0</td>
+      <td>7611.25</td>
+      <td>7626.0</td>
+    </tr>
+    <tr>
+      <th>aflfast</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>6655.050000</td>
+      <td>481.712895</td>
+      <td>6186.0</td>
+      <td>6329.25</td>
+      <td>6430.5</td>
+      <td>6864.00</td>
+      <td>7722.0</td>
+    </tr>
+    <tr>
+      <th>lafintel</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>6302.750000</td>
+      <td>191.818685</td>
+      <td>6070.0</td>
+      <td>6179.25</td>
+      <td>6233.5</td>
+      <td>6369.50</td>
+      <td>6799.0</td>
+    </tr>
+    <tr>
+      <th>z3_new_standalone</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2348.000000</td>
+      <td>0.000000</td>
+      <td>2348.0</td>
+      <td>2348.00</td>
+      <td>2348.0</td>
+      <td>2348.00</td>
+      <td>2348.0</td>
+    </tr>
+  </tbody>
+</table>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s6 offset-s3">
+                                <h5 class="center-align">Mann-Whitney U test</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="libxml2-v2.9.2_mann_whitney_plot.svg">
+                                    The table summarizes the p values of
+                                    pairwise Mann-Whitney U tests.
+                                    Green cells indicate that the reached
+                                    coverage distribution of a given fuzzer pair
+                                    is significantly different.
+                            </div>
+                        </div> <!-- row -->
+
+                    </div>
+                </li>
+            </ul>
+
+            
+
+        </div> <!-- id="libxml2-v2.9.2" -->
+        
+
+        <div id="libxslt_xpath" class="section scrollspy">
+
+            <h2 class="green-text text-darken-3">libxslt_xpath summary</h2>
+
+            <div class="row">
+                <div class="col s6">
+                    <h5 class="center-align">Ranking by median reached coverage</h5>
+                    <img class="responsive-img materialboxed"
+                         src="libxslt_xpath_ranking.svg">
+                </div>
+                <div class="col s6">
+                    <h5 class="center-align">Reached coverage distribution</h5>
+                    <img class="responsive-img materialboxed"
+                         src="libxslt_xpath_violin.svg">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                      <li class="tab col s6"><a href="#libxslt_xpath_region_normal" class="green-text text-darken-3">Region coverage (linear)</a></li>
+                      <li class="tab col s6"><a href="#libxslt_xpath_region_logscale" class="green-text text-darken-3">Region coverage (log)</a></li>
+                    </ul>
+                </div>
+                <div id="libxslt_xpath_region_normal" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="libxslt_xpath_coverage_growth.svg">
+                </div>
+                <div id="libxslt_xpath_region_logscale" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="libxslt_xpath_coverage_growth_logscale.svg">
+                </div>
+                <div class="center-align">
+                    * The error bands show the 95% confidence interval
+                      around the mean coverage.
+                </div>
+            </div>
+
+
+            
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Sample statistics and statistical significance
+                    </div>
+                    <div class="collapsible-body">
+
+                        <h5 class="center-align">Coverage sample statistics</h5>
+                        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>median</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>fuzzer</th>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>aflplusplus</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>19133.650000</td>
+      <td>150.371916</td>
+      <td>18929.0</td>
+      <td>19035.00</td>
+      <td>19095.0</td>
+      <td>19237.75</td>
+      <td>19503.0</td>
+    </tr>
+    <tr>
+      <th>honggfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>19030.600000</td>
+      <td>126.992084</td>
+      <td>18682.0</td>
+      <td>18970.50</td>
+      <td>19074.0</td>
+      <td>19105.75</td>
+      <td>19210.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus_optimal</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>19065.200000</td>
+      <td>159.284122</td>
+      <td>18854.0</td>
+      <td>18924.75</td>
+      <td>19072.0</td>
+      <td>19142.25</td>
+      <td>19470.0</td>
+    </tr>
+    <tr>
+      <th>aflsmart</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>18876.600000</td>
+      <td>63.422062</td>
+      <td>18765.0</td>
+      <td>18825.00</td>
+      <td>18890.5</td>
+      <td>18917.25</td>
+      <td>19021.0</td>
+    </tr>
+    <tr>
+      <th>eclipser</th>
+      <th>82800</th>
+      <td>19.0</td>
+      <td>18869.263158</td>
+      <td>96.030575</td>
+      <td>18648.0</td>
+      <td>18834.50</td>
+      <td>18890.0</td>
+      <td>18940.50</td>
+      <td>19001.0</td>
+    </tr>
+    <tr>
+      <th>afl</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>18854.950000</td>
+      <td>82.140108</td>
+      <td>18687.0</td>
+      <td>18824.50</td>
+      <td>18859.5</td>
+      <td>18881.50</td>
+      <td>19057.0</td>
+    </tr>
+    <tr>
+      <th>fairfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>18315.150000</td>
+      <td>1076.591027</td>
+      <td>15647.0</td>
+      <td>18395.75</td>
+      <td>18829.0</td>
+      <td>18925.25</td>
+      <td>19059.0</td>
+    </tr>
+    <tr>
+      <th>aflfast</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>18704.250000</td>
+      <td>65.070711</td>
+      <td>18599.0</td>
+      <td>18649.25</td>
+      <td>18693.0</td>
+      <td>18761.00</td>
+      <td>18822.0</td>
+    </tr>
+    <tr>
+      <th>mopt</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>18631.450000</td>
+      <td>68.533108</td>
+      <td>18518.0</td>
+      <td>18576.00</td>
+      <td>18633.0</td>
+      <td>18693.00</td>
+      <td>18760.0</td>
+    </tr>
+    <tr>
+      <th>lafintel</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>18542.200000</td>
+      <td>169.751397</td>
+      <td>18215.0</td>
+      <td>18407.00</td>
+      <td>18612.5</td>
+      <td>18659.75</td>
+      <td>18783.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>17971.944444</td>
+      <td>484.021933</td>
+      <td>16631.0</td>
+      <td>18054.75</td>
+      <td>18117.5</td>
+      <td>18202.50</td>
+      <td>18263.0</td>
+    </tr>
+    <tr>
+      <th>z3_new</th>
+      <th>82800</th>
+      <td>19.0</td>
+      <td>18014.421053</td>
+      <td>123.933816</td>
+      <td>17716.0</td>
+      <td>17951.50</td>
+      <td>18006.0</td>
+      <td>18076.50</td>
+      <td>18297.0</td>
+    </tr>
+    <tr>
+      <th>entropic</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>16383.400000</td>
+      <td>211.159306</td>
+      <td>15922.0</td>
+      <td>16296.50</td>
+      <td>16416.0</td>
+      <td>16512.75</td>
+      <td>16769.0</td>
+    </tr>
+    <tr>
+      <th>libfuzzer</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>15811.300000</td>
+      <td>70.657141</td>
+      <td>15687.0</td>
+      <td>15772.75</td>
+      <td>15804.5</td>
+      <td>15856.75</td>
+      <td>15992.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new_standalone</th>
+      <th>82800</th>
+      <td>19.0</td>
+      <td>14858.526316</td>
+      <td>29.579213</td>
+      <td>14817.0</td>
+      <td>14833.50</td>
+      <td>14855.0</td>
+      <td>14877.50</td>
+      <td>14931.0</td>
+    </tr>
+    <tr>
+      <th>z3_new_standalone</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>14578.944444</td>
+      <td>16.815512</td>
+      <td>14547.0</td>
+      <td>14569.00</td>
+      <td>14580.0</td>
+      <td>14590.00</td>
+      <td>14613.0</td>
+    </tr>
+  </tbody>
+</table>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s6 offset-s3">
+                                <h5 class="center-align">Mann-Whitney U test</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="libxslt_xpath_mann_whitney_plot.svg">
+                                    The table summarizes the p values of
+                                    pairwise Mann-Whitney U tests.
+                                    Green cells indicate that the reached
+                                    coverage distribution of a given fuzzer pair
+                                    is significantly different.
+                            </div>
+                        </div> <!-- row -->
+
+                    </div>
+                </li>
+            </ul>
+
+            
+
+        </div> <!-- id="libxslt_xpath" -->
+        
+
+        <div id="mbedtls_fuzz_dtlsclient" class="section scrollspy">
+
+            <h2 class="green-text text-darken-3">mbedtls_fuzz_dtlsclient summary</h2>
+
+            <div class="row">
+                <div class="col s6">
+                    <h5 class="center-align">Ranking by median reached coverage</h5>
+                    <img class="responsive-img materialboxed"
+                         src="mbedtls_fuzz_dtlsclient_ranking.svg">
+                </div>
+                <div class="col s6">
+                    <h5 class="center-align">Reached coverage distribution</h5>
+                    <img class="responsive-img materialboxed"
+                         src="mbedtls_fuzz_dtlsclient_violin.svg">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                      <li class="tab col s6"><a href="#mbedtls_fuzz_dtlsclient_region_normal" class="green-text text-darken-3">Region coverage (linear)</a></li>
+                      <li class="tab col s6"><a href="#mbedtls_fuzz_dtlsclient_region_logscale" class="green-text text-darken-3">Region coverage (log)</a></li>
+                    </ul>
+                </div>
+                <div id="mbedtls_fuzz_dtlsclient_region_normal" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="mbedtls_fuzz_dtlsclient_coverage_growth.svg">
+                </div>
+                <div id="mbedtls_fuzz_dtlsclient_region_logscale" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="mbedtls_fuzz_dtlsclient_coverage_growth_logscale.svg">
+                </div>
+                <div class="center-align">
+                    * The error bands show the 95% confidence interval
+                      around the mean coverage.
+                </div>
+            </div>
+
+
+            
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Sample statistics and statistical significance
+                    </div>
+                    <div class="collapsible-body">
+
+                        <h5 class="center-align">Coverage sample statistics</h5>
+                        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>median</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>fuzzer</th>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>jigsaw_new</th>
+      <th>82800</th>
+      <td>19.0</td>
+      <td>10653.421053</td>
+      <td>961.197651</td>
+      <td>8215.0</td>
+      <td>10120.50</td>
+      <td>10855.0</td>
+      <td>11401.00</td>
+      <td>11649.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus_optimal</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>8305.250000</td>
+      <td>45.672605</td>
+      <td>8219.0</td>
+      <td>8277.00</td>
+      <td>8301.0</td>
+      <td>8327.50</td>
+      <td>8398.0</td>
+    </tr>
+    <tr>
+      <th>aflsmart</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>8534.850000</td>
+      <td>833.499867</td>
+      <td>8188.0</td>
+      <td>8234.25</td>
+      <td>8267.0</td>
+      <td>8296.25</td>
+      <td>11294.0</td>
+    </tr>
+    <tr>
+      <th>afl</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>8588.800000</td>
+      <td>985.936189</td>
+      <td>8181.0</td>
+      <td>8238.75</td>
+      <td>8264.5</td>
+      <td>8332.50</td>
+      <td>11488.0</td>
+    </tr>
+    <tr>
+      <th>fairfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>8529.900000</td>
+      <td>822.748212</td>
+      <td>8159.0</td>
+      <td>8233.75</td>
+      <td>8262.0</td>
+      <td>8323.00</td>
+      <td>11115.0</td>
+    </tr>
+    <tr>
+      <th>mopt</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>8540.500000</td>
+      <td>872.508996</td>
+      <td>8183.0</td>
+      <td>8235.00</td>
+      <td>8257.5</td>
+      <td>8303.75</td>
+      <td>11562.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>8221.500000</td>
+      <td>50.168663</td>
+      <td>8117.0</td>
+      <td>8193.00</td>
+      <td>8225.0</td>
+      <td>8258.50</td>
+      <td>8324.0</td>
+    </tr>
+    <tr>
+      <th>eclipser</th>
+      <th>82800</th>
+      <td>19.0</td>
+      <td>8226.842105</td>
+      <td>38.226319</td>
+      <td>8186.0</td>
+      <td>8198.50</td>
+      <td>8223.0</td>
+      <td>8239.50</td>
+      <td>8344.0</td>
+    </tr>
+    <tr>
+      <th>z3_new</th>
+      <th>82800</th>
+      <td>19.0</td>
+      <td>8191.157895</td>
+      <td>58.077786</td>
+      <td>8073.0</td>
+      <td>8153.50</td>
+      <td>8206.0</td>
+      <td>8231.50</td>
+      <td>8274.0</td>
+    </tr>
+    <tr>
+      <th>entropic</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>8167.700000</td>
+      <td>36.368147</td>
+      <td>8067.0</td>
+      <td>8147.75</td>
+      <td>8174.0</td>
+      <td>8188.50</td>
+      <td>8219.0</td>
+    </tr>
+    <tr>
+      <th>lafintel</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>8148.900000</td>
+      <td>24.539764</td>
+      <td>8116.0</td>
+      <td>8126.25</td>
+      <td>8148.5</td>
+      <td>8165.25</td>
+      <td>8201.0</td>
+    </tr>
+    <tr>
+      <th>aflfast</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>8096.750000</td>
+      <td>45.773901</td>
+      <td>7995.0</td>
+      <td>8078.50</td>
+      <td>8099.0</td>
+      <td>8131.75</td>
+      <td>8168.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new_standalone</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>8807.500000</td>
+      <td>1094.561893</td>
+      <td>8044.0</td>
+      <td>8054.50</td>
+      <td>8095.0</td>
+      <td>9577.50</td>
+      <td>10947.0</td>
+    </tr>
+    <tr>
+      <th>honggfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>8067.950000</td>
+      <td>32.655257</td>
+      <td>8014.0</td>
+      <td>8037.75</td>
+      <td>8078.0</td>
+      <td>8082.50</td>
+      <td>8133.0</td>
+    </tr>
+    <tr>
+      <th>z3_new_standalone</th>
+      <th>82800</th>
+      <td>19.0</td>
+      <td>7874.263158</td>
+      <td>14.824312</td>
+      <td>7856.0</td>
+      <td>7862.50</td>
+      <td>7870.0</td>
+      <td>7885.00</td>
+      <td>7900.0</td>
+    </tr>
+    <tr>
+      <th>libfuzzer</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>7836.000000</td>
+      <td>236.256551</td>
+      <td>7544.0</td>
+      <td>7651.25</td>
+      <td>7693.5</td>
+      <td>8094.75</td>
+      <td>8172.0</td>
+    </tr>
+  </tbody>
+</table>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s6 offset-s3">
+                                <h5 class="center-align">Mann-Whitney U test</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="mbedtls_fuzz_dtlsclient_mann_whitney_plot.svg">
+                                    The table summarizes the p values of
+                                    pairwise Mann-Whitney U tests.
+                                    Green cells indicate that the reached
+                                    coverage distribution of a given fuzzer pair
+                                    is significantly different.
+                            </div>
+                        </div> <!-- row -->
+
+                    </div>
+                </li>
+            </ul>
+
+            
+
+        </div> <!-- id="mbedtls_fuzz_dtlsclient" -->
+        
+
+        <div id="openssl_x509" class="section scrollspy">
+
+            <h2 class="green-text text-darken-3">openssl_x509 summary</h2>
+
+            <div class="row">
+                <div class="col s6">
+                    <h5 class="center-align">Ranking by median reached coverage</h5>
+                    <img class="responsive-img materialboxed"
+                         src="openssl_x509_ranking.svg">
+                </div>
+                <div class="col s6">
+                    <h5 class="center-align">Reached coverage distribution</h5>
+                    <img class="responsive-img materialboxed"
+                         src="openssl_x509_violin.svg">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                      <li class="tab col s6"><a href="#openssl_x509_region_normal" class="green-text text-darken-3">Region coverage (linear)</a></li>
+                      <li class="tab col s6"><a href="#openssl_x509_region_logscale" class="green-text text-darken-3">Region coverage (log)</a></li>
+                    </ul>
+                </div>
+                <div id="openssl_x509_region_normal" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="openssl_x509_coverage_growth.svg">
+                </div>
+                <div id="openssl_x509_region_logscale" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="openssl_x509_coverage_growth_logscale.svg">
+                </div>
+                <div class="center-align">
+                    * The error bands show the 95% confidence interval
+                      around the mean coverage.
+                </div>
+            </div>
+
+
+            
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Sample statistics and statistical significance
+                    </div>
+                    <div class="collapsible-body">
+
+                        <h5 class="center-align">Coverage sample statistics</h5>
+                        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>median</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>fuzzer</th>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>aflplusplus_optimal</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>13785.100000</td>
+      <td>1.020836</td>
+      <td>13784.0</td>
+      <td>13784.00</td>
+      <td>13786.0</td>
+      <td>13786.00</td>
+      <td>13786.0</td>
+    </tr>
+    <tr>
+      <th>afl</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>13781.600000</td>
+      <td>7.387044</td>
+      <td>13760.0</td>
+      <td>13784.00</td>
+      <td>13784.0</td>
+      <td>13784.00</td>
+      <td>13784.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>13783.400000</td>
+      <td>5.154456</td>
+      <td>13762.0</td>
+      <td>13784.00</td>
+      <td>13784.0</td>
+      <td>13786.00</td>
+      <td>13786.0</td>
+    </tr>
+    <tr>
+      <th>aflsmart</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>13784.050000</td>
+      <td>0.223607</td>
+      <td>13784.0</td>
+      <td>13784.00</td>
+      <td>13784.0</td>
+      <td>13784.00</td>
+      <td>13785.0</td>
+    </tr>
+    <tr>
+      <th>eclipser</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>13783.450000</td>
+      <td>6.012925</td>
+      <td>13760.0</td>
+      <td>13784.00</td>
+      <td>13784.0</td>
+      <td>13784.00</td>
+      <td>13792.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>13775.222222</td>
+      <td>14.570541</td>
+      <td>13735.0</td>
+      <td>13763.00</td>
+      <td>13784.0</td>
+      <td>13784.00</td>
+      <td>13786.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>13774.166667</td>
+      <td>12.127994</td>
+      <td>13759.0</td>
+      <td>13760.00</td>
+      <td>13784.0</td>
+      <td>13784.00</td>
+      <td>13786.0</td>
+    </tr>
+    <tr>
+      <th>mopt</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>13782.700000</td>
+      <td>5.361657</td>
+      <td>13760.0</td>
+      <td>13784.00</td>
+      <td>13784.0</td>
+      <td>13784.00</td>
+      <td>13784.0</td>
+    </tr>
+    <tr>
+      <th>z3_new</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>13782.600000</td>
+      <td>7.111148</td>
+      <td>13762.0</td>
+      <td>13784.00</td>
+      <td>13784.0</td>
+      <td>13786.00</td>
+      <td>13786.0</td>
+    </tr>
+    <tr>
+      <th>aflfast</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>13776.050000</td>
+      <td>11.114121</td>
+      <td>13757.0</td>
+      <td>13764.50</td>
+      <td>13782.0</td>
+      <td>13783.25</td>
+      <td>13788.0</td>
+    </tr>
+    <tr>
+      <th>fairfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>13766.250000</td>
+      <td>10.467368</td>
+      <td>13735.0</td>
+      <td>13762.75</td>
+      <td>13766.0</td>
+      <td>13775.00</td>
+      <td>13784.0</td>
+    </tr>
+    <tr>
+      <th>entropic</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>13771.350000</td>
+      <td>13.393930</td>
+      <td>13752.0</td>
+      <td>13760.00</td>
+      <td>13763.0</td>
+      <td>13785.00</td>
+      <td>13791.0</td>
+    </tr>
+    <tr>
+      <th>lafintel</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>13766.850000</td>
+      <td>13.646958</td>
+      <td>13735.0</td>
+      <td>13760.00</td>
+      <td>13761.0</td>
+      <td>13782.00</td>
+      <td>13784.0</td>
+    </tr>
+    <tr>
+      <th>libfuzzer</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>13754.500000</td>
+      <td>3.993416</td>
+      <td>13748.0</td>
+      <td>13749.00</td>
+      <td>13757.0</td>
+      <td>13757.00</td>
+      <td>13758.0</td>
+    </tr>
+    <tr>
+      <th>honggfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>13740.700000</td>
+      <td>9.900027</td>
+      <td>13734.0</td>
+      <td>13734.00</td>
+      <td>13735.5</td>
+      <td>13742.25</td>
+      <td>13765.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new_standalone</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>13694.950000</td>
+      <td>7.605227</td>
+      <td>13688.0</td>
+      <td>13690.50</td>
+      <td>13692.0</td>
+      <td>13697.00</td>
+      <td>13714.0</td>
+    </tr>
+  </tbody>
+</table>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s6 offset-s3">
+                                <h5 class="center-align">Mann-Whitney U test</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="openssl_x509_mann_whitney_plot.svg">
+                                    The table summarizes the p values of
+                                    pairwise Mann-Whitney U tests.
+                                    Green cells indicate that the reached
+                                    coverage distribution of a given fuzzer pair
+                                    is significantly different.
+                            </div>
+                        </div> <!-- row -->
+
+                    </div>
+                </li>
+            </ul>
+
+            
+
+        </div> <!-- id="openssl_x509" -->
+        
+
+        <div id="openthread-2019-12-23" class="section scrollspy">
+
+            <h2 class="green-text text-darken-3">openthread-2019-12-23 summary</h2>
+
+            <div class="row">
+                <div class="col s6">
+                    <h5 class="center-align">Ranking by median reached coverage</h5>
+                    <img class="responsive-img materialboxed"
+                         src="openthread-2019-12-23_ranking.svg">
+                </div>
+                <div class="col s6">
+                    <h5 class="center-align">Reached coverage distribution</h5>
+                    <img class="responsive-img materialboxed"
+                         src="openthread-2019-12-23_violin.svg">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                      <li class="tab col s6"><a href="#openthread-2019-12-23_region_normal" class="green-text text-darken-3">Region coverage (linear)</a></li>
+                      <li class="tab col s6"><a href="#openthread-2019-12-23_region_logscale" class="green-text text-darken-3">Region coverage (log)</a></li>
+                    </ul>
+                </div>
+                <div id="openthread-2019-12-23_region_normal" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="openthread-2019-12-23_coverage_growth.svg">
+                </div>
+                <div id="openthread-2019-12-23_region_logscale" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="openthread-2019-12-23_coverage_growth_logscale.svg">
+                </div>
+                <div class="center-align">
+                    * The error bands show the 95% confidence interval
+                      around the mean coverage.
+                </div>
+            </div>
+
+
+            
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Sample statistics and statistical significance
+                    </div>
+                    <div class="collapsible-body">
+
+                        <h5 class="center-align">Coverage sample statistics</h5>
+                        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>median</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>fuzzer</th>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>entropic</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>5901.000000</td>
+      <td>12.286064</td>
+      <td>5874.0</td>
+      <td>5892.75</td>
+      <td>5904.5</td>
+      <td>5906.25</td>
+      <td>5927.0</td>
+    </tr>
+    <tr>
+      <th>libfuzzer</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>5899.600000</td>
+      <td>12.080432</td>
+      <td>5881.0</td>
+      <td>5889.75</td>
+      <td>5900.0</td>
+      <td>5907.00</td>
+      <td>5927.0</td>
+    </tr>
+    <tr>
+      <th>eclipser</th>
+      <th>82800</th>
+      <td>19.0</td>
+      <td>5851.263158</td>
+      <td>51.846828</td>
+      <td>5738.0</td>
+      <td>5843.50</td>
+      <td>5871.0</td>
+      <td>5886.50</td>
+      <td>5898.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>5852.150000</td>
+      <td>16.252206</td>
+      <td>5838.0</td>
+      <td>5843.00</td>
+      <td>5845.0</td>
+      <td>5850.50</td>
+      <td>5891.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus_optimal</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>5849.250000</td>
+      <td>16.376733</td>
+      <td>5830.0</td>
+      <td>5841.75</td>
+      <td>5845.0</td>
+      <td>5847.00</td>
+      <td>5896.0</td>
+    </tr>
+    <tr>
+      <th>mopt</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>5740.100000</td>
+      <td>217.386607</td>
+      <td>5248.0</td>
+      <td>5728.75</td>
+      <td>5840.0</td>
+      <td>5851.25</td>
+      <td>5934.0</td>
+    </tr>
+    <tr>
+      <th>afl</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>5723.350000</td>
+      <td>247.762041</td>
+      <td>5232.0</td>
+      <td>5792.25</td>
+      <td>5836.5</td>
+      <td>5856.75</td>
+      <td>5911.0</td>
+    </tr>
+    <tr>
+      <th>honggfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>5819.450000</td>
+      <td>56.276082</td>
+      <td>5701.0</td>
+      <td>5793.50</td>
+      <td>5832.5</td>
+      <td>5861.00</td>
+      <td>5890.0</td>
+    </tr>
+    <tr>
+      <th>aflsmart</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>5699.500000</td>
+      <td>234.434482</td>
+      <td>5227.0</td>
+      <td>5738.00</td>
+      <td>5814.0</td>
+      <td>5836.25</td>
+      <td>5854.0</td>
+    </tr>
+    <tr>
+      <th>lafintel</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>5342.600000</td>
+      <td>198.470308</td>
+      <td>5218.0</td>
+      <td>5258.00</td>
+      <td>5266.5</td>
+      <td>5277.75</td>
+      <td>5859.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>5259.000000</td>
+      <td>13.928388</td>
+      <td>5236.0</td>
+      <td>5256.25</td>
+      <td>5259.0</td>
+      <td>5261.00</td>
+      <td>5300.0</td>
+    </tr>
+    <tr>
+      <th>aflfast</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>5426.800000</td>
+      <td>273.599900</td>
+      <td>5232.0</td>
+      <td>5247.75</td>
+      <td>5254.5</td>
+      <td>5784.75</td>
+      <td>5859.0</td>
+    </tr>
+    <tr>
+      <th>z3_new</th>
+      <th>82800</th>
+      <td>17.0</td>
+      <td>5239.529412</td>
+      <td>19.805674</td>
+      <td>5196.0</td>
+      <td>5243.00</td>
+      <td>5248.0</td>
+      <td>5250.00</td>
+      <td>5252.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>5248.944444</td>
+      <td>10.535499</td>
+      <td>5235.0</td>
+      <td>5240.00</td>
+      <td>5245.5</td>
+      <td>5259.75</td>
+      <td>5263.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new_standalone</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>5100.055556</td>
+      <td>34.929294</td>
+      <td>5002.0</td>
+      <td>5096.50</td>
+      <td>5109.0</td>
+      <td>5112.00</td>
+      <td>5153.0</td>
+    </tr>
+    <tr>
+      <th>fairfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>4430.250000</td>
+      <td>600.390739</td>
+      <td>4143.0</td>
+      <td>4143.00</td>
+      <td>4143.0</td>
+      <td>4144.00</td>
+      <td>5849.0</td>
+    </tr>
+    <tr>
+      <th>z3_new_standalone</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>4096.000000</td>
+      <td>0.000000</td>
+      <td>4096.0</td>
+      <td>4096.00</td>
+      <td>4096.0</td>
+      <td>4096.00</td>
+      <td>4096.0</td>
+    </tr>
+  </tbody>
+</table>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s6 offset-s3">
+                                <h5 class="center-align">Mann-Whitney U test</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="openthread-2019-12-23_mann_whitney_plot.svg">
+                                    The table summarizes the p values of
+                                    pairwise Mann-Whitney U tests.
+                                    Green cells indicate that the reached
+                                    coverage distribution of a given fuzzer pair
+                                    is significantly different.
+                            </div>
+                        </div> <!-- row -->
+
+                    </div>
+                </li>
+            </ul>
+
+            
+
+        </div> <!-- id="openthread-2019-12-23" -->
+        
+
+        <div id="proj4-2017-08-14" class="section scrollspy">
+
+            <h2 class="green-text text-darken-3">proj4-2017-08-14 summary</h2>
+
+            <div class="row">
+                <div class="col s6">
+                    <h5 class="center-align">Ranking by median reached coverage</h5>
+                    <img class="responsive-img materialboxed"
+                         src="proj4-2017-08-14_ranking.svg">
+                </div>
+                <div class="col s6">
+                    <h5 class="center-align">Reached coverage distribution</h5>
+                    <img class="responsive-img materialboxed"
+                         src="proj4-2017-08-14_violin.svg">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                      <li class="tab col s6"><a href="#proj4-2017-08-14_region_normal" class="green-text text-darken-3">Region coverage (linear)</a></li>
+                      <li class="tab col s6"><a href="#proj4-2017-08-14_region_logscale" class="green-text text-darken-3">Region coverage (log)</a></li>
+                    </ul>
+                </div>
+                <div id="proj4-2017-08-14_region_normal" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="proj4-2017-08-14_coverage_growth.svg">
+                </div>
+                <div id="proj4-2017-08-14_region_logscale" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="proj4-2017-08-14_coverage_growth_logscale.svg">
+                </div>
+                <div class="center-align">
+                    * The error bands show the 95% confidence interval
+                      around the mean coverage.
+                </div>
+            </div>
+
+
+            
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Sample statistics and statistical significance
+                    </div>
+                    <div class="collapsible-body">
+
+                        <h5 class="center-align">Coverage sample statistics</h5>
+                        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>median</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>fuzzer</th>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>entropic</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>7776.600000</td>
+      <td>75.651138</td>
+      <td>7652.0</td>
+      <td>7727.00</td>
+      <td>7758.5</td>
+      <td>7807.25</td>
+      <td>7950.0</td>
+    </tr>
+    <tr>
+      <th>libfuzzer</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>7637.750000</td>
+      <td>106.318229</td>
+      <td>7452.0</td>
+      <td>7560.00</td>
+      <td>7650.0</td>
+      <td>7700.50</td>
+      <td>7884.0</td>
+    </tr>
+    <tr>
+      <th>honggfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>6925.950000</td>
+      <td>319.672279</td>
+      <td>6183.0</td>
+      <td>6852.75</td>
+      <td>7029.5</td>
+      <td>7125.25</td>
+      <td>7275.0</td>
+    </tr>
+    <tr>
+      <th>eclipser</th>
+      <th>82800</th>
+      <td>19.0</td>
+      <td>6975.315789</td>
+      <td>223.910958</td>
+      <td>6326.0</td>
+      <td>6868.00</td>
+      <td>7027.0</td>
+      <td>7119.50</td>
+      <td>7249.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>6248.400000</td>
+      <td>686.591996</td>
+      <td>5397.0</td>
+      <td>5628.00</td>
+      <td>5968.0</td>
+      <td>6889.25</td>
+      <td>7206.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus_optimal</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>5723.550000</td>
+      <td>641.816294</td>
+      <td>5204.0</td>
+      <td>5279.75</td>
+      <td>5381.0</td>
+      <td>5955.50</td>
+      <td>6854.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new</th>
+      <th>82800</th>
+      <td>19.0</td>
+      <td>5289.000000</td>
+      <td>75.051834</td>
+      <td>5205.0</td>
+      <td>5241.50</td>
+      <td>5278.0</td>
+      <td>5297.50</td>
+      <td>5534.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>5296.150000</td>
+      <td>94.653537</td>
+      <td>5163.0</td>
+      <td>5227.75</td>
+      <td>5272.0</td>
+      <td>5312.25</td>
+      <td>5547.0</td>
+    </tr>
+    <tr>
+      <th>z3_new</th>
+      <th>82800</th>
+      <td>17.0</td>
+      <td>5222.588235</td>
+      <td>76.483706</td>
+      <td>5072.0</td>
+      <td>5174.00</td>
+      <td>5200.0</td>
+      <td>5267.00</td>
+      <td>5375.0</td>
+    </tr>
+    <tr>
+      <th>fairfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>4902.850000</td>
+      <td>85.634029</td>
+      <td>4707.0</td>
+      <td>4868.00</td>
+      <td>4922.5</td>
+      <td>4942.75</td>
+      <td>5073.0</td>
+    </tr>
+    <tr>
+      <th>aflsmart</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>4498.500000</td>
+      <td>847.071084</td>
+      <td>2784.0</td>
+      <td>3939.00</td>
+      <td>4759.0</td>
+      <td>5162.50</td>
+      <td>5387.0</td>
+    </tr>
+    <tr>
+      <th>mopt</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>4540.450000</td>
+      <td>613.465263</td>
+      <td>2709.0</td>
+      <td>4201.25</td>
+      <td>4712.0</td>
+      <td>4979.25</td>
+      <td>5233.0</td>
+    </tr>
+    <tr>
+      <th>afl</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>4332.150000</td>
+      <td>805.817746</td>
+      <td>2677.0</td>
+      <td>4017.50</td>
+      <td>4524.0</td>
+      <td>5039.75</td>
+      <td>5431.0</td>
+    </tr>
+    <tr>
+      <th>lafintel</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>4258.450000</td>
+      <td>758.370585</td>
+      <td>2885.0</td>
+      <td>3810.00</td>
+      <td>4311.5</td>
+      <td>4910.00</td>
+      <td>5250.0</td>
+    </tr>
+    <tr>
+      <th>aflfast</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>4174.500000</td>
+      <td>611.915758</td>
+      <td>2990.0</td>
+      <td>3798.00</td>
+      <td>4196.0</td>
+      <td>4502.25</td>
+      <td>5168.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new_standalone</th>
+      <th>82800</th>
+      <td>19.0</td>
+      <td>1240.894737</td>
+      <td>215.596819</td>
+      <td>802.0</td>
+      <td>1069.50</td>
+      <td>1275.0</td>
+      <td>1453.00</td>
+      <td>1543.0</td>
+    </tr>
+    <tr>
+      <th>z3_new_standalone</th>
+      <th>82800</th>
+      <td>17.0</td>
+      <td>180.000000</td>
+      <td>0.000000</td>
+      <td>180.0</td>
+      <td>180.00</td>
+      <td>180.0</td>
+      <td>180.00</td>
+      <td>180.0</td>
+    </tr>
+  </tbody>
+</table>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s6 offset-s3">
+                                <h5 class="center-align">Mann-Whitney U test</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="proj4-2017-08-14_mann_whitney_plot.svg">
+                                    The table summarizes the p values of
+                                    pairwise Mann-Whitney U tests.
+                                    Green cells indicate that the reached
+                                    coverage distribution of a given fuzzer pair
+                                    is significantly different.
+                            </div>
+                        </div> <!-- row -->
+
+                    </div>
+                </li>
+            </ul>
+
+            
+
+        </div> <!-- id="proj4-2017-08-14" -->
+        
+
+        <div id="re2-2014-12-09" class="section scrollspy">
+
+            <h2 class="green-text text-darken-3">re2-2014-12-09 summary</h2>
+
+            <div class="row">
+                <div class="col s6">
+                    <h5 class="center-align">Ranking by median reached coverage</h5>
+                    <img class="responsive-img materialboxed"
+                         src="re2-2014-12-09_ranking.svg">
+                </div>
+                <div class="col s6">
+                    <h5 class="center-align">Reached coverage distribution</h5>
+                    <img class="responsive-img materialboxed"
+                         src="re2-2014-12-09_violin.svg">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                      <li class="tab col s6"><a href="#re2-2014-12-09_region_normal" class="green-text text-darken-3">Region coverage (linear)</a></li>
+                      <li class="tab col s6"><a href="#re2-2014-12-09_region_logscale" class="green-text text-darken-3">Region coverage (log)</a></li>
+                    </ul>
+                </div>
+                <div id="re2-2014-12-09_region_normal" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="re2-2014-12-09_coverage_growth.svg">
+                </div>
+                <div id="re2-2014-12-09_region_logscale" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="re2-2014-12-09_coverage_growth_logscale.svg">
+                </div>
+                <div class="center-align">
+                    * The error bands show the 95% confidence interval
+                      around the mean coverage.
+                </div>
+            </div>
+
+
+            
+            <div class="card-panel deep-orange lighten-3">
+                <div class="row valign-wrapper">
+                    <div class="col s4 m2 center-align">
+                        <i class="medium material-icons">error</i>
+                    </div>
+                    <div class="col s8 m10">
+                        <span class="black-text">
+                            The following fuzzers do not have enough samples:
+                            <strong>
+                                jigsaw_new.
+                            </strong>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Sample statistics and statistical significance
+                    </div>
+                    <div class="collapsible-body">
+
+                        <h5 class="center-align">Coverage sample statistics</h5>
+                        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>median</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>fuzzer</th>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>aflplusplus</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3542.300000</td>
+      <td>18.049931</td>
+      <td>3510.0</td>
+      <td>3519.75</td>
+      <td>3549.5</td>
+      <td>3556.00</td>
+      <td>3564.0</td>
+    </tr>
+    <tr>
+      <th>eclipser</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3533.300000</td>
+      <td>18.971169</td>
+      <td>3511.0</td>
+      <td>3515.25</td>
+      <td>3531.5</td>
+      <td>3549.00</td>
+      <td>3561.0</td>
+    </tr>
+    <tr>
+      <th>aflsmart</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3531.100000</td>
+      <td>17.213520</td>
+      <td>3509.0</td>
+      <td>3516.75</td>
+      <td>3526.0</td>
+      <td>3546.50</td>
+      <td>3559.0</td>
+    </tr>
+    <tr>
+      <th>entropic</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3538.900000</td>
+      <td>18.859313</td>
+      <td>3519.0</td>
+      <td>3524.75</td>
+      <td>3525.0</td>
+      <td>3560.00</td>
+      <td>3568.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus_optimal</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3528.700000</td>
+      <td>18.198033</td>
+      <td>3510.0</td>
+      <td>3514.75</td>
+      <td>3519.0</td>
+      <td>3549.00</td>
+      <td>3566.0</td>
+    </tr>
+    <tr>
+      <th>mopt</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3526.250000</td>
+      <td>16.032451</td>
+      <td>3508.0</td>
+      <td>3512.75</td>
+      <td>3516.5</td>
+      <td>3544.25</td>
+      <td>3551.0</td>
+    </tr>
+    <tr>
+      <th>afl</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3520.950000</td>
+      <td>13.620708</td>
+      <td>3509.0</td>
+      <td>3512.75</td>
+      <td>3516.0</td>
+      <td>3520.25</td>
+      <td>3550.0</td>
+    </tr>
+    <tr>
+      <th>libfuzzer</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3515.100000</td>
+      <td>14.871024</td>
+      <td>3482.0</td>
+      <td>3514.75</td>
+      <td>3516.0</td>
+      <td>3518.25</td>
+      <td>3559.0</td>
+    </tr>
+    <tr>
+      <th>aflfast</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3526.950000</td>
+      <td>18.202010</td>
+      <td>3509.0</td>
+      <td>3511.00</td>
+      <td>3516.0</td>
+      <td>3548.25</td>
+      <td>3552.0</td>
+    </tr>
+    <tr>
+      <th>honggfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3518.050000</td>
+      <td>18.997160</td>
+      <td>3470.0</td>
+      <td>3508.00</td>
+      <td>3513.5</td>
+      <td>3525.50</td>
+      <td>3547.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new</th>
+      <th>82800</th>
+      <td>15.0</td>
+      <td>3513.800000</td>
+      <td>8.792854</td>
+      <td>3506.0</td>
+      <td>3510.00</td>
+      <td>3513.0</td>
+      <td>3513.50</td>
+      <td>3544.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw</th>
+      <th>82800</th>
+      <td>17.0</td>
+      <td>3513.235294</td>
+      <td>15.465807</td>
+      <td>3477.0</td>
+      <td>3508.00</td>
+      <td>3510.0</td>
+      <td>3516.00</td>
+      <td>3549.0</td>
+    </tr>
+    <tr>
+      <th>fairfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3512.400000</td>
+      <td>29.362346</td>
+      <td>3409.0</td>
+      <td>3508.00</td>
+      <td>3509.5</td>
+      <td>3513.25</td>
+      <td>3552.0</td>
+    </tr>
+    <tr>
+      <th>lafintel</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>3503.250000</td>
+      <td>20.310420</td>
+      <td>3467.0</td>
+      <td>3500.75</td>
+      <td>3505.0</td>
+      <td>3509.50</td>
+      <td>3548.0</td>
+    </tr>
+    <tr>
+      <th>z3_new</th>
+      <th>82800</th>
+      <td>17.0</td>
+      <td>3512.529412</td>
+      <td>18.874976</td>
+      <td>3476.0</td>
+      <td>3501.00</td>
+      <td>3504.0</td>
+      <td>3534.00</td>
+      <td>3541.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new_standalone</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>3179.888889</td>
+      <td>133.523688</td>
+      <td>3062.0</td>
+      <td>3088.25</td>
+      <td>3123.0</td>
+      <td>3274.00</td>
+      <td>3435.0</td>
+    </tr>
+    <tr>
+      <th>z3_new_standalone</th>
+      <th>82800</th>
+      <td>19.0</td>
+      <td>4.000000</td>
+      <td>0.000000</td>
+      <td>4.0</td>
+      <td>4.00</td>
+      <td>4.0</td>
+      <td>4.00</td>
+      <td>4.0</td>
+    </tr>
+  </tbody>
+</table>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s6 offset-s3">
+                                <h5 class="center-align">Mann-Whitney U test</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="re2-2014-12-09_mann_whitney_plot.svg">
+                                    The table summarizes the p values of
+                                    pairwise Mann-Whitney U tests.
+                                    Green cells indicate that the reached
+                                    coverage distribution of a given fuzzer pair
+                                    is significantly different.
+                            </div>
+                        </div> <!-- row -->
+
+                    </div>
+                </li>
+            </ul>
+
+            
+
+        </div> <!-- id="re2-2014-12-09" -->
+        
+
+        <div id="sqlite3_ossfuzz" class="section scrollspy">
+
+            <h2 class="green-text text-darken-3">sqlite3_ossfuzz summary</h2>
+
+            <div class="row">
+                <div class="col s6">
+                    <h5 class="center-align">Ranking by median reached coverage</h5>
+                    <img class="responsive-img materialboxed"
+                         src="sqlite3_ossfuzz_ranking.svg">
+                </div>
+                <div class="col s6">
+                    <h5 class="center-align">Reached coverage distribution</h5>
+                    <img class="responsive-img materialboxed"
+                         src="sqlite3_ossfuzz_violin.svg">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                      <li class="tab col s6"><a href="#sqlite3_ossfuzz_region_normal" class="green-text text-darken-3">Region coverage (linear)</a></li>
+                      <li class="tab col s6"><a href="#sqlite3_ossfuzz_region_logscale" class="green-text text-darken-3">Region coverage (log)</a></li>
+                    </ul>
+                </div>
+                <div id="sqlite3_ossfuzz_region_normal" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="sqlite3_ossfuzz_coverage_growth.svg">
+                </div>
+                <div id="sqlite3_ossfuzz_region_logscale" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="sqlite3_ossfuzz_coverage_growth_logscale.svg">
+                </div>
+                <div class="center-align">
+                    * The error bands show the 95% confidence interval
+                      around the mean coverage.
+                </div>
+            </div>
+
+
+            
+            <div class="card-panel deep-orange lighten-3">
+                <div class="row valign-wrapper">
+                    <div class="col s4 m2 center-align">
+                        <i class="medium material-icons">error</i>
+                    </div>
+                    <div class="col s8 m10">
+                        <span class="black-text">
+                            The following fuzzers do not have enough samples:
+                            <strong>
+                                jigsaw_new_standalone, z3_new_standalone.
+                            </strong>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Sample statistics and statistical significance
+                    </div>
+                    <div class="collapsible-body">
+
+                        <h5 class="center-align">Coverage sample statistics</h5>
+                        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>median</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>fuzzer</th>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>aflplusplus</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>34474.450000</td>
+      <td>5138.697014</td>
+      <td>12813.0</td>
+      <td>35363.00</td>
+      <td>35667.5</td>
+      <td>36106.50</td>
+      <td>36607.0</td>
+    </tr>
+    <tr>
+      <th>z3_new</th>
+      <th>82800</th>
+      <td>17.0</td>
+      <td>35291.176471</td>
+      <td>498.149982</td>
+      <td>34263.0</td>
+      <td>34818.00</td>
+      <td>35378.0</td>
+      <td>35530.00</td>
+      <td>36175.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus_optimal</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>34654.700000</td>
+      <td>2247.439013</td>
+      <td>27566.0</td>
+      <td>34979.25</td>
+      <td>35331.5</td>
+      <td>35675.00</td>
+      <td>36353.0</td>
+    </tr>
+    <tr>
+      <th>afl</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>35117.900000</td>
+      <td>403.287791</td>
+      <td>33929.0</td>
+      <td>35034.75</td>
+      <td>35214.5</td>
+      <td>35380.00</td>
+      <td>35577.0</td>
+    </tr>
+    <tr>
+      <th>mopt</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>35052.800000</td>
+      <td>415.840632</td>
+      <td>33956.0</td>
+      <td>34911.25</td>
+      <td>35092.0</td>
+      <td>35316.75</td>
+      <td>35684.0</td>
+    </tr>
+    <tr>
+      <th>eclipser</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>34944.550000</td>
+      <td>400.588577</td>
+      <td>34140.0</td>
+      <td>34644.75</td>
+      <td>35061.5</td>
+      <td>35250.00</td>
+      <td>35371.0</td>
+    </tr>
+    <tr>
+      <th>aflsmart</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>34892.600000</td>
+      <td>502.872632</td>
+      <td>33962.0</td>
+      <td>34561.50</td>
+      <td>34886.0</td>
+      <td>35189.00</td>
+      <td>35720.0</td>
+    </tr>
+    <tr>
+      <th>aflfast</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>34672.500000</td>
+      <td>417.505184</td>
+      <td>33745.0</td>
+      <td>34393.00</td>
+      <td>34695.5</td>
+      <td>34937.00</td>
+      <td>35386.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw</th>
+      <th>82800</th>
+      <td>17.0</td>
+      <td>34338.588235</td>
+      <td>1040.730997</td>
+      <td>32304.0</td>
+      <td>33699.00</td>
+      <td>34680.0</td>
+      <td>35139.00</td>
+      <td>35909.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>34247.055556</td>
+      <td>937.072756</td>
+      <td>31776.0</td>
+      <td>33695.00</td>
+      <td>34463.5</td>
+      <td>34924.50</td>
+      <td>35715.0</td>
+    </tr>
+    <tr>
+      <th>entropic</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>30994.650000</td>
+      <td>1353.943335</td>
+      <td>27904.0</td>
+      <td>30153.25</td>
+      <td>31437.5</td>
+      <td>31924.50</td>
+      <td>32475.0</td>
+    </tr>
+    <tr>
+      <th>honggfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>31105.050000</td>
+      <td>643.945934</td>
+      <td>29829.0</td>
+      <td>30675.75</td>
+      <td>31164.0</td>
+      <td>31422.25</td>
+      <td>32305.0</td>
+    </tr>
+    <tr>
+      <th>lafintel</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>26884.250000</td>
+      <td>1221.126265</td>
+      <td>24987.0</td>
+      <td>26158.00</td>
+      <td>26695.0</td>
+      <td>27483.50</td>
+      <td>29151.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new_standalone</th>
+      <th>82800</th>
+      <td>8.0</td>
+      <td>25550.500000</td>
+      <td>521.671763</td>
+      <td>24992.0</td>
+      <td>25237.75</td>
+      <td>25413.5</td>
+      <td>25724.50</td>
+      <td>26592.0</td>
+    </tr>
+    <tr>
+      <th>fairfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>25374.200000</td>
+      <td>3093.102898</td>
+      <td>22054.0</td>
+      <td>22941.00</td>
+      <td>24093.5</td>
+      <td>28172.75</td>
+      <td>31446.0</td>
+    </tr>
+    <tr>
+      <th>libfuzzer</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>23809.800000</td>
+      <td>748.764147</td>
+      <td>22487.0</td>
+      <td>23405.00</td>
+      <td>23885.0</td>
+      <td>24287.50</td>
+      <td>25229.0</td>
+    </tr>
+    <tr>
+      <th>z3_new_standalone</th>
+      <th>82800</th>
+      <td>1.0</td>
+      <td>17947.000000</td>
+      <td>NaN</td>
+      <td>17947.0</td>
+      <td>17947.00</td>
+      <td>17947.0</td>
+      <td>17947.00</td>
+      <td>17947.0</td>
+    </tr>
+  </tbody>
+</table>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s6 offset-s3">
+                                <h5 class="center-align">Mann-Whitney U test</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="sqlite3_ossfuzz_mann_whitney_plot.svg">
+                                    The table summarizes the p values of
+                                    pairwise Mann-Whitney U tests.
+                                    Green cells indicate that the reached
+                                    coverage distribution of a given fuzzer pair
+                                    is significantly different.
+                            </div>
+                        </div> <!-- row -->
+
+                    </div>
+                </li>
+            </ul>
+
+            
+
+        </div> <!-- id="sqlite3_ossfuzz" -->
+        
+
+        <div id="vorbis-2017-12-11" class="section scrollspy">
+
+            <h2 class="green-text text-darken-3">vorbis-2017-12-11 summary</h2>
+
+            <div class="row">
+                <div class="col s6">
+                    <h5 class="center-align">Ranking by median reached coverage</h5>
+                    <img class="responsive-img materialboxed"
+                         src="vorbis-2017-12-11_ranking.svg">
+                </div>
+                <div class="col s6">
+                    <h5 class="center-align">Reached coverage distribution</h5>
+                    <img class="responsive-img materialboxed"
+                         src="vorbis-2017-12-11_violin.svg">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                      <li class="tab col s6"><a href="#vorbis-2017-12-11_region_normal" class="green-text text-darken-3">Region coverage (linear)</a></li>
+                      <li class="tab col s6"><a href="#vorbis-2017-12-11_region_logscale" class="green-text text-darken-3">Region coverage (log)</a></li>
+                    </ul>
+                </div>
+                <div id="vorbis-2017-12-11_region_normal" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="vorbis-2017-12-11_coverage_growth.svg">
+                </div>
+                <div id="vorbis-2017-12-11_region_logscale" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="vorbis-2017-12-11_coverage_growth_logscale.svg">
+                </div>
+                <div class="center-align">
+                    * The error bands show the 95% confidence interval
+                      around the mean coverage.
+                </div>
+            </div>
+
+
+            
+            <div class="card-panel deep-orange lighten-3">
+                <div class="row valign-wrapper">
+                    <div class="col s4 m2 center-align">
+                        <i class="medium material-icons">error</i>
+                    </div>
+                    <div class="col s8 m10">
+                        <span class="black-text">
+                            The following fuzzers do not have enough samples:
+                            <strong>
+                                jigsaw, jigsaw_new.
+                            </strong>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Sample statistics and statistical significance
+                    </div>
+                    <div class="collapsible-body">
+
+                        <h5 class="center-align">Coverage sample statistics</h5>
+                        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>median</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>fuzzer</th>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>aflplusplus_optimal</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2177.500000</td>
+      <td>5.052357</td>
+      <td>2171.0</td>
+      <td>2174.00</td>
+      <td>2175.5</td>
+      <td>2182.00</td>
+      <td>2187.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2170.050000</td>
+      <td>2.605157</td>
+      <td>2166.0</td>
+      <td>2168.75</td>
+      <td>2170.0</td>
+      <td>2170.25</td>
+      <td>2177.0</td>
+    </tr>
+    <tr>
+      <th>afl</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2168.100000</td>
+      <td>5.128866</td>
+      <td>2162.0</td>
+      <td>2164.00</td>
+      <td>2167.0</td>
+      <td>2171.50</td>
+      <td>2177.0</td>
+    </tr>
+    <tr>
+      <th>mopt</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2168.200000</td>
+      <td>6.022764</td>
+      <td>2153.0</td>
+      <td>2164.75</td>
+      <td>2167.0</td>
+      <td>2174.25</td>
+      <td>2176.0</td>
+    </tr>
+    <tr>
+      <th>aflsmart</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2168.050000</td>
+      <td>6.012925</td>
+      <td>2162.0</td>
+      <td>2163.00</td>
+      <td>2165.5</td>
+      <td>2173.25</td>
+      <td>2180.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new</th>
+      <th>82800</th>
+      <td>14.0</td>
+      <td>2165.285714</td>
+      <td>1.815683</td>
+      <td>2161.0</td>
+      <td>2164.25</td>
+      <td>2165.5</td>
+      <td>2166.00</td>
+      <td>2169.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw</th>
+      <th>82800</th>
+      <td>15.0</td>
+      <td>2165.266667</td>
+      <td>2.374467</td>
+      <td>2161.0</td>
+      <td>2164.00</td>
+      <td>2165.0</td>
+      <td>2166.00</td>
+      <td>2171.0</td>
+    </tr>
+    <tr>
+      <th>eclipser</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2165.600000</td>
+      <td>5.364601</td>
+      <td>2160.0</td>
+      <td>2162.00</td>
+      <td>2164.0</td>
+      <td>2166.25</td>
+      <td>2178.0</td>
+    </tr>
+    <tr>
+      <th>aflfast</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2163.550000</td>
+      <td>6.581273</td>
+      <td>2150.0</td>
+      <td>2160.75</td>
+      <td>2163.5</td>
+      <td>2166.00</td>
+      <td>2174.0</td>
+    </tr>
+    <tr>
+      <th>entropic</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2163.300000</td>
+      <td>3.213459</td>
+      <td>2160.0</td>
+      <td>2162.00</td>
+      <td>2162.0</td>
+      <td>2164.00</td>
+      <td>2175.0</td>
+    </tr>
+    <tr>
+      <th>z3_new</th>
+      <th>82800</th>
+      <td>17.0</td>
+      <td>2162.647059</td>
+      <td>4.742641</td>
+      <td>2154.0</td>
+      <td>2160.00</td>
+      <td>2162.0</td>
+      <td>2164.00</td>
+      <td>2176.0</td>
+    </tr>
+    <tr>
+      <th>lafintel</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2153.950000</td>
+      <td>15.919121</td>
+      <td>2109.0</td>
+      <td>2152.75</td>
+      <td>2160.5</td>
+      <td>2162.00</td>
+      <td>2168.0</td>
+    </tr>
+    <tr>
+      <th>honggfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2156.500000</td>
+      <td>3.734618</td>
+      <td>2151.0</td>
+      <td>2154.75</td>
+      <td>2156.0</td>
+      <td>2157.25</td>
+      <td>2170.0</td>
+    </tr>
+    <tr>
+      <th>libfuzzer</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2025.050000</td>
+      <td>163.564401</td>
+      <td>1828.0</td>
+      <td>1830.00</td>
+      <td>2149.5</td>
+      <td>2157.25</td>
+      <td>2163.0</td>
+    </tr>
+    <tr>
+      <th>fairfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>2126.300000</td>
+      <td>35.237689</td>
+      <td>2053.0</td>
+      <td>2101.75</td>
+      <td>2130.5</td>
+      <td>2162.00</td>
+      <td>2167.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new_standalone</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>2053.222222</td>
+      <td>30.206263</td>
+      <td>2021.0</td>
+      <td>2027.25</td>
+      <td>2054.0</td>
+      <td>2062.00</td>
+      <td>2131.0</td>
+    </tr>
+    <tr>
+      <th>z3_new_standalone</th>
+      <th>82800</th>
+      <td>16.0</td>
+      <td>1771.687500</td>
+      <td>7.709031</td>
+      <td>1762.0</td>
+      <td>1767.00</td>
+      <td>1769.0</td>
+      <td>1775.25</td>
+      <td>1790.0</td>
+    </tr>
+  </tbody>
+</table>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s6 offset-s3">
+                                <h5 class="center-align">Mann-Whitney U test</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="vorbis-2017-12-11_mann_whitney_plot.svg">
+                                    The table summarizes the p values of
+                                    pairwise Mann-Whitney U tests.
+                                    Green cells indicate that the reached
+                                    coverage distribution of a given fuzzer pair
+                                    is significantly different.
+                            </div>
+                        </div> <!-- row -->
+
+                    </div>
+                </li>
+            </ul>
+
+            
+
+        </div> <!-- id="vorbis-2017-12-11" -->
+        
+
+        <div id="woff2-2016-05-06" class="section scrollspy">
+
+            <h2 class="green-text text-darken-3">woff2-2016-05-06 summary</h2>
+
+            <div class="row">
+                <div class="col s6">
+                    <h5 class="center-align">Ranking by median reached coverage</h5>
+                    <img class="responsive-img materialboxed"
+                         src="woff2-2016-05-06_ranking.svg">
+                </div>
+                <div class="col s6">
+                    <h5 class="center-align">Reached coverage distribution</h5>
+                    <img class="responsive-img materialboxed"
+                         src="woff2-2016-05-06_violin.svg">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                      <li class="tab col s6"><a href="#woff2-2016-05-06_region_normal" class="green-text text-darken-3">Region coverage (linear)</a></li>
+                      <li class="tab col s6"><a href="#woff2-2016-05-06_region_logscale" class="green-text text-darken-3">Region coverage (log)</a></li>
+                    </ul>
+                </div>
+                <div id="woff2-2016-05-06_region_normal" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="woff2-2016-05-06_coverage_growth.svg">
+                </div>
+                <div id="woff2-2016-05-06_region_logscale" class="col s12">
+                    <h5 class="center-align">Mean coverage growth over time</h5>
+                    <img class="responsive-img materialboxed"
+                         src="woff2-2016-05-06_coverage_growth_logscale.svg">
+                </div>
+                <div class="center-align">
+                    * The error bands show the 95% confidence interval
+                      around the mean coverage.
+                </div>
+            </div>
+
+
+            
+            <div class="card-panel deep-orange lighten-3">
+                <div class="row valign-wrapper">
+                    <div class="col s4 m2 center-align">
+                        <i class="medium material-icons">error</i>
+                    </div>
+                    <div class="col s8 m10">
+                        <span class="black-text">
+                            The following fuzzers do not have enough samples:
+                            <strong>
+                                jigsaw_new.
+                            </strong>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Sample statistics and statistical significance
+                    </div>
+                    <div class="collapsible-body">
+
+                        <h5 class="center-align">Coverage sample statistics</h5>
+                        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>median</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>fuzzer</th>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>aflplusplus</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>1918.650000</td>
+      <td>22.877879</td>
+      <td>1880.0</td>
+      <td>1893.50</td>
+      <td>1931.0</td>
+      <td>1937.00</td>
+      <td>1942.0</td>
+    </tr>
+    <tr>
+      <th>honggfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>1910.500000</td>
+      <td>30.006140</td>
+      <td>1836.0</td>
+      <td>1903.75</td>
+      <td>1909.5</td>
+      <td>1928.25</td>
+      <td>1954.0</td>
+    </tr>
+    <tr>
+      <th>aflplusplus_optimal</th>
+      <th>82800</th>
+      <td>19.0</td>
+      <td>1907.210526</td>
+      <td>25.797457</td>
+      <td>1865.0</td>
+      <td>1887.00</td>
+      <td>1896.0</td>
+      <td>1934.50</td>
+      <td>1946.0</td>
+    </tr>
+    <tr>
+      <th>eclipser</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>1889.700000</td>
+      <td>32.273665</td>
+      <td>1846.0</td>
+      <td>1859.25</td>
+      <td>1895.0</td>
+      <td>1914.25</td>
+      <td>1950.0</td>
+    </tr>
+    <tr>
+      <th>aflsmart</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>1868.050000</td>
+      <td>16.031137</td>
+      <td>1839.0</td>
+      <td>1855.25</td>
+      <td>1872.5</td>
+      <td>1882.25</td>
+      <td>1888.0</td>
+    </tr>
+    <tr>
+      <th>lafintel</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>1862.800000</td>
+      <td>14.681173</td>
+      <td>1842.0</td>
+      <td>1848.50</td>
+      <td>1867.0</td>
+      <td>1872.75</td>
+      <td>1884.0</td>
+    </tr>
+    <tr>
+      <th>afl</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>1862.300000</td>
+      <td>18.287471</td>
+      <td>1838.0</td>
+      <td>1844.75</td>
+      <td>1863.0</td>
+      <td>1881.00</td>
+      <td>1888.0</td>
+    </tr>
+    <tr>
+      <th>entropic</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>1848.700000</td>
+      <td>58.250006</td>
+      <td>1672.0</td>
+      <td>1813.75</td>
+      <td>1856.0</td>
+      <td>1893.75</td>
+      <td>1919.0</td>
+    </tr>
+    <tr>
+      <th>mopt</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>1856.050000</td>
+      <td>14.514874</td>
+      <td>1833.0</td>
+      <td>1846.00</td>
+      <td>1855.0</td>
+      <td>1866.50</td>
+      <td>1888.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>1850.500000</td>
+      <td>13.797911</td>
+      <td>1825.0</td>
+      <td>1841.00</td>
+      <td>1853.0</td>
+      <td>1857.50</td>
+      <td>1872.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new</th>
+      <th>82800</th>
+      <td>15.0</td>
+      <td>1849.266667</td>
+      <td>11.335574</td>
+      <td>1829.0</td>
+      <td>1840.50</td>
+      <td>1850.0</td>
+      <td>1854.50</td>
+      <td>1876.0</td>
+    </tr>
+    <tr>
+      <th>z3_new</th>
+      <th>82800</th>
+      <td>19.0</td>
+      <td>1849.157895</td>
+      <td>20.111531</td>
+      <td>1799.0</td>
+      <td>1841.00</td>
+      <td>1845.0</td>
+      <td>1858.00</td>
+      <td>1886.0</td>
+    </tr>
+    <tr>
+      <th>aflfast</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>1823.800000</td>
+      <td>15.442934</td>
+      <td>1768.0</td>
+      <td>1821.00</td>
+      <td>1823.5</td>
+      <td>1830.50</td>
+      <td>1847.0</td>
+    </tr>
+    <tr>
+      <th>jigsaw_new_standalone</th>
+      <th>82800</th>
+      <td>19.0</td>
+      <td>1752.473684</td>
+      <td>21.482211</td>
+      <td>1703.0</td>
+      <td>1736.50</td>
+      <td>1754.0</td>
+      <td>1774.00</td>
+      <td>1780.0</td>
+    </tr>
+    <tr>
+      <th>libfuzzer</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>1687.550000</td>
+      <td>46.692133</td>
+      <td>1606.0</td>
+      <td>1644.50</td>
+      <td>1698.0</td>
+      <td>1721.00</td>
+      <td>1756.0</td>
+    </tr>
+    <tr>
+      <th>fairfuzz</th>
+      <th>82800</th>
+      <td>20.0</td>
+      <td>1676.300000</td>
+      <td>31.036651</td>
+      <td>1617.0</td>
+      <td>1664.00</td>
+      <td>1672.5</td>
+      <td>1682.00</td>
+      <td>1773.0</td>
+    </tr>
+    <tr>
+      <th>z3_new_standalone</th>
+      <th>82800</th>
+      <td>18.0</td>
+      <td>1563.611111</td>
+      <td>17.358297</td>
+      <td>1533.0</td>
+      <td>1547.00</td>
+      <td>1566.5</td>
+      <td>1578.25</td>
+      <td>1588.0</td>
+    </tr>
+  </tbody>
+</table>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s6 offset-s3">
+                                <h5 class="center-align">Mann-Whitney U test</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="woff2-2016-05-06_mann_whitney_plot.svg">
+                                    The table summarizes the p values of
+                                    pairwise Mann-Whitney U tests.
+                                    Green cells indicate that the reached
+                                    coverage distribution of a given fuzzer pair
+                                    is significantly different.
+                            </div>
+                        </div> <!-- row -->
+
+                    </div>
+                </li>
+            </ul>
+
+            
+
+        </div> <!-- id="woff2-2016-05-06" -->
+        
+
+        <div id="data" class="section scrollspy">
+            <h2 class="green-text text-darken-3">experiment data</h2>
+            You can download the raw data for this report <a href="data.csv.gz">here</a>.
+
+            <br><br>
+            Check out the <a href="https://google.github.io/fuzzbench/developing-fuzzbench/custom_analysis_and_reports">documentation</a> on how to create customized reports using this data.
+            Also see some example Colab notebooks for doing custom analysis on the data <a href="https://github.com/google/fuzzbench/tree/master/analysis/notebooks">here</a>.
+
+            
+
+            
+            <br><br>
+            Experiment Description:<br><br>
+            ('Official experiment',)
+            
+        </div>    <!-- id="data" -->
+
+    </div> <!-- class="col" -->
+
+    <div class="col hide-on-med-and-down l2">
+        <ul class="section table-of-contents">
+            <li><a href="#summary">experiment summary</a></li>
+            
+            <li><a href="#curl_curl_fuzzer_http">curl_curl_fuzzer_http</a></li>
+            
+            <li><a href="#freetype2-2017">freetype2-2017</a></li>
+            
+            <li><a href="#harfbuzz-1.3.2">harfbuzz-1.3.2</a></li>
+            
+            <li><a href="#jsoncpp_jsoncpp_fuzzer">jsoncpp_jsoncpp_fuzzer</a></li>
+            
+            <li><a href="#lcms-2017-03-21">lcms-2017-03-21</a></li>
+            
+            <li><a href="#libjpeg-turbo-07-2017">libjpeg-turbo-07-2017</a></li>
+            
+            <li><a href="#libpng-1.2.56">libpng-1.2.56</a></li>
+            
+            <li><a href="#libxml2-v2.9.2">libxml2-v2.9.2</a></li>
+            
+            <li><a href="#libxslt_xpath">libxslt_xpath</a></li>
+            
+            <li><a href="#mbedtls_fuzz_dtlsclient">mbedtls_fuzz_dtlsclient</a></li>
+            
+            <li><a href="#openssl_x509">openssl_x509</a></li>
+            
+            <li><a href="#openthread-2019-12-23">openthread-2019-12-23</a></li>
+            
+            <li><a href="#proj4-2017-08-14">proj4-2017-08-14</a></li>
+            
+            <li><a href="#re2-2014-12-09">re2-2014-12-09</a></li>
+            
+            <li><a href="#sqlite3_ossfuzz">sqlite3_ossfuzz</a></li>
+            
+            <li><a href="#vorbis-2017-12-11">vorbis-2017-12-11</a></li>
+            
+            <li><a href="#woff2-2016-05-06">woff2-2016-05-06</a></li>
+            
+            <li><a href="#data">experiment data</a></li>
+        </ul>
+    </div>
+
+    </div> <!-- class="row" -->
+    </div> <!-- class="container" -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+     M.AutoInit();
+     document.addEventListener('DOMContentLoaded', function() {
+         var toc = document.querySelectorAll('.table-of-contents');
+         M.Pushpin.init(toc);
+
+         var scrollspy_elems = document.querySelectorAll('.scrollspy');
+         var scrollspy_options = {scrollOffset: 0};
+         M.ScrollSpy.init(scrollspy_elems, scrollspy_options);
+
+         var tabs_elems = document.querySelectorAll('.tabs');
+         var tabs_options = {duration: 500};
+         var instance = M.Tabs.init(tabs_elems, tabs_options);
+     });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.2/anchor.min.js"></script>
+    <script>
+     anchors.add();
+    </script>
+</body>
+</html>
