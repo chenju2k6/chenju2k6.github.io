@@ -99,3 +99,50 @@ for filename in glob.glob('id*'):
 ```
 
 Suprising! There is no such file which containts these two bytes. Why?
+
+Before long I am reminded that the magic bytes could be at other byte offsets, ```hdr.ar_fmag``` might be pointing to other places in the input.
+
+I then use the tool bgrep (https://github.com/tmbinc/bgrep) to grep the magic bytes in all inputs (for some reason grep does not work on the binary string \x60\x0a ), and indeed, there are inputs that contain these magic bytes, but none of these bytes located at position 66,67 (0x42,0x43).
+
+```
+cju@kili:~/e2e_data/jigsaw_size16/angora/queue$ ./bgrep 600a *
+id:002639: 00000e0a
+id:006707: 00000e0a
+id:006708: 00000e0e
+id:006709: 00000e0a
+id:008634: 00000e0a
+id:009578: 00000611
+id:010906: 00000e0a
+id:011130: 00000e0a
+id:012462: 00000e0a
+id:012478: 00000e0a
+id:016147: 00000e0a
+```
+
+But Angora does have such inputs
+
+```
+cju@kili:~/e2e_data/ang_size1/queue$ ../../jigsaw_size16/angora/queue/bgrep 600a *
+id:006811: 00000042
+id:010531: 00000082
+id:010532: 00000042
+id:010533: 00000042
+id:010533: 00000082
+id:010534: 00000042
+id:010554: 00000042
+id:010554: 00000082
+id:010557: 00000042
+id:010557: 00000082
+id:010558: 00000042
+id:010558: 00000082
+id:010566: 00000042
+id:010567: 00000042
+id:010575: 00000042
+id:010576: 00000042
+id:010577: 00000042
+id:010578: 00000042
+id:010646: 00000042
+id:017022: 00000042
+id:017022: 0000007e
+id:021229: 00001c18
+```
