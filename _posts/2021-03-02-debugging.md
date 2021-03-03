@@ -5,7 +5,7 @@ date:   2021-03-02 10:00:28 -0500
 categories: jekyll update
 ---
 
-### Coverage 1 ###
+### Coverage Debugging ###
 
 In the below code snippet in ```binutils```. Branch at Line 309 is a concrete branch, so no constraint is generated for the branch. However, the branch can be flipped by flipping Line 509 in ```bfd/archive.c```, which tries to match ```hdr.ar_fmag``` to ```ARFMAG```. ```ARFMAG``` is a string literal, defined as ```#define ARFMAG "`\012"```.  Note that ```\012``` is a octal escape sequence, which is "\n" according to ascii table. 
 
