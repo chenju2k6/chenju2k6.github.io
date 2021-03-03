@@ -44,6 +44,8 @@ In the below code snippet in ```binutils```. Branch at Line 309 is a concrete br
       633:  510:      return NULL;
         -:  511:    }
  ```
+ 
+ **The first questions is, what is the relationship between target branch of the related branch?***
 
 Set a breakpoint in function ```_bfd_look_for_bfd_in_cache```, print out the content
 
@@ -67,3 +69,14 @@ Set a break point on ```cache```, and found that it is updated at ```archive.c:3
 #5  0x0000555555585339 in display_file (filename=0x7fffffffe4bc "/home/cju/test/id-00000056") at size.c:432
 #6  0x0000555555584de6 in main (argc=2, argv=0x7fffffffe148) at size.c:260
 ```
+
+Then tracked ```_bfd_get_elt_at_filepos```, found that the flow exits at this check
+
+```
+if ((new_areldata = (struct areltdata *) _bfd_read_ar_hdr (archive)) == NULL)
+  return NULL;
+```
+
+```bfd_read_ar_hdr``` wraps a function pointer, the function get called is actually ```_bfd_generic_read_ar_hdr_mag```.  Inside this function, it is exactly that the check at Line 509 fails, so that it returns a ```NULL```
+
+**At this point, I arrive the conclusion for the first question, that the target branch has control flow dependency over check on archive:509*** 
