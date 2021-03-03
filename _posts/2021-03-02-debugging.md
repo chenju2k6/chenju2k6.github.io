@@ -5,6 +5,10 @@ date:   2021-03-02 10:00:28 -0500
 categories: jekyll update
 ---
 
+### Coverage 1 ###
+
+In the below code snippet in ```binutils```. Branch at Line 309 is a concrete branch, so no constraint is generated for the branch. However, the branch can be flipped by flipping Line 509 in ```bfd/archive.c```, which tries to match ```hdr.ar_fmag``` to ```ARFMAG```. ```ARFMAG``` is a string literal, defined as ```#define ARFMAG "`\012"```.  Note that ```\012``` is a octal escape sequence, which is "\n" according to ascii table. 
+
 ```
  -:  301:bfd *
       210:  302:_bfd_look_for_bfd_in_cache (bfd *arch_bfd, file_ptr filepos)
@@ -30,3 +34,15 @@ categories: jekyll update
       207:  322:    return NULL;
         -:  323:}
 ```
+
+```
+ 636:  505:  if (strncmp (hdr.ar_fmag, ARFMAG, 2) != 0
+      633:  506:      && (mag == NULL
+    #####:  507:          || strncmp (hdr.ar_fmag, mag, 2) != 0))
+        -:  508:    {
+      633:  509:      bfd_set_error (bfd_error_malformed_archive);
+      633:  510:      return NULL;
+        -:  511:    }
+ ```
+
+
