@@ -45,4 +45,25 @@ In the below code snippet in ```binutils```. Branch at Line 309 is a concrete br
         -:  511:    }
  ```
 
+Set a breakpoint in function ```_bfd_look_for_bfd_in_cache```, print out the content
 
+```
+(gdb) p *arch_bfd.tdata.aout_ar_data
+$14 = {first_file_filepos = 8, cache = 0x5555558dfbc0, archive_head = 0x0, symdefs = 0x0, symdef_count = 0, extended_names = 0x0, extended_names_size = 0, armap_timestamp = 0, armap_datepos = 0, tdata = 0x0}
+```
+Set a break point on ```cache```, and found that it is updated at ```archive.c:358```
+
+```
+363           hash_table = htab_create_alloc (16, hash_file_ptr, eq_file_ptr,
+```
+
+```
+(gdb) bt
+#0  _bfd_add_bfd_to_archive_cache (arch_bfd=0x5555558da630, filepos=8, new_elt=0x5555558dda80) at archive.c:363
+#1  0x000055555558859e in _bfd_get_elt_at_filepos (archive=0x5555558da630, filepos=8) at archive.c:749
+#2  0x0000555555588742 in bfd_generic_openr_next_archived_file (archive=0x5555558da630, last_file=0x0) at archive.c:837
+#3  0x000055555558869d in bfd_openr_next_archived_file (archive=0x5555558da630, last_file=0x0) at archive.c:805
+#4  0x0000555555585237 in display_archive (file=0x5555558da630) at size.c:383
+#5  0x0000555555585339 in display_file (filename=0x7fffffffe4bc "/home/cju/test/id-00000056") at size.c:432
+#6  0x0000555555584de6 in main (argc=2, argv=0x7fffffffe148) at size.c:260
+```
