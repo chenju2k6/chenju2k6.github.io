@@ -84,3 +84,18 @@ if ((new_areldata = (struct areltdata *) _bfd_read_ar_hdr (archive)) == NULL)
 **At this point, I arrive the conclusion for the first question, that the target branch has control flow dependency over check on archive:509**
 
 **The second question is, if the target branch can be flipped? Why is it not flipped in the fuzzing?**
+
+I first check is there any seed the fuzzing output directory which has byte 66/67 as '`' and `\n`, basically after solving the archive:509 branch. I get the following python script to scan the directory
+
+```
+import os
+import glob
+for filename in glob.glob('id*'):
+   with open(os.path.join(os.getcwd(), filename), 'rb') as f: # open in readonly mode
+      f.seek(66)
+      a=f.read(2)
+      if len(a) == 2 and a[0] == '`' and a[1] == '\n':
+         print ("found"+filename)
+```
+
+Suprising! There is no such file which containts these two bytes. Why?
