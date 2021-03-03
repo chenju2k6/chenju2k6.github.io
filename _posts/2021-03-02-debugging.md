@@ -5,7 +5,7 @@ date:   2021-03-02 10:00:28 -0500
 categories: jekyll update
 ---
 
-### Coverage Debugging ###
+### Case 1 ###
 
 In the below code snippet in ```binutils```. Branch at Line 309 is a concrete branch, so no constraint is generated for the branch. However, the branch can be flipped by flipping Line 509 in ```bfd/archive.c```, which tries to match ```hdr.ar_fmag``` to ```ARFMAG```. ```ARFMAG``` is a string literal, defined as ```#define ARFMAG "`\012"```.  Note that ```\012``` is a octal escape sequence, which is "\n" according to ascii table. 
 
@@ -82,3 +82,5 @@ if ((new_areldata = (struct areltdata *) _bfd_read_ar_hdr (archive)) == NULL)
 ```bfd_read_ar_hdr``` wraps a function pointer, the function get called is actually ```_bfd_generic_read_ar_hdr_mag```.  Inside this function, it is exactly that the check at Line 509 fails, so that it returns a ```NULL```
 
 **At this point, I arrive the conclusion for the first question, that the target branch has control flow dependency over check on archive:509**
+
+**The second question is, if the target branch can be flipped? Why is it not flipped in the fuzzing?**
