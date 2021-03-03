@@ -45,7 +45,7 @@ In the below code snippet in ```binutils```. Branch at Line 309 is a concrete br
         -:  511:    }
  ```
  
- **The first questions is, what is the relationship between target branch of the related branch?***
+ **The first questions is, what is the relationship between target branch of the related branch?**
 
 Set a breakpoint in function ```_bfd_look_for_bfd_in_cache```, print out the content
 
@@ -58,6 +58,8 @@ Set a break point on ```cache```, and found that it is updated at ```archive.c:3
 ```
 363           hash_table = htab_create_alloc (16, hash_file_ptr, eq_file_ptr,
 ```
+
+The check the callback
 
 ```
 (gdb) bt
