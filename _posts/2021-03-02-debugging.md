@@ -81,4 +81,4 @@ if ((new_areldata = (struct areltdata *) _bfd_read_ar_hdr (archive)) == NULL)
 
 ```bfd_read_ar_hdr``` wraps a function pointer, the function get called is actually ```_bfd_generic_read_ar_hdr_mag```.  Inside this function, it is exactly that the check at Line 509 fails, so that it returns a ```NULL```
 
-**At this point, I arrive the conclusion for the first question, that the target branch has control flow dependency over check on archive:509*** 
+**At this point, I arrive the conclusion for the first question, that the target branch has control flow dependency over check on archive:509**
