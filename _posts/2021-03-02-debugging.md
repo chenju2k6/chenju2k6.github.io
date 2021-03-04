@@ -153,7 +153,35 @@ I then flip all the branches for id:000323. And use ```bgrep``` to grep the magi
 id-00000056: 00000042
 ```
 
-**Which says that the bytes mutated is indeed for bytes [66,67], suggesting my guess is WRONG!**, so what is happening?
+**Which says that the bytes mutated is indeed for bytes [66,67], suggesting my guess is WRONG!, so what is happening?**
+
+First, I get the address for the branch by looking the log
+
+```
+generate fmemcmp input 56 addr 0x7000002479db
+```
+
+Then, I added more print outs in the fuzzing log. **Looking the log, I found that the solving request is indeeded solved for input id:000323, but the resulting test case is not saved by the grader, why?** 
+
+```
+ NFO  fastgen::fuzz_loop    > grading input based on input 325 at addr 0x700000660def ctx 0x56be1bc4 order 1
+ **INFO  fastgen::fuzz_loop    > grading input based on input 323 at addr 0x7000002479db ctx 0x0 order 0**
+ INFO  fastgen::fuzz_loop    > grading input based on input 325 at addr 0x700000660def ctx 0x56be1bc4 order 1
+ INFO  fastgen::fuzz_loop    > grading input based on input 324 at addr 0x70000024e421 ctx 0x0 order 0
+ INFO  fastgen::fuzz_loop    > grading input based on input 329 at addr 0x7000003bbc82 ctx 0x6b01ab4 order 6
+ INFO  fastgen::fuzz_loop    > grading input based on input 329 at addr 0x7000003bbc82 ctx 0x6b01ab4 order 6
+ INFO  fastgen::fuzz_loop    > grading input based on input 329 at addr 0x7000003bbc82 ctx 0x6b01ab4 order 7
+ INFO  fastgen::fuzz_loop    > grading input based on input 329 at addr 0x7000003bbc82 ctx 0x6b01ab4 order 7
+ INFO  fastgen::fuzz_loop    > grading input based on input 329 at addr 0x7000003df14d ctx 0x210bf9f9 order 7
+ INFO  fastgen::fuzz_loop    > grading input based on input 329 at addr 0x7000003df14d ctx 0x210bf9f9 order 7
+ INFO  fastgen::fuzz_loop    > grading input based on input 329 at addr 0x7000003bbc82 ctx 0x6b01ab4 order 8
+ INFO  fastgen::fuzz_loop    > grading input based on input 329 at addr 0x7000003bbc82 ctx 0x6b01ab4 order 8
+ INFO  fastgen::fuzz_loop    > grading input based on input 329 at addr 0x7000003df14d ctx 0x210bf9f9 order 8
+ INFO  fastgen::fuzz_loop    > grading input based on input 329 at addr 0x7000003df14d ctx 0x210bf9f9 order 8
+ INFO  fastgen::fuzz_loop    > grading input based on input 329 at addr 0x7000003bbc82 ctx 0x6b01ab4 order 9
+ INFO  fastgen::fuzz_loop    > find new input 945 based on input 329 at addr 0x7000003bbc82 ctx 0x6b01ab4 order 9
+```
+
 
 
 
