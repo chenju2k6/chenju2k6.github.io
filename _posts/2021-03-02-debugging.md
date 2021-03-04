@@ -119,30 +119,41 @@ id:012478: 00000e0a
 id:016147: 00000e0a
 ```
 
-But Angora does have such inputs
+**At this point, I make a guess that the branch solving request for this magic number matching at byte offset [66,67] is filtered out because an earlier flipping request is already handled for the same branch but it tries to match magic number at different byte locations**
+
+But is the guess right? I then have a script to fetch all the seeds in the fuzzing output directory which can reach branch archive.c:504. What I do is to insert a line ```exit(55);``` before the branch archive.c:504 and then check the exit status after executing the seed.
 
 ```
-cju@kili:~/e2e_data/ang_size1/queue$ ../../jigsaw_size16/angora/queue/bgrep 600a *
-id:006811: 00000042
-id:010531: 00000082
-id:010532: 00000042
-id:010533: 00000042
-id:010533: 00000082
-id:010534: 00000042
-id:010554: 00000042
-id:010554: 00000082
-id:010557: 00000042
-id:010557: 00000082
-id:010558: 00000042
-id:010558: 00000082
-id:010566: 00000042
-id:010567: 00000042
-id:010575: 00000042
-id:010576: 00000042
-id:010577: 00000042
-id:010578: 00000042
-id:010646: 00000042
-id:017022: 00000042
-id:017022: 0000007e
-id:021229: 00001c18
+dir=$1
+find ${dir} -maxdepth 1  -name "id\:*" -printf "%T@ %Tc %p\n"  | sort -n  | cut -d " " -f 9 | while read line; do
+    ./size  $line 1>/dev/null 2>/dev/null
+    if [ $? -eq 55 ]
+    then
+    echo "find seed arrives at target branch " $line
+fi
+done
 ```
+
+The output is 
+
+```
+find seed arrives at target branch corpus/angora/queue/id:000323
+find seed arrives at target branch corpus/angora/queue/id:000324
+find seed arrives at target branch corpus/angora/queue/id:000939
+find seed arrives at target branch corpus/angora/queue/id:000940
+find seed arrives at target branch corpus/angora/queue/id:000941
+find seed arrives at target branch corpus/angora/queue/id:000942
+```
+
+The first seed in the output dir which can reach the branch is id:000323. If I am guessing right, the branch constraints for archive.c:505 for this seed involves different bytes other than [66,67]
+
+I then flip all the branches for id:000323. And use ```bgrep``` to grep the magic number for all the inputs, and then I found this
+
+```
+id-00000056: 00000042
+```
+
+**Which says that the bytes mutated is indeed for bytes [66,67], suggesting my guess is WRONG!**, so what is happening?
+
+
+
