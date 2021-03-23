@@ -179,6 +179,10 @@ Then, I added more print outs in the fuzzing log. **Looking the log, I found tha
  INFO  fastgen::fuzz_loop    > grading input derived from on input 329 by flipping branch@ 0x7000003bbc82 ctx 0x6b01ab4 order 9, it is a new input true, saved as input #954
  ```
 
+### Case 2 ###
 
+In libxml2, Angora covers the true direction of the below branch but we can't.
 
-
+```
+if (cur->oldNs != NULL)  { xmlFreeNsList(cur->oldNs); }
+```
