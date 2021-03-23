@@ -186,3 +186,5 @@ In libxml2, Angora covers the true direction of the below branch but we can't.
 ```
 if (cur->oldNs != NULL)  { xmlFreeNsList(cur->oldNs); }
 ```
+
+Fetch the seed which can cover the true direction of this branch, run the seed, found that this is a concrete branch.
