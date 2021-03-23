@@ -192,3 +192,23 @@ Fetch the seed which can cover the true direction of this branch, run the seed, 
 Setting a watch point at the address of cur->oldNs, found that it is updated at the function of ```xmlTreeEnsureXMLDecl```
 
 ```doc->oldNs = ns;```
+
+The callstack is 
+
+```
+(gdb) bt
+#0  xmlTreeEnsureXMLDecl (doc=<optimized out>) at tree.c:5960
+#1  0x00005555555fa996 in xmlSAX2StartElementNs (ctx=0x55555588caa0, localname=<optimized out>, prefix=<optimized out>,
+    URI=<optimized out>, nb_namespaces=<optimized out>, namespaces=<optimized out>, nb_attributes=0, nb_defaulted=<optimized out>,
+    attributes=<optimized out>) at SAX2.c:2359
+#2  0x000055555557bddb in xmlParseStartTag2 (ctxt=ctxt@entry=0x55555588caa0, pref=pref@entry=0x7fffffffdf20,
+    URI=URI@entry=0x7fffffffdf28, tlen=tlen@entry=0x7fffffffdf1c) at parser.c:9707
+#3  0x0000555555580610 in xmlParseElement (ctxt=ctxt@entry=0x55555588caa0) at parser.c:10069
+#4  0x0000555555580c40 in xmlParseDocument (ctxt=ctxt@entry=0x55555588caa0) at parser.c:10841
+#5  0x00005555555811e7 in xmlDoRead (ctxt=0x55555588caa0, URL=0x55555563e6e4 "noname.xml", encoding=<optimized out>,
+    options=<optimized out>, reuse=0) at parser.c:15298
+#6  0x00005555555696a8 in LLVMFuzzerTestOneInput (
+    data=0x55555588d4a0 "<xml:veX:z:\020=\"1.0\" \200ncoding=\"ISO-8859-1\"?>\n<!DOCTYPE rss [\n<!--\n\n  Rich Site Summary (RSS) 91 official DTD, proposed.\n  *  RSS is an XML vocabulary for describing\022  metadata about websites, and enabli"..., size=7853)
+    at target.c:28
+#7  0x000055555556984e in main (argc=2, argv=0x7fffffffe158) at driver.c:37
+```
