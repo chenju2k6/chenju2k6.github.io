@@ -229,3 +229,21 @@ OK. From the below code snippet, because of the branch at Line 2356, the functio
 Now, the question is: why branch at Line 2356 is not flipped.
 
 I check all the seeds we have to see if any of the seed has ```URI != NULL```, the answer is no. Also, this is a concrete branch.
+
+```URI``` is passed from arguments and is assigned in the function ```xmlGetNamespace```, I checked the coverage information, it goes like below. Out of 153876 calls to the function, 183873 returns NULL. The other three returns ```ctxt->str_xml_ns``` 
+
+```
+-: 8781:static const xmlChar *
+   153876: 8782:xmlGetNamespace(xmlParserCtxtPtr ctxt, const xmlChar *prefix) {
+        -: 8783:    int i;
+        -: 8784:
+   153876: 8785:    if (prefix == ctxt->str_xml) return(ctxt->str_xml_ns);
+   153873: 8786:    for (i = ctxt->nsNr - 2;i >= 0;i-=2)
+    #####: 8787:        if (ctxt->nsTab[i] == prefix) {
+    #####: 8788:      if ((prefix == NULL) && (*ctxt->nsTab[i + 1] == 0))
+    #####: 8789:          return(NULL);
+    #####: 8790:      return(ctxt->nsTab[i + 1]);
+        -: 8791:  }
+   153873: 8792:    return(NULL);
+  ```
+
