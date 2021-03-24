@@ -227,3 +227,5 @@ OK. From the below code snippet, because of the branch at Line 2356, the functio
 ```
 
 Now, the question is: why branch at Line 2356 is not flipped.
+
+I check all the seeds we have to see if any of the seed has ```URI != NULL```, the answer is no. Also, this is a concrete branch.
