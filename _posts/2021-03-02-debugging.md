@@ -212,3 +212,18 @@ The callstack is
     at target.c:28
 #7  0x000055555556984e in main (argc=2, argv=0x7fffffffe158) at driver.c:37
 ```
+
+Then I checked all our seeds to see if the function ```xmlTreeEnsureXMLDecl``` is covered. The answer is No.
+Then how about the caller of the ```xmlTreeEnsureXMLDecl```, which is ```xmlSearchNs```. The answer is No.
+Then how about ```xmlSAX2StartElementNs```
+
+OK. From the below code snippet, because of the branch at Line 2356, the function of ```xmlSearchNs``` is not hit. 
+
+```
+18378: 2356:    if ((URI != NULL) && (ret->ns == NULL)) {
+    #####: 2357:        ret->ns = xmlSearchNs(ctxt->myDoc, parent, prefix);
+    #####: 2358:  if ((ret->ns == NULL) && (xmlStrEqual(prefix, BAD_CAST "xml"))) {
+    #####: 2359:      ret->ns = xmlSearchNs(ctxt->myDoc, ret, prefix);
+```
+
+Now, the question is: why branch at Line 2356 is not flipped.
