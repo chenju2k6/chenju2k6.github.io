@@ -245,3 +245,30 @@ Then I check the caller for the ```xmlSAX2StartElementNs``` function, as below
 ```
 
 The ```nsname``` is passed as ```URI```. For all the calls to ```startElementNs```, we have ```nsname``` equal to zero. We do have seeds where nsname is nonzero, but then ```ctxt->disableSAX``` is zero
+
+
+### Case 3 ###
+
+Branch at line 1821 is not flipped. And this is not a symbolic branch. 
+
+
+
+```
+172035: 1821:    if (ctxt->catalogs != NULL)
+    #####: 1822:  xmlCatalogFreeLocal(ctxt->catalogs);
+        -: 1823:#endif
+   172035: 1824:    xmlFree(ctxt);
+```
+
+Grab the seed which flips the branch, fount that ```ctxt->catalogs``` is assigned in ```xmlParserCatalogPI```, which is not covered due to the below branch in ```parser.c```
+
+```
+53301: 5329:    if (((state == XML_PARSER_MISC) ||
+    52185: 5330:               (state == XML_PARSER_START)) &&
+    52185: 5331:        (xmlStrEqual(target, XML_CATALOG_PI))) {
+    #####: 5332:        xmlCatalogAllow allow = xmlCatalogGetDefaults();
+    #####: 5333:        if ((allow == XML_CATA_ALLOW_DOCUMENT) ||
+        -: 5334:      (allow == XML_CATA_ALLOW_ALL))
+    #####: 5335:      xmlParseCatalogPI(ctxt, buf);
+        -: 5336:    }
+```
