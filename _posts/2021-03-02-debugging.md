@@ -282,7 +282,7 @@ Branch at line 1821 is not flipped. And this is not a symbolic branch.
    172035: 1824:    xmlFree(ctxt);
 ```
 
-Grab the seed which flips the branch, fount that ```ctxt->catalogs``` is assigned in ```xmlParserCatalogPI```, which is not covered due to the below branch at line 5329 in ```parser.c```. None of our seeds can have ```xmlStrEqual(target,XML_CATALOG_PI)``` evaluted to be true.
+Grab the seed which flips the branch, fount that ```ctxt->catalogs``` is assigned in ```xmlParserCatalogPI```, which is not covered due to the below branch at line 5329 in ```parser.c```. None of our seeds can have ```xmlStrEqual(target,XML_CATALOG_PI)``` evaluted to be true. The root-cause is that ```xmlStrEqual``` is not solvable.
 
 ```
 53301: 5329:    if (((state == XML_PARSER_MISC) ||
