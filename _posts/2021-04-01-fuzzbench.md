@@ -77,3 +77,10 @@ export FUZZER_LIB=/src/driver.a
 ```
 ./configure --disable-shared --without-simd
 ```
+
+### openssl ###
+
+Fix the below configuration
+```
+CONFIGURE_FLAGS="no-asm"
+```
