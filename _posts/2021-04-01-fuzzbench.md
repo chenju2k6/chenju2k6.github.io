@@ -100,3 +100,9 @@ $CXX $CXXFLAGS -I../include $LIB_FUZZING_ENGINE \
     ../src/test_lib_json/fuzz.cpp -o $OUT/jsoncpp_fuzzer \
     ./lib/libjsoncpp.a
 ```
+
+### libxslt ###
+
+```
+CRYPTO_CONF=--without-crypto
+```
