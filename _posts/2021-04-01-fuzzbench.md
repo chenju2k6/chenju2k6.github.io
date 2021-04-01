@@ -5,10 +5,21 @@ date:   2021-04-01 10:00:28 -0500
 categories: jekyll update
 ---
 
+### install requirements ###
+
+```
+virtualenv venv
+source venv/bin/activate
+python3 -m pip install -r requirements.txt
+```
+
+### Update pip ###
+
 ```
 pip3 install -U pip
 ```
 
+### Requirements.txt ###
 
 ```
 find
