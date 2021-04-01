@@ -16,7 +16,7 @@ python3 -m pip install -r requirements.txt
 ### Update pip ###
 
 ```
-pip3 install -U pip
+python3.8 -m pip install -U pip
 ```
 
 ### Requirements.txt ###
@@ -55,3 +55,19 @@ pytype==2020.11.3
 yapf==0.30.0
 ```
 
+### Build script ###
+
+```
+export CFLAGS=
+export CXXFLAGS=
+export KO_CC=clang-6.0
+export KO_CXX=clang++-6.0
+export CC=/Kirenenko/bin/ko-clang
+export CXX=/Kirenenko/bin/ko-clang++
+export KO_DONT_OPTIMIZE=1
+wget https://raw.githubusercontent.com/llvm/llvm-project/main/compiler-rt/lib/fuzzer/standalone/StandaloneFuzzTargetMain.c
+KO_DONT_OPTIMIZE=1 /Kirenenko/bin/ko-clang -c StandaloneFuzzTargetMain.c -o driver.o
+ar r driver.a driver.o
+cp driver.a /usr/lib/libFuzzingEngine.a
+export FUZZER_LIB=/src/driver.a
+```
