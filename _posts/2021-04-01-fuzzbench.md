@@ -84,3 +84,11 @@ Fix the below configuration
 ```
 CONFIGURE_FLAGS="no-asm"
 ```
+
+### curl ###
+
+Fix the below configuration in scripts/install_openssl.sh
+
+```
+ASM_FLAG="no-asm"
+```
