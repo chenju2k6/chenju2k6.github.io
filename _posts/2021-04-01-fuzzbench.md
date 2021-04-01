@@ -55,7 +55,7 @@ pytype==2020.11.3
 yapf==0.30.0
 ```
 
-### Build script ###
+### Build env ###
 
 ```
 export CFLAGS=
@@ -70,4 +70,10 @@ KO_DONT_OPTIMIZE=1 /Kirenenko/bin/ko-clang -c StandaloneFuzzTargetMain.c -o driv
 ar r driver.a driver.o
 cp driver.a /usr/lib/libFuzzingEngine.a
 export FUZZER_LIB=/src/driver.a
+```
+
+### libjpeg ###
+
+```
+./configure --disable-shared --without-simd
 ```
