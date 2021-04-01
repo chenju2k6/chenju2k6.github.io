@@ -19,8 +19,6 @@
         <title>
             FuzzBench: kirenenko report
             
-            (running)
-            
         </title>
 
         <!-- Import Materialize CSS -->
@@ -35,10 +33,6 @@
         <h1 class="center-align brown-text text-darken-3">
             FuzzBench: kirenenko report
         </h1>
-        
-        <h5 class="center-align brown-text text-darken-4">
-            (experiment incomplete/still running...)
-        </h5>
         
 
         <div class="card-panel amber lighten-5">
@@ -81,8 +75,8 @@
   <thead>
     <tr style="text-align: right;">
       <th>fuzzer</th>
-      <th>aflplusplus</th>
       <th>coco</th>
+      <th>aflplusplus</th>
     </tr>
     <tr>
       <th>benchmark</th>
@@ -93,8 +87,8 @@
   <tbody>
     <tr>
       <th>libpng-1.2.56</th>
+      <td>2083.0</td>
       <td>2069.5</td>
-      <td>2060.0</td>
     </tr>
   </tbody>
 </table>
@@ -190,8 +184,20 @@
   </thead>
   <tbody>
     <tr>
+      <th>coco</th>
+      <th>7200</th>
+      <td>2.0</td>
+      <td>2083.0</td>
+      <td>4.242641</td>
+      <td>2080.0</td>
+      <td>2081.50</td>
+      <td>2083.0</td>
+      <td>2084.50</td>
+      <td>2086.0</td>
+    </tr>
+    <tr>
       <th>aflplusplus</th>
-      <th>4500</th>
+      <th>7200</th>
       <td>2.0</td>
       <td>2069.5</td>
       <td>12.020815</td>
@@ -200,18 +206,6 @@
       <td>2069.5</td>
       <td>2073.75</td>
       <td>2078.0</td>
-    </tr>
-    <tr>
-      <th>coco</th>
-      <th>4500</th>
-      <td>2.0</td>
-      <td>2060.0</td>
-      <td>28.284271</td>
-      <td>2040.0</td>
-      <td>2050.00</td>
-      <td>2060.0</td>
-      <td>2070.00</td>
-      <td>2080.0</td>
     </tr>
   </tbody>
 </table>
@@ -244,6 +238,55 @@
                 </li>
             </ul>
 
+            
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Unique code coverage plots
+                    </div>
+                    <div class="collapsible-body">
+
+                        <div class="row">
+                            <div class="col s6 offset-s3">
+                                <h5 class="center-align">Ranking by unique code regions covered</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="libpng-1.2.56_ranking_unique_region.svg">
+                                    Each bar shows the total number of code regions found by a given fuzzer.
+                                    The colored area shows the number of unique code regions
+                                    (i.e., regions that were not covered by any other fuzzers).
+                            </div>
+                        </div> <!-- row -->
+
+                        <div class="row">
+                            <div class="col s6 offset-s3">
+                                <h5 class="center-align">Pairwise unique code coverage</h4>
+                                    <img class="responsive-img materialboxed"
+                                         src="libpng-1.2.56_pairwise_unique_coverage_plot.svg">
+                                    Each cell represents the number of code regions covered by the fuzzer
+                                    of the column but not by the fuzzer of the row
+                            </div>
+                        </div> <!-- row -->
+
+                    </div>
+                </li>
+            </ul>
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        Code coverage reports for each fuzzer on this benchmark
+                    </div>
+                    <div class="collapsible-body">
+                        <div class="collection">
+                            
+                            <a href="/home/cju/expcoco/kirenenko/coverage/reports/libpng-1.2.56/aflplusplus/index.html" class="collection-item">aflplusplus</a>
+                            
+                            <a href="/home/cju/expcoco/kirenenko/coverage/reports/libpng-1.2.56/coco/index.html" class="collection-item">coco</a>
+                            
+                        </div>
+                    </div>
+                </li>
+            </ul>
             
 
         </div> <!-- id="libpng-1.2.56" -->
