@@ -1,0 +1,46 @@
+---
+layout: post
+title:  "Fuzzbench"
+date:   2021-04-01 10:00:28 -0500
+categories: jekyll update
+---
+
+```
+pip3 install -U pip
+```
+
+
+```
+find
+pybind11==2.6.2
+wheel==0.36.2
+alembic==1.4.0
+google-api-python-client==1.8.2
+google-auth==1.24.0
+google-cloud-error-reporting==0.33.0
+google-cloud-logging==1.14.0
+google-cloud-secret-manager==2.1.0
+clusterfuzz==0.0.1a0
+Jinja2==2.11.3
+numpy==1.18.1
+Orange3==3.24.1
+pandas==1.0.4
+psycopg2-binary==2.8.4
+pyfakefs==3.7.1
+pytest==6.1.2
+python-dateutil==2.8.1
+pytz==2019.3
+PyYAML==5.3.1
+redis==3.5.3
+rq==1.4.3
+scikit-posthocs==0.6.2
+scipy==1.4.1
+seaborn==0.11.1
+sqlalchemy==1.3.19
+
+# Needed for development.
+pylint==2.6.0
+pytype==2020.11.3
+yapf==0.30.0
+```
+
