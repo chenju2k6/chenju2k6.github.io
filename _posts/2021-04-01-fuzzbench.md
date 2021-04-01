@@ -92,3 +92,11 @@ Fix the below configuration in scripts/install_openssl.sh
 ```
 ASM_FLAG="no-asm"
 ```
+
+### json ###
+
+```
+$CXX $CXXFLAGS -I../include $LIB_FUZZING_ENGINE \
+    ../src/test_lib_json/fuzz.cpp -o $OUT/jsoncpp_fuzzer \
+    ./lib/libjsoncpp.a
+```
