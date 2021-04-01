@@ -19,6 +19,8 @@
         <title>
             FuzzBench: kirenenko report
             
+            (running)
+            
         </title>
 
         <!-- Import Materialize CSS -->
@@ -33,6 +35,10 @@
         <h1 class="center-align brown-text text-darken-3">
             FuzzBench: kirenenko report
         </h1>
+        
+        <h5 class="center-align brown-text text-darken-4">
+            (experiment incomplete/still running...)
+        </h5>
         
 
         <div class="card-panel amber lighten-5">
@@ -76,7 +82,7 @@
     <tr style="text-align: right;">
       <th>fuzzer</th>
       <th>aflplusplus</th>
-      <th>cocofuzz</th>
+      <th>coco</th>
     </tr>
     <tr>
       <th>benchmark</th>
@@ -87,8 +93,8 @@
   <tbody>
     <tr>
       <th>libpng-1.2.56</th>
-      <td>2060.5</td>
-      <td>1488.5</td>
+      <td>2057.5</td>
+      <td>1935.5</td>
     </tr>
   </tbody>
 </table>
@@ -185,27 +191,27 @@
   <tbody>
     <tr>
       <th>aflplusplus</th>
-      <th>7200</th>
+      <th>900</th>
       <td>2.0</td>
-      <td>2060.5</td>
-      <td>7.778175</td>
-      <td>2055.0</td>
-      <td>2057.75</td>
-      <td>2060.5</td>
-      <td>2063.25</td>
-      <td>2066.0</td>
+      <td>2057.5</td>
+      <td>6.363961</td>
+      <td>2053.0</td>
+      <td>2055.25</td>
+      <td>2057.5</td>
+      <td>2059.75</td>
+      <td>2062.0</td>
     </tr>
     <tr>
-      <th>cocofuzz</th>
-      <th>7200</th>
+      <th>coco</th>
+      <th>900</th>
       <td>2.0</td>
-      <td>1488.5</td>
-      <td>27.577164</td>
-      <td>1469.0</td>
-      <td>1478.75</td>
-      <td>1488.5</td>
-      <td>1498.25</td>
-      <td>1508.0</td>
+      <td>1935.5</td>
+      <td>21.920310</td>
+      <td>1920.0</td>
+      <td>1927.75</td>
+      <td>1935.5</td>
+      <td>1943.25</td>
+      <td>1951.0</td>
     </tr>
   </tbody>
 </table>
@@ -239,55 +245,6 @@
             </ul>
 
             
-            <ul class="collapsible">
-                <li>
-                    <div class="collapsible-header">
-                        Unique code coverage plots
-                    </div>
-                    <div class="collapsible-body">
-
-                        <div class="row">
-                            <div class="col s6 offset-s3">
-                                <h5 class="center-align">Ranking by unique code regions covered</h4>
-                                    <img class="responsive-img materialboxed"
-                                         src="libpng-1.2.56_ranking_unique_region.svg">
-                                    Each bar shows the total number of code regions found by a given fuzzer.
-                                    The colored area shows the number of unique code regions
-                                    (i.e., regions that were not covered by any other fuzzers).
-                            </div>
-                        </div> <!-- row -->
-
-                        <div class="row">
-                            <div class="col s6 offset-s3">
-                                <h5 class="center-align">Pairwise unique code coverage</h4>
-                                    <img class="responsive-img materialboxed"
-                                         src="libpng-1.2.56_pairwise_unique_coverage_plot.svg">
-                                    Each cell represents the number of code regions covered by the fuzzer
-                                    of the column but not by the fuzzer of the row
-                            </div>
-                        </div> <!-- row -->
-
-                    </div>
-                </li>
-            </ul>
-
-            <ul class="collapsible">
-                <li>
-                    <div class="collapsible-header">
-                        Code coverage reports for each fuzzer on this benchmark
-                    </div>
-                    <div class="collapsible-body">
-                        <div class="collection">
-                            
-                            <a href="/home/cju/experiment-data/kirenenko/coverage/reports/libpng-1.2.56/aflplusplus/index.html" class="collection-item">aflplusplus</a>
-                            
-                            <a href="/home/cju/experiment-data/kirenenko/coverage/reports/libpng-1.2.56/cocofuzz/index.html" class="collection-item">cocofuzz</a>
-                            
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            
 
         </div> <!-- id="libpng-1.2.56" -->
         
@@ -303,7 +260,7 @@
             
             <br><br>
             The experiment was conducted using this FuzzBench commit:
-            <a href="https://github.com/google/fuzzbench/commits/0b4677270603832a722f101076f81ad3c32db624">0b4677270603832a722f101076f81ad3c32db624</a>
+            <a href="https://github.com/google/fuzzbench/commits/01305e19704fc362ea8898014bbd25382fc4778c">01305e19704fc362ea8898014bbd25382fc4778c</a>
             
 
             
