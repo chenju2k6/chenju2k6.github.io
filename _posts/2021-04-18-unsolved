@@ -1,0 +1,19 @@
+---
+layout: post
+title:  "Unsolved constraints"
+date:   2021-04-18 10:00:28 -0500
+categories: jekyll update
+---
+
+###Case 1###
+
+fun(x) == 128
+
+```
+uint64_t fun(uint64_t x) {
+  uint64_t y = x & (0 - x);
+  uint64_t z = y ^ 0xFFFFFFFFFFFFFF;
+  uint64_t w = z & x;
+  return w & (0 - w);
+}
+```
