@@ -101,6 +101,10 @@ $CXX $CXXFLAGS -I../include $LIB_FUZZING_ENGINE \
     ./lib/libjsoncpp.a
 ```
 
+### mbedtls ###
+
+Run ```make -j``` before running script
+
 ### libxslt ###
 
 ```
