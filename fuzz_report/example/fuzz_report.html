@@ -1,0 +1,2288 @@
+<html>
+ <head>
+  <link href="prism.css" rel="stylesheet"/>
+  <link href="https://unpkg.com/dracula-prism/dist/css/dracula-prism.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <script crossorigin="anonymous" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" src="https://code.jquery.com/jquery-3.6.0.min.js">
+  </script>
+  <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js">
+  </script>
+  <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet"/>
+  <link href="styles.css" rel="stylesheet"/>
+  <div class="top-navbar">
+   <div class="top-navbar-accordion">
+    <svg focusable="false" preserveaspectratio="xMidYMid meet" style="pointer-events: none; display: block; width: 100%; height: 100%;" viewbox="0 0 24 24">
+     <g>
+      <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z">
+      </path>
+     </g>
+    </svg>
+   </div>
+   <div class="top-navbar-title">
+    Fuzz introspector
+   </div>
+  </div>
+  <div class="content-wrapper">
+   <div class="left-sidebar">
+    <div class="left-sidebar-content-box">
+     <h2>
+      Table of contents
+     </h2>
+     <div style="margin-left: 0px">
+      <a href="#Project-overview">
+       Project overview
+      </a>
+     </div>
+     <div style="margin-left: 16px">
+      <a href="#Project-information">
+       Project information
+      </a>
+     </div>
+     <div style="margin-left: 32px">
+      <a href="#Reachability-overview">
+       Reachability overview
+      </a>
+     </div>
+     <div style="margin-left: 32px">
+      <a href="#Fuzzers-overview">
+       Fuzzers overview
+      </a>
+     </div>
+     <div style="margin-left: 16px">
+      <a href="#Project-functions-overview">
+       Project functions overview
+      </a>
+     </div>
+     <div style="margin-left: 0px">
+      <a href="#Fuzzer-details">
+       Fuzzer details
+      </a>
+     </div>
+     <div style="margin-left: 16px">
+      <a href="#Fuzzer:-">
+       Fuzzer:
+      </a>
+     </div>
+     <div style="margin-left: 32px">
+      <a href="#files_hit_1">
+       Files hit
+      </a>
+     </div>
+     <div style="margin-left: 32px">
+      <a href="#call_tree_1">
+       Call tree
+      </a>
+     </div>
+     <div style="margin-left: 0px">
+      <a href="#Analysis-and-suggestions">
+       Analysis and suggestions
+      </a>
+     </div>
+     <div style="margin-left: 16px">
+      <a href="#Target-function-analysis">
+       Target function analysis
+      </a>
+     </div>
+     <div style="margin-left: 32px">
+      <a href="#Remaining-optimal-interesting-functions">
+       Remaining optimal interesting functions
+      </a>
+     </div>
+     <div style="margin-left: 16px">
+      <a href="#New-fuzzers">
+       New fuzzers
+      </a>
+     </div>
+     <div style="margin-left: 16px">
+      <a href="#Function-reachability-if-adopted">
+       Function reachability if adopted
+      </a>
+     </div>
+     <div style="margin-left: 32px">
+      <a href="#All-functions-overview">
+       All functions overview
+      </a>
+     </div>
+    </div>
+   </div>
+   <div class="content-section">
+    <a id="Project-overview">
+     <h1>
+      Project overview
+     </h1>
+    </a>
+    <a id="Project-information">
+     <h2>
+      Project information
+     </h2>
+    </a>
+    <a id="Reachability-overview">
+     <h3>
+      Reachability overview
+     </h3>
+     <p class="no-top-margin">
+      This is the overview of reachability by the existing fuzzers in the project
+     </p>
+    </a>
+    <table class="cell-border compact stripe" id="myTable0">
+     <thead>
+      <tr>
+       <th>
+       </th>
+       <th>
+        Reached
+       </th>
+       <th>
+        Unreached
+       </th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <td>
+        Functions
+       </td>
+       <td>
+        31.25% (5 / 16)
+       </td>
+       <td>
+        68.75% (11 / 16)
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Complexity
+       </td>
+       <td>
+        31.25% (5 / 16)
+       </td>
+       <td>
+        68.75% (11 / 16)
+       </td>
+      </tr>
+     </tbody>
+    </table>
+    <p>
+     If you implement fuzzers that target the
+     <a href="#Remaining-optimal-interesting-functions">
+      remaining optimal functions
+     </a>
+     then the reachability will be:
+    </p>
+    <table class="cell-border compact stripe" id="myTable1">
+     <thead>
+      <tr>
+       <th>
+       </th>
+       <th>
+        Reached
+       </th>
+       <th>
+        Unreached
+       </th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <td>
+        Functions
+       </td>
+       <td>
+        31.25% (5 / 16)
+       </td>
+       <td>
+        68.75% (11 / 16)
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Complexity
+       </td>
+       <td>
+        31.25% (5 / 16)
+       </td>
+       <td>
+        68.75% (11 / 16)
+       </td>
+      </tr>
+     </tbody>
+    </table>
+    <a id="Fuzzers-overview">
+     <h3>
+      Fuzzers overview
+     </h3>
+    </a>
+    <table class="cell-border compact stripe" id="myTable2">
+     <thead>
+      <tr>
+       <th>
+        Fuzzer filename
+       </th>
+       <th>
+        Functions Reached
+       </th>
+       <th>
+        Functions unreached
+       </th>
+       <th>
+        Fuzzer depth
+       </th>
+       <th>
+        Files reached
+       </th>
+       <th>
+        Basic blocks reached
+       </th>
+       <th>
+        Cyclomatic complexity
+       </th>
+       <th>
+        Details
+       </th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <td>
+       </td>
+       <td>
+        5
+       </td>
+       <td>
+        17
+       </td>
+       <td>
+        2.0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        7
+       </td>
+       <td>
+        10
+       </td>
+       <td>
+       </td>
+      </tr>
+     </tbody>
+    </table>
+    <a id="Project-functions-overview">
+     <h2>
+      Project functions overview
+     </h2>
+    </a>
+    <table class="cell-border compact stripe" id="myTable3">
+     <thead>
+      <tr>
+       <th>
+        Func name
+       </th>
+       <th>
+        Git URL
+       </th>
+       <th>
+        Functions filename
+       </th>
+       <th>
+        Arg count
+       </th>
+       <th>
+        Args
+       </th>
+       <th>
+        Function reach depth
+       </th>
+       <th>
+        Fuzzers hit count
+       </th>
+       <th>
+        I Count
+       </th>
+       <th>
+        BB Count
+       </th>
+       <th>
+        Cyclomatic complexity
+       </th>
+       <th>
+        Functions reached
+       </th>
+       <th>
+        Reached by functions
+       </th>
+       <th>
+        Accumulated cyclomatic complexity
+       </th>
+       <th>
+        Undiscovered complexity
+       </th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp.html#L0">
+         <code class="language-clike">
+          _GLOBAL__sub_I_fuzzer.cpp
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="/#L0">
+         LINK
+        </a>
+       </td>
+       <td>
+        /home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        []
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        12
+       </td>
+       <td>
+        3
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        3
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        8
+       </td>
+       <td>
+        8
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/.html#L-1">
+         <code class="language-clike">
+          sancov.module_ctor_8bit_counters
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="//#L-1">
+         LINK
+        </a>
+       </td>
+       <td>
+        /
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        []
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        3
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        2
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp.html#L0">
+         <code class="language-clike">
+          __cxx_global_var_init
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="/#L0">
+         LINK
+        </a>
+       </td>
+       <td>
+        /home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        []
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        13
+       </td>
+       <td>
+        3
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        6
+       </td>
+       <td>
+        6
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/.html#L-1">
+         <code class="language-clike">
+          std::ios_base::Init::Init()
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="//#L-1">
+         LINK
+        </a>
+       </td>
+       <td>
+        /
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        ['class.std::ios_base::Init *']
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        2
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/.html#L-1">
+         <code class="language-clike">
+          std::ios_base::Init::~Init()
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="//#L-1">
+         LINK
+        </a>
+       </td>
+       <td>
+        /
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        ['class.std::ios_base::Init *']
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        2
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/.html#L-1">
+         <code class="language-clike">
+          __cxa_atexit
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="//#L-1">
+         LINK
+        </a>
+       </td>
+       <td>
+        /
+       </td>
+       <td>
+        3
+       </td>
+       <td>
+        ['N/A', 'char *', 'char *']
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        2
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp.html#L18">
+         <code class="language-clike">
+          B::B()
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="/#L18">
+         LINK
+        </a>
+       </td>
+       <td>
+        /home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        ['class.B *']
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        10
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp.html#L26">
+         <code class="language-clike">
+          B::bar()
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="/#L26">
+         LINK
+        </a>
+       </td>
+       <td>
+        /home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        ['class.B *']
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        17
+       </td>
+       <td>
+        3
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        4
+       </td>
+       <td>
+        0
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp.html#L31">
+         <code class="language-clike">
+          B::qux()
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="/#L31">
+         LINK
+        </a>
+       </td>
+       <td>
+        /home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        ['class.B *']
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        17
+       </td>
+       <td>
+        3
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        4
+       </td>
+       <td>
+        2
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/.html#L-1">
+         <code class="language-clike">
+          std::basic_ostream
+          <char std::char_traits="">
+           &gt;&amp; std::operator&lt;&lt;
+           <std::char_traits>
+            &gt;(std::basic_ostream
+            <char std::char_traits="">
+             &gt;&amp;, char const*)
+            </char>
+           </std::char_traits>
+          </char>
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="//#L-1">
+         LINK
+        </a>
+       </td>
+       <td>
+        /
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        ['class.std::basic_ostream *', 'char *']
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        4
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/.html#L-1">
+         <code class="language-clike">
+          std::basic_ostream
+          <char std::char_traits="">
+           &gt;&amp; std::endl
+           <char std::char_traits="">
+            &gt;(std::basic_ostream
+            <char std::char_traits="">
+             &gt;&amp;)
+            </char>
+           </char>
+          </char>
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="//#L-1">
+         LINK
+        </a>
+       </td>
+       <td>
+        /
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        ['class.std::basic_ostream *']
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        2
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/.html#L-1">
+         <code class="language-clike">
+          std::ostream::operator&lt;
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="//#L-1">
+         LINK
+        </a>
+       </td>
+       <td>
+        /
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        ['class.std::basic_ostream *', 'N/A']
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        2
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp.html#L36">
+         <code class="language-clike">
+          C::C()
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="/#L36">
+         LINK
+        </a>
+       </td>
+       <td>
+        /home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        ['class.C *']
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        19
+       </td>
+       <td>
+        3
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        4
+       </td>
+       <td>
+        0
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp.html#L43">
+         <code class="language-clike">
+          C::bar()
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="/#L43">
+         LINK
+        </a>
+       </td>
+       <td>
+        /home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        ['class.C *']
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        17
+       </td>
+       <td>
+        3
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        4
+       </td>
+       <td>
+        2
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp.html#L49">
+         <code class="language-clike">
+          LLVMFuzzerTestOneInput
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="/#L49">
+         LINK
+        </a>
+       </td>
+       <td>
+        /home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        ['char *', 'size_t ']
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        23
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        5
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        12
+       </td>
+       <td>
+        2
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/.html#L-1">
+         <code class="language-clike">
+          operator new(unsigned long)
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="//#L-1">
+         LINK
+        </a>
+       </td>
+       <td>
+        /
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        ['size_t ']
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+      </tr>
+     </tbody>
+    </table>
+    <a id="Fuzzer-details">
+     <h1>
+      Fuzzer details
+     </h1>
+    </a>
+    <a id="Fuzzer:-">
+     <h2>
+      Fuzzer:
+     </h2>
+    </a>
+    <a id="files_hit_1">
+     <h3>
+      Files hit
+     </h3>
+    </a>
+    <table class="cell-border compact stripe" id="myTable4">
+     <thead>
+      <tr>
+       <th>
+        filename
+       </th>
+       <th>
+        functions hit
+       </th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <td>
+       </td>
+       <td>
+        4
+       </td>
+      </tr>
+      <tr>
+       <td>
+        /
+       </td>
+       <td>
+        1
+       </td>
+      </tr>
+     </tbody>
+    </table>
+    <a id="call_tree_1">
+     <h3>
+      Call tree
+     </h3>
+     <h4>
+      Function coverage
+     </h4>
+     <p class="no-top-margin">
+      The following is the call tree with color coding for which functions are hit/not hit. This info is based on the coverage achieved of all fuzzers together and not just this specific fuzzer. This should change in the future to be per-fuzzer-basis.
+     </p>
+     <img src="_colormap.png"/>
+     <div class="section-wrapper">
+      <div class="red-background" style="margin-left: 0px">
+       <span class="coverage-line-inner">
+        0
+        <code class="language-clike">
+         LLVMFuzzerTestOneInput
+        </code>
+        <span class="coverage-line-filename">
+         <a href="http://localhost:8008/covreport/linux/home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp.html#L49">
+          [function]
+         </a>
+         <a href="#">
+          [call site]
+         </a>
+         <span>
+         </span>
+        </span>
+       </span>
+      </div>
+      <div class="red-background" style="margin-left: 16px">
+       <span class="coverage-line-inner">
+        1
+        <code class="language-clike">
+         operator new(unsigned long)
+        </code>
+        <span class="coverage-line-filename">
+         <a href="http://localhost:8008/covreport/linux/home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp.html#L50">
+          [call site]
+         </a>
+         <span>
+         </span>
+        </span>
+       </span>
+      </div>
+      <div class="red-background" style="margin-left: 16px">
+       <span class="coverage-line-inner">
+        1
+        <code class="language-clike">
+         C::C()
+        </code>
+        <span class="coverage-line-filename">
+         <a href="http://localhost:8008/covreport/linux/home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp.html#L36">
+          [function]
+         </a>
+         <a href="http://localhost:8008/covreport/linux/home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp.html#L50">
+          [call site]
+         </a>
+         <span>
+         </span>
+        </span>
+       </span>
+      </div>
+      <div class="red-background" style="margin-left: 32px">
+       <span class="coverage-line-inner">
+        2
+        <code class="language-clike">
+         B::B()
+        </code>
+        <span class="coverage-line-filename">
+         <a href="http://localhost:8008/covreport/linux/home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp.html#L18">
+          [function]
+         </a>
+         <a href="http://localhost:8008/covreport/linux/home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp.html#L36">
+          [call site]
+         </a>
+         <span>
+         </span>
+        </span>
+       </span>
+      </div>
+      <div class="red-background" style="margin-left: 16px">
+       <span class="coverage-line-inner">
+        1
+        <code class="language-clike">
+         B::bar()
+        </code>
+        <span class="coverage-line-filename">
+         <a href="http://localhost:8008/covreport/linux/home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp.html#L26">
+          [function]
+         </a>
+         <a href="http://localhost:8008/covreport/linux/home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp.html#L51">
+          [call site]
+         </a>
+         <span>
+         </span>
+        </span>
+       </span>
+      </div>
+     </div>
+    </a>
+    <a id="Analysis-and-suggestions">
+     <h1>
+      Analysis and suggestions
+     </h1>
+    </a>
+    <a id="Target-function-analysis">
+     <h2>
+      Target function analysis
+     </h2>
+    </a>
+    <a id="Remaining-optimal-interesting-functions">
+     <h3>
+      Remaining optimal interesting functions
+     </h3>
+    </a>
+    <table class="cell-border compact stripe" id="myTable5">
+     <thead>
+      <tr>
+       <th>
+        Func name
+       </th>
+       <th>
+        Functions filename
+       </th>
+       <th>
+        Arg count
+       </th>
+       <th>
+        Args
+       </th>
+       <th>
+        Function depth
+       </th>
+       <th>
+        hitcount
+       </th>
+       <th>
+        instr count
+       </th>
+       <th>
+        bb count
+       </th>
+       <th>
+        cyclomatic complexity
+       </th>
+       <th>
+        Reachable functions
+       </th>
+       <th>
+        Incoming references
+       </th>
+       <th>
+        total cyclomatic complexity
+       </th>
+       <th>
+        Unreached complexity
+       </th>
+      </tr>
+     </thead>
+     <tbody>
+     </tbody>
+    </table>
+    <a id="New-fuzzers">
+     <h2>
+      New fuzzers
+     </h2>
+     <p>
+      The below fuzzers are templates and suggestions for how to target the set of optimal functions above
+     </p>
+    </a>
+    <a id="Function-reachability-if-adopted">
+     <h2>
+      Function reachability if adopted
+     </h2>
+    </a>
+    <table class="cell-border compact stripe" id="myTable6">
+     <thead>
+      <tr>
+       <th>
+       </th>
+       <th>
+        Reached
+       </th>
+       <th>
+        Unreached
+       </th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <td>
+        Functions
+       </td>
+       <td>
+        31.25% (5 / 16)
+       </td>
+       <td>
+        68.75% (11 / 16)
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Complexity
+       </td>
+       <td>
+        31.25% (5 / 16)
+       </td>
+       <td>
+        68.75% (11 / 16)
+       </td>
+      </tr>
+     </tbody>
+    </table>
+    <a id="All-functions-overview">
+     <h3>
+      All functions overview
+     </h3>
+    </a>
+    <table class="cell-border compact stripe" id="myTable7">
+     <thead>
+      <tr>
+       <th>
+        Func name
+       </th>
+       <th>
+        Git URL
+       </th>
+       <th>
+        Functions filename
+       </th>
+       <th>
+        Arg count
+       </th>
+       <th>
+        Args
+       </th>
+       <th>
+        Function reach depth
+       </th>
+       <th>
+        Fuzzers hit count
+       </th>
+       <th>
+        I Count
+       </th>
+       <th>
+        BB Count
+       </th>
+       <th>
+        Cyclomatic complexity
+       </th>
+       <th>
+        Functions reached
+       </th>
+       <th>
+        Reached by functions
+       </th>
+       <th>
+        Accumulated cyclomatic complexity
+       </th>
+       <th>
+        Undiscovered complexity
+       </th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp.html#L0">
+         <code class="language-clike">
+          _GLOBAL__sub_I_fuzzer.cpp
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="/#L0">
+         LINK
+        </a>
+       </td>
+       <td>
+        /home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        []
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        12
+       </td>
+       <td>
+        3
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        3
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        8
+       </td>
+       <td>
+        8
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/.html#L-1">
+         <code class="language-clike">
+          sancov.module_ctor_8bit_counters
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="//#L-1">
+         LINK
+        </a>
+       </td>
+       <td>
+        /
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        []
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        3
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        2
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp.html#L0">
+         <code class="language-clike">
+          __cxx_global_var_init
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="/#L0">
+         LINK
+        </a>
+       </td>
+       <td>
+        /home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        []
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        13
+       </td>
+       <td>
+        3
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        6
+       </td>
+       <td>
+        6
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/.html#L-1">
+         <code class="language-clike">
+          std::ios_base::Init::Init()
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="//#L-1">
+         LINK
+        </a>
+       </td>
+       <td>
+        /
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        ['class.std::ios_base::Init *']
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        2
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/.html#L-1">
+         <code class="language-clike">
+          std::ios_base::Init::~Init()
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="//#L-1">
+         LINK
+        </a>
+       </td>
+       <td>
+        /
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        ['class.std::ios_base::Init *']
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        2
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/.html#L-1">
+         <code class="language-clike">
+          __cxa_atexit
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="//#L-1">
+         LINK
+        </a>
+       </td>
+       <td>
+        /
+       </td>
+       <td>
+        3
+       </td>
+       <td>
+        ['N/A', 'char *', 'char *']
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        2
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp.html#L18">
+         <code class="language-clike">
+          B::B()
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="/#L18">
+         LINK
+        </a>
+       </td>
+       <td>
+        /home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        ['class.B *']
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        10
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp.html#L26">
+         <code class="language-clike">
+          B::bar()
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="/#L26">
+         LINK
+        </a>
+       </td>
+       <td>
+        /home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        ['class.B *']
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        17
+       </td>
+       <td>
+        3
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        4
+       </td>
+       <td>
+        0
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp.html#L31">
+         <code class="language-clike">
+          B::qux()
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="/#L31">
+         LINK
+        </a>
+       </td>
+       <td>
+        /home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        ['class.B *']
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        17
+       </td>
+       <td>
+        3
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        4
+       </td>
+       <td>
+        2
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/.html#L-1">
+         <code class="language-clike">
+          std::basic_ostream
+          <char std::char_traits="">
+           &gt;&amp; std::operator&lt;&lt;
+           <std::char_traits>
+            &gt;(std::basic_ostream
+            <char std::char_traits="">
+             &gt;&amp;, char const*)
+            </char>
+           </std::char_traits>
+          </char>
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="//#L-1">
+         LINK
+        </a>
+       </td>
+       <td>
+        /
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        ['class.std::basic_ostream *', 'char *']
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        4
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/.html#L-1">
+         <code class="language-clike">
+          std::basic_ostream
+          <char std::char_traits="">
+           &gt;&amp; std::endl
+           <char std::char_traits="">
+            &gt;(std::basic_ostream
+            <char std::char_traits="">
+             &gt;&amp;)
+            </char>
+           </char>
+          </char>
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="//#L-1">
+         LINK
+        </a>
+       </td>
+       <td>
+        /
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        ['class.std::basic_ostream *']
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        2
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/.html#L-1">
+         <code class="language-clike">
+          std::ostream::operator&lt;
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="//#L-1">
+         LINK
+        </a>
+       </td>
+       <td>
+        /
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        ['class.std::basic_ostream *', 'N/A']
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        2
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp.html#L36">
+         <code class="language-clike">
+          C::C()
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="/#L36">
+         LINK
+        </a>
+       </td>
+       <td>
+        /home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        ['class.C *']
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        19
+       </td>
+       <td>
+        3
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        4
+       </td>
+       <td>
+        0
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp.html#L43">
+         <code class="language-clike">
+          C::bar()
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="/#L43">
+         LINK
+        </a>
+       </td>
+       <td>
+        /home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        ['class.C *']
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        17
+       </td>
+       <td>
+        3
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        4
+       </td>
+       <td>
+        2
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp.html#L49">
+         <code class="language-clike">
+          LLVMFuzzerTestOneInput
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="/#L49">
+         LINK
+        </a>
+       </td>
+       <td>
+        /home/cju/fuzz-introspector/examples/cpp-simple-example-1/work/../fuzzer.cpp
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        ['char *', 'size_t ']
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        23
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        5
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        12
+       </td>
+       <td>
+        2
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="http://localhost:8008/covreport/linux/.html#L-1">
+         <code class="language-clike">
+          operator new(unsigned long)
+         </code>
+        </a>
+       </td>
+       <td>
+        <a href="//#L-1">
+         LINK
+        </a>
+       </td>
+       <td>
+        /
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        ['size_t ']
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        1
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+      </tr>
+     </tbody>
+    </table>
+   </div>
+  </div>
+  <script src="prism.js">
+  </script>
+  <script src="clike.js">
+  </script>
+  <script src="custom.js">
+  </script>
+  <script>
+   var tableIds = ['myTable0', 'myTable1', 'myTable2', 'myTable3', 'myTable4', 'myTable5', 'myTable6', 'myTable7'];
+  </script>
+ </body>
+</html>
